@@ -1,0 +1,11 @@
+{
+  "name": "test_json_server",
+  "version": "1.0.0",
+  "description": "測試json-server",
+  "main": "jsserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ttom",
+  "license": "MIT"
+}
