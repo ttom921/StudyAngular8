@@ -4,8 +4,11 @@
   "description": "測試json-server",
   "main": "jsserver.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "mock-server": "json-server --c json-server.json db.json"
   },
   "author": "ttom",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "json-server": "^0.15.0"
+  }
 }
