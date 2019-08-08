@@ -17,9 +17,9 @@
   <mat-sidenav class="demo-app-sidenav" #sideNav mode="push">
     <mat-nav-list>
       <h3 matSubheader>示範用頁面</h3>
-      <a [routerLink]="['/', 'dashboard', 'survey']" mat-list-item>問卷調查</a>
-      <a [routerLink]="['/', 'dashboard', 'blog']" mat-list-item>部落格</a>
-      <a [routerLink]="['/', 'dashboard', 'inbox']" mat-list-item>收件夾</a>
+      <a [routerLink]="['/', 'dashboard', 'routea']" mat-list-item>RouteA</a>
+      <a [routerLink]="['/', 'dashboard', 'routeb']" mat-list-item>RouteB</a>
+      <a [routerLink]="['/', 'dashboard', 'routec']" mat-list-item>RouteC</a>
       <mat-divider></mat-divider>
       <!-- 另外一組選單 -->
       <h3 matSubheader>其他頁面</h3>
@@ -29,7 +29,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="width: 100%;height: 20em;background-color: blueviolet">
+    <div style="width: 100%;height: 150px;background-color: blueviolet">
 
     </div>
     <router-outlet></router-outlet>
