@@ -1,0 +1,47 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "bardata": {
+    "rawdata": [
+      [
+        "釋出日期",
+        "數量"
+      ],
+      [
+        "2014-03-25",
+        1
+      ],
+      [
+        "2014-04-04",
+        1
+      ],
+      [
+        "2014-04-09",
+        3
+      ],
+      [
+        "2014-04-10",
+        10
+      ],
+      [
+        "2014-04-11",
+        2
+      ]
+    ]
+  }
+}
