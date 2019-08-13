@@ -11,13 +11,17 @@ import { SimpleChartComponent } from './charts/simple-chart/simple-chart.compone
 import { SimpleBarComponent } from './charts/simple-bar/simple-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BasicLineComponent } from './charts/line/basic-line/basic-line.component';
+import { BasicAreaComponent } from './charts/line/basic-area/basic-area.component';
+import { SmoothedLineComponent } from './charts/line/smoothed-line/smoothed-line.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SimpleChartComponent,
     SimpleBarComponent,
-    BasicLineComponent
+    BasicLineComponent,
+    BasicAreaComponent,
+    SmoothedLineComponent
   ],
   imports: [
     BrowserModule,
