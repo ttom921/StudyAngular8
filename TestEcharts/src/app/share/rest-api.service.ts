@@ -29,7 +29,27 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
-
+  //郵件營銷
+  getLineStackMail(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/linecharmaildata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+  //聯盟廣告
+  getLineStackAllia(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/linecharalliedata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+  //視頻廣告
+  getLineStackVideo(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/linecharvideodata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   // Error handling
   handleError(error) {
     let errorMessage = '';

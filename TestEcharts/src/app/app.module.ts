@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BasicLineComponent } from './charts/line/basic-line/basic-line.component';
 import { BasicAreaComponent } from './charts/line/basic-area/basic-area.component';
 import { SmoothedLineComponent } from './charts/line/smoothed-line/smoothed-line.component';
+import { StackedLineComponent } from './charts/line/stacked-line/stacked-line.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SmoothedLineComponent } from './charts/line/smoothed-line/smoothed-line
     SimpleBarComponent,
     BasicLineComponent,
     BasicAreaComponent,
-    SmoothedLineComponent
+    SmoothedLineComponent,
+    StackedLineComponent
   ],
   imports: [
     BrowserModule,

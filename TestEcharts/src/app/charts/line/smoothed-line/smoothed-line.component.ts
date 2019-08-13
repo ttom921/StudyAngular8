@@ -14,7 +14,7 @@ export class SmoothedLineComponent implements OnInit {
 
   ngOnInit() {
     this.restApi.getLineChart().subscribe((data: any) => {
-      console.log(data.source);
+      //console.log(data.source);
       //圖表項賦值
       this.chartOption = {
         legend: {
