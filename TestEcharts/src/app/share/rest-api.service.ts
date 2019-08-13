@@ -23,6 +23,12 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
+  getLineChart(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/linechardata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
 
   // Error handling
   handleError(error) {

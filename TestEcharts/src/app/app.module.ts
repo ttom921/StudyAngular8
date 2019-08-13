@@ -10,12 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { SimpleChartComponent } from './charts/simple-chart/simple-chart.component';
 import { SimpleBarComponent } from './charts/simple-bar/simple-bar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BasicLineComponent } from './charts/line/basic-line/basic-line.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SimpleChartComponent,
-    SimpleBarComponent
+    SimpleBarComponent,
+    BasicLineComponent
   ],
   imports: [
     BrowserModule,

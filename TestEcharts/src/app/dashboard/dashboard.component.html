@@ -16,7 +16,8 @@
 <mat-sidenav-container class="demo-app-container">
   <mat-sidenav class="demo-app-sidenav" #sideNav mode="push">
     <mat-nav-list>
-      <h3 matSubheader>圖表</h3>
+      <h3 matSubheader>折線圖表</h3>
+      <a [routerLink]="['/', 'dashboard', 'basicline']" mat-list-item>Basic Line Chart</a>
       <a [routerLink]="['/', 'dashboard', 'simplechart']" mat-list-item>最簡單圖表</a>
       <a [routerLink]="['/', 'dashboard', 'simplebarchart']" mat-list-item>簡單Bar圖表</a>
       <a [routerLink]="['/', 'dashboard', 'inbox']" mat-list-item>收件夾</a>
