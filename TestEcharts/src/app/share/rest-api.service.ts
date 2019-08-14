@@ -71,6 +71,13 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
+  //RosePie
+  getRosePie(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/rosepiedata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   // Error handling
   handleError(error) {
     let errorMessage = '';
