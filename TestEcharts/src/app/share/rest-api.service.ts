@@ -50,6 +50,13 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
+  //柱狀圖動畫延遲
+  getBarAniDelay(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/baranidelaydata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   // Error handling
   handleError(error) {
     let errorMessage = '';

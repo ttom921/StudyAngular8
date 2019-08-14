@@ -14,6 +14,7 @@ import { BasicLineComponent } from './charts/line/basic-line/basic-line.componen
 import { BasicAreaComponent } from './charts/line/basic-area/basic-area.component';
 import { SmoothedLineComponent } from './charts/line/smoothed-line/smoothed-line.component';
 import { StackedLineComponent } from './charts/line/stacked-line/stacked-line.component';
+import { BarAniDelayComponent } from './charts/bar/bar-ani-delay/bar-ani-delay.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StackedLineComponent } from './charts/line/stacked-line/stacked-line.co
     BasicLineComponent,
     BasicAreaComponent,
     SmoothedLineComponent,
-    StackedLineComponent
+    StackedLineComponent,
+    BarAniDelayComponent
   ],
   imports: [
     BrowserModule,

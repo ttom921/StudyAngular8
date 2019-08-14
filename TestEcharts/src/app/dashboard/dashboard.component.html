@@ -21,11 +21,13 @@
       <a [routerLink]="['/', 'dashboard', 'basicarea']" mat-list-item>Basic area Chart</a>
       <a [routerLink]="['/', 'dashboard', 'smoothedline']" mat-list-item>Smoothed Line Chart</a>
       <a [routerLink]="['/', 'dashboard', 'stackedline']" mat-list-item>折線圖堆疊</a>
-      <a [routerLink]="['/', 'dashboard', 'simplebarchart']" mat-list-item>簡單Bar圖表</a>
-      <a [routerLink]="['/', 'dashboard', 'inbox']" mat-list-item>收件夾</a>
+      <mat-divider></mat-divider>
+      <h3 matSubheader>柱狀圖表</h3>
+      <a [routerLink]="['/', 'dashboard', 'baranideley']" mat-list-item>柱狀圖動畫延遲</a>
       <mat-divider></mat-divider>
       <!-- 另外一組選單 -->
       <h3 matSubheader>其他頁面</h3>
+      <a [routerLink]="['/', 'dashboard', 'simplebarchart']" mat-list-item>簡單Bar圖表</a>
       <a [routerLink]="['/']" mat-list-item>首頁</a>
       <a [routerLink]="['/']" mat-list-item>Google</a>
       <a [routerLink]="['/']" mat-list-item>Facebook</a>
