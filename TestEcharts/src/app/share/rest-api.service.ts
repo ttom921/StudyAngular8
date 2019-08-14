@@ -64,6 +64,13 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
+  //SimplePie
+  getPieSample(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/simplepiddata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   // Error handling
   handleError(error) {
     let errorMessage = '';

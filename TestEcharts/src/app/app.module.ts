@@ -16,6 +16,7 @@ import { SmoothedLineComponent } from './charts/line/smoothed-line/smoothed-line
 import { StackedLineComponent } from './charts/line/stacked-line/stacked-line.component';
 import { BarAniDelayComponent } from './charts/bar/bar-ani-delay/bar-ani-delay.component';
 import { MixLineBarComponent } from './charts/bar/mix-line-bar/mix-line-bar.component';
+import { SimplePieComponent } from './charts/pie/simple-pie/simple-pie.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MixLineBarComponent } from './charts/bar/mix-line-bar/mix-line-bar.comp
     SmoothedLineComponent,
     StackedLineComponent,
     BarAniDelayComponent,
-    MixLineBarComponent
+    MixLineBarComponent,
+    SimplePieComponent
   ],
   imports: [
     BrowserModule,

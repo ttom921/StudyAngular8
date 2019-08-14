@@ -9,6 +9,7 @@ import { SmoothedLineComponent } from '../charts/line/smoothed-line/smoothed-lin
 import { StackedLineComponent } from '../charts/line/stacked-line/stacked-line.component';
 import { BarAniDelayComponent } from '../charts/bar/bar-ani-delay/bar-ani-delay.component';
 import { MixLineBarComponent } from '../charts/bar/mix-line-bar/mix-line-bar.component';
+import { SimplePieComponent } from '../charts/pie/simple-pie/simple-pie.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,8 @@ const routes: Routes = [
       //bar圖
       { path: 'baranideley', component: BarAniDelayComponent },
       { path: 'mixlinebar', component: MixLineBarComponent },
+      //pie圖
+      { path: 'simplepie', component: SimplePieComponent },
       //
       { path: 'simplechart', component: SimpleChartComponent },
       { path: 'simplebarchart', component: SimpleBarComponent }
