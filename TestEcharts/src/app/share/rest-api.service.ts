@@ -57,6 +57,13 @@ export class RestApiService {
       catchError(this.handleError)
     );
   }
+  //折柱混合
+  getBarMixLine(): Observable<any> {
+    return this.http.get<any>(this.apiURL + "/mixlinebardata").pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   // Error handling
   handleError(error) {
     let errorMessage = '';

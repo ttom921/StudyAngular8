@@ -55,6 +55,7 @@ export class BarAniDelayComponent implements OnInit {
           }
         }]
       }
+      
     });
   }
   TestGendata(data: any) {

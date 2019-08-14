@@ -8,6 +8,7 @@ import { BasicAreaComponent } from '../charts/line/basic-area/basic-area.compone
 import { SmoothedLineComponent } from '../charts/line/smoothed-line/smoothed-line.component';
 import { StackedLineComponent } from '../charts/line/stacked-line/stacked-line.component';
 import { BarAniDelayComponent } from '../charts/bar/bar-ani-delay/bar-ani-delay.component';
+import { MixLineBarComponent } from '../charts/bar/mix-line-bar/mix-line-bar.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
       { path: 'stackedline', component: StackedLineComponent },
       //bar圖
       { path: 'baranideley', component: BarAniDelayComponent },
+      { path: 'mixlinebar', component: MixLineBarComponent },
+      //
       { path: 'simplechart', component: SimpleChartComponent },
       { path: 'simplebarchart', component: SimpleBarComponent }
     ]

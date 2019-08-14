@@ -76,6 +76,14 @@
       "data1":[],
       "data2":[]
     }
+  },
+  "mixlinebardata":{
+    "source":{
+      "item":[],
+      "data1":[],
+      "data2":[],
+      "data3":[]
+    }
   }
 
 }
