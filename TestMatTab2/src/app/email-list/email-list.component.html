@@ -10,7 +10,8 @@
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>標題</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition="before" disableClear="true" start="desc">
+      標題</mat-header-cell>
     <mat-cell *matCellDef="let row">{{row.name}} </mat-cell>
   </ng-container>
 
