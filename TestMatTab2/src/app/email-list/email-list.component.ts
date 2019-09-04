@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-email-list',
@@ -12,6 +14,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 export class EmailListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortTable: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+
 
   emailsDataSource = new MatTableDataSource<any>();
   totalCount: number;
@@ -34,6 +38,15 @@ export class EmailListComponent implements OnInit {
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getPages();
+    });
+    fromEvent(this.filter.nativeElement, 'keyup').pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      this.emailsDataSource.filter = (this.filter.nativeElement as HTMLInputElement).value;
+      this.emailsDataSource.filterPredicate = (data: any, filter: string): boolean => {
+        return data.name.indexOf(filter) !== -1;//真對name欄位
+      };
     });
   }
   changeSort(sortInfo: Sort) {
