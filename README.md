@@ -24,3 +24,7 @@
 #### TestDialog
 
 測試Angular-Material Dialog的使用
+
+#### TestDynCkeckboxlist
+
+測試Angular-Material CkeckBoxlist的使用

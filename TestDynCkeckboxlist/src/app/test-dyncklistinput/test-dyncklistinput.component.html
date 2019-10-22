@@ -1,0 +1,42 @@
+<!-- <form [formGroup]="formModel" (ngSubmit)="onSubmit()">
+  <label formArrayName="events" *ngFor="let event of formModel.controls.events.controls;let i=index;">
+    <input type="checkbox" [formControlName]="i">
+    {{eventDatas[i].event_name}}
+  </label>
+  <button type="submit">submit</button>
+</form> -->
+
+<form [formGroup]="formModel" (ngSubmit)="onSubmit()">
+  <mat-card class="mat-elevation-z1">
+    <mat-card-title>Events</mat-card-title>
+    <span formArrayName="events" *ngFor="let event of formModel.controls.events.controls;let i=index;">
+      <mat-form-field [formGroupName]="i">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-checkbox formControlName="evnck" matPrefix>
+
+        </mat-checkbox>
+        <input formControlName="evninp" matInput placeholder={{eventDatas[i].event_name}} />
+        <mat-error *ngIf="! formModel.controls.events.controls[i].controls.evninp.hasError('require')">Please enter a
+          valid email
+          address</mat-error>
+      </mat-form-field>
+    </span>
+    <button type="submit" mat-button [disabled]="!formModel.valid" color="primary">submit</button>
+  </mat-card>
+  <pre>
+      {{formModel.value | json}}
+    </pre>
+</form>
+
+
+<!-- <form [formGroup]="formModel">
+  <div formArrayName="events" *ngFor="let item of formModel.controls.events.controls; let i = index;">
+    <div [formGroupName]="i">
+      <input formControlName="evnck" placeholder="Item name">
+      <input formControlName="evninp" placeholder="Item description">
+    </div>
+
+    Chosen ck: {{ formModel.controls.events.controls[i].controls.evnck.value   }}
+    Chosen name: {{ formModel.controls.events.controls[i].controls.evninp.value   }}
+  </div>
+</form> -->
