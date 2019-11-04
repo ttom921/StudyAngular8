@@ -1,0 +1,12 @@
+<mat-card>
+  <div class="map" leaflet [leafletOptions]="options" [leafletLayers]="markerslayer"
+    (leafletMapReady)="onMapReady($event)">
+  </div>
+</mat-card>
+<mat-card>
+  <button mat-raised-button (click)="AddZoom()">AddZoom</button>
+  <button mat-raised-button (click)="RemoveZoom()">RemoveZoom</button>
+  <mat-divider></mat-divider>
+  <button mat-raised-button (click)="AddMark()">AddMark</button>
+  <button mat-raised-button (click)="RemoveMark()">RemoveMark</button>
+</mat-card>
