@@ -13,10 +13,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTMLMarkerComponent } from './osm-view/htmlmarker/htmlmarker.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, TestOpenStreetComponent, OsmViewComponent],
+  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, TestOpenStreetComponent, OsmViewComponent, HTMLMarkerComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -35,7 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     SharedAngularMaterialModule,
     LeafletModule,
-    DashboardRoutingModule
-  ]
+    DashboardRoutingModule,
+  ],
+  // IMPORTANT! Dynamic components need to be registered here
+  entryComponents: [HTMLMarkerComponent],
 })
 export class DashboardModule { }
