@@ -74,13 +74,41 @@ export class OsmViewComponent implements OnInit {
   }
   CreateMarkerLayer() {
     console.log("CreateMarkerLayer----------------------");
-    this.osmMarkerManager = new OSMMarkerManager(this.layers);
+    this.osmMarkerManager = new OSMMarkerManager(this.layers, this.resolver, this.injector);
     ////中心點
-    this.osmMarkerManager.AddMark("center marker", "descr 1", [24.9345812, 121.2728323]);
+    let markmetadata = this.osmMarkerManager.AddMark("center marker", "descr 1", [24.9345812, 121.2728323], true);
+    this.osmMarkerManager.AddPopHtml(markmetadata);
     // //maker1
-    this.osmMarkerManager.AddMark("marker1", "descr marker1", [24.936724298146263, 121.26878929033411]);
+    markmetadata = this.osmMarkerManager.AddMark("marker1", "descr marker1", [24.936724298146263, 121.26878929033411]);
+    this.osmMarkerManager.AddPopHtml(markmetadata);
     // //marker2
-    this.osmMarkerManager.AddMark("marker2", "descr marker2", [24.937035613886447, 121.28794670104982]);
+    markmetadata = this.osmMarkerManager.AddMark("marker2", "descr marker2", [24.937035613886447, 121.28794670104982]);
+    this.osmMarkerManager.AddPopHtml(markmetadata);
+
+    // //跳出視窗
+    // // dynamically instantiate a HTMLMarkerComponent
+    // const factory = this.resolver.resolveComponentFactory(HTMLMarkerComponent);
+    // // we need to pass in the dependency injector
+    // const component = factory.create(this.injector);
+    // // wire up the @Input() or plain variables (doesn't have to be strictly an @Input())
+    // let data = {
+    //   name: markmetadata.name,
+    //   description: markmetadata.description,
+    //   position: markmetadata.position
+    // }
+    // component.instance.data = data
+
+    // // pass in the HTML from our dynamic component
+    // const popupContent = component.location.nativeElement;
+    // // we need to manually trigger change detection on our in-memory component
+    // // s.t. its template syncs with the data we passed in
+    // component.changeDetectorRef.detectChanges();
+    // // add popup functionality
+    // markmetadata.markerInstance.bindPopup(popupContent).openPopup();
+
+
+
+
   }
   CreatePolylineLayer() {
     console.log("CreatePolylineLayer----------------------");

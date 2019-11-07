@@ -17,12 +17,7 @@ export class OSMPolylineManager {
 name:string,dest:string,[],   */
   public AddPolyline(latlngs: LatLngExpression[] | LatLngExpression[][], gpname: string = "polyline"): Polyline {
 
-    //隨機顏色
-    var color;
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    color = "rgb(" + r + " ," + g + "," + b + ")";
+
 
     //檢查是否有存在的layoutgroup
     let lg = undefined;

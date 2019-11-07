@@ -11,11 +11,6 @@ export class PolylineMetaData {
   // }
   CreatePolyline(latlngs: LatLngExpression[] | LatLngExpression[][]) {
     let color = this.getRandcolor();
-    // var firstpolyline = new L.Polyline(latlngs, {
-    //   color: color,
-    //   weight: 5,
-    //   smoothFactor: 1
-    // });
 
     return polyline(latlngs, {
       color: color,

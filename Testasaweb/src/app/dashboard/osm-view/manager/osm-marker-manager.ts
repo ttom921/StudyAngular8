@@ -2,6 +2,8 @@ import { MarkerMetaData } from '../model/marker-meta-data.model';
 import { Layer, LayerGroup, Marker, LatLngExpression } from 'leaflet';
 import { LayerGroupMetaData } from '../model/layer-group-meta-data.model';
 import * as _ from 'lodash';
+import { ComponentFactoryResolver, Injector } from '@angular/core';
+import { HTMLMarkerComponent } from '../htmlmarker/htmlmarker.component';
 
 export class OSMMarkerManager {
   //有關mark的相關資料
@@ -9,11 +11,13 @@ export class OSMMarkerManager {
   layers: Layer[] = [];
   layergroupcollect: LayerGroupMetaData[] = [];
   //layerGroup: LayerGroup[] = [];
-  constructor(layers: Layer[]) {
+  constructor(layers: Layer[],
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector) {
     this.layers = layers;
   }
 
-  public AddMark(name: string, desc: string, otherLatLng: LatLngExpression, isDraggable: boolean = false, gpname: string = "marks"): Marker {
+  public AddMark(name: string, desc: string, otherLatLng: LatLngExpression, isDraggable: boolean = false, gpname: string = "marks"): MarkerMetaData {
     //檢查是否有存在的layoutgroup
     let lg = undefined;
     let lgmetadata = _.find(this.layergroupcollect, o => {
@@ -28,11 +32,11 @@ export class OSMMarkerManager {
     }
     lg = lgmetadata.layerGroup;
     //建立基本的marke
-    let curmark = new MarkerMetaData(name, desc);
-    let m = curmark.CreateMark(otherLatLng);
+    let curmark = new MarkerMetaData(name, desc, otherLatLng);
+    let m = curmark.CreateMark(otherLatLng, isDraggable);
     this.markercollect.push(curmark);
     lg.addLayer(m);
-    return m;
+    return curmark;
 
 
     // //中心點
@@ -74,6 +78,30 @@ export class OSMMarkerManager {
     //   this.layers.push(item.markerInstance);
     // });
   }
+
+  AddPopHtml(markmetadata: MarkerMetaData) {
+    //跳出視窗
+    // dynamically instantiate a HTMLMarkerComponent
+    const factory = this.resolver.resolveComponentFactory(HTMLMarkerComponent);
+    // we need to pass in the dependency injector
+    const component = factory.create(this.injector);
+    // wire up the @Input() or plain variables (doesn't have to be strictly an @Input())
+    let data = {
+      name: markmetadata.name,
+      description: markmetadata.description,
+      position: markmetadata.position
+    }
+    component.instance.data = data
+    // pass in the HTML from our dynamic component
+    const popupContent = component.location.nativeElement;
+    // we need to manually trigger change detection on our in-memory component
+    // s.t. its template syncs with the data we passed in
+    component.changeDetectorRef.detectChanges();
+    // add popup functionality
+    markmetadata.markerInstance.bindPopup(popupContent).openPopup();
+  }
+
+
   RemoveMark(rvmarkname: string) {
     let fdobj = _.find(this.markercollect, function (o) {
       return o.name == rvmarkname
