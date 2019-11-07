@@ -4,6 +4,7 @@ export class LayerGroupMetaData {
   name: string;
   layerGroup: LayerGroup;
   constructor() {
-    this.name = "default";
+    this.name = "unkinds";
+    this.layerGroup = new LayerGroup();
   }
 }

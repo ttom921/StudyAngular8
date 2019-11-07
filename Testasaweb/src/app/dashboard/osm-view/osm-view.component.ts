@@ -3,9 +3,10 @@ import { tileLayer, Layer, latLng, marker, Marker, icon, Point, circle, polygon,
 import * as L from "leaflet";
 import { OsmDataService, MarkerData } from './osm-data.service';
 import { HTMLMarkerComponent } from './htmlmarker/htmlmarker.component';
-import { MarkerMetaData } from './marker-meta-data.model';
+import { MarkerMetaData } from './model/marker-meta-data.model';
 import { OSMMarkerOSMGroupLayer, OSMPolylineOSMGroupLayer } from './osm-group-layer.model';
 import { OSMMarkerManager } from './manager/osm-marker-manager';
+import { OSMPolylineManager } from './manager/osm-polyline-manager';
 
 
 
@@ -25,11 +26,9 @@ export class OsmViewComponent implements OnInit {
   LAYER_OSM
 
   //maker相關
-  osmMarkerManager: OSMMarkerManager
-  //LAYER_MARKS: OSMMarkerOSMGroupLayer;
-
-  // //
+  osmMarkerManager: OSMMarkerManager;
   //Polyline相關
+  osmPolylineManager: OSMPolylineManager;
   //LAYER_POLYLINE: OSMPolylineOSMGroupLayer;
 
 
@@ -74,48 +73,33 @@ export class OsmViewComponent implements OnInit {
     };
   }
   CreateMarkerLayer() {
+    console.log("CreateMarkerLayer----------------------");
     this.osmMarkerManager = new OSMMarkerManager(this.layers);
-    this.osmMarkerManager.AddMark();
-    //中心點
-    // let center = new MarkerMetaData("center marker", "descr 1");
-    // let m = center.CreateLMark([24.9345812, 121.2728323]);
-
-    // this.markers.push(m);
-
-
-    // console.log("CreateMarkerLayer----------------------");
-    // this.LAYER_MARKS = new OSMMarkerOSMGroupLayer(this.markers);
-    // this.LAYER_MARKS.AddMark();
-    // //建立基本的marke
-    // //中心點
-    // let center = new MarkerMetaData("center marker", "descr 1");
-    // let m = center.CreateLMark([24.9345812, 121.2728323]);
-    // this.markercollect.push(center);
+    ////中心點
+    this.osmMarkerManager.AddMark("center marker", "descr 1", [24.9345812, 121.2728323]);
     // //maker1
-    // let mark1 = new MarkerMetaData("marker1", "descr marker1");
-    // mark1.CreateLMark([24.936724298146263, 121.26878929033411]);
-    // this.markercollect.push(mark1);
+    this.osmMarkerManager.AddMark("marker1", "descr marker1", [24.936724298146263, 121.26878929033411]);
     // //marker2
-    // let marker2 = new MarkerMetaData("marker2", "descr marker2");
-    // marker2.CreateLMark([24.937035613886447, 121.28794670104982]);
-    // this.markercollect.push(marker2);
-
-    // let arr: Marker[] = [];
-    // this.markercollect.forEach(item => {
-    //   arr.push(item.markerInstance);
-    // });
-    // //this.markgroupLayer = L.layerGroup([center.markerInstance, mark1.markerInstance, marker2.markerInstance]);
-    // this.markgroupLayer = L.layerGroup(arr);
+    this.osmMarkerManager.AddMark("marker2", "descr marker2", [24.937035613886447, 121.28794670104982]);
   }
   CreatePolylineLayer() {
-    // console.log("CreatePolylineLayer----------------------");
-    // this.LAYER_POLYLINE = new OSMPolylineOSMGroupLayer(this.markers);
-    // this.LAYER_POLYLINE.AddPolyline();
+    console.log("CreatePolylineLayer----------------------");
+    this.osmPolylineManager = new OSMPolylineManager(this.layers);
+    this.osmPolylineManager.AddPolyline([[24.936724298146263, 121.26878929033411], [24.937035613886447, 121.28794670104982]]);
+
+    this.osmPolylineManager.AddPolyline([[24.9345812, 121.2728323], [24.940210990934627, 121.2754497549031]]);
+
   }
   initMapLayer() {
-    let mylaygroup = this.osmMarkerManager.layergroupcollect[0];
-    let myname = mylaygroup.name;
+    let markgrp = this.osmMarkerManager.layergroupcollect[0];
+    let laymarkname = markgrp.name;
 
+    let polylinegrp = this.osmPolylineManager.layergroupcollect[0];
+    let laypolylinename = polylinegrp.name;
+
+    // var foo = "bar";
+    // var ob = { [foo]: "something" };
+    //console.log(ob);
     //在左上角才有地圖
     // Values to bind to Leaflet Directive
     this.layersControl = {
@@ -123,7 +107,8 @@ export class OsmViewComponent implements OnInit {
         'Open Street Map': this.LAYER_OSM.layer,
       },
       overlays: {
-        myname: mylaygroup.layerGroup,
+        [laymarkname]: markgrp.layerGroup,
+        [laypolylinename]: polylinegrp.layerGroup,
         //"aa": this.markers[0],
         //"bb": this.markers[3],
         //"aaa": polyline([[24.936724298146263, 121.26878929033411], [24.937035613886447, 121.28794670104982]]),
@@ -137,7 +122,11 @@ export class OsmViewComponent implements OnInit {
     };
 
     this.options = {
-      layers: [this.LAYER_OSM.layer, mylaygroup.layerGroup],//預設才會選到
+      layers: [
+        this.LAYER_OSM.layer,
+        //markgrp.layerGroup,
+        //polylinegrp.layerGroup,
+      ],//有設定預設才會選到
       zoom: 14,
       zoomControl: true,//移除預設的
       center: latLng(24.9345812, 121.2728323)

@@ -1,8 +1,8 @@
 import { LayerGroup, Marker, Layer, marker, polyline } from 'leaflet';
 import * as L from 'leaflet';
-import { MarkerMetaData } from './marker-meta-data.model';
+import { MarkerMetaData } from './model/marker-meta-data.model';
 import { isNullOrUndefined } from 'util';
-import { PolylineMetaData } from './polyline-meta-data.model';
+import { PolylineMetaData } from './model/polyline-meta-data.model';
 
 export class OSMGroupLayer {
   id: string;
@@ -48,15 +48,15 @@ export class OSMMarkerOSMGroupLayer extends OSMGroupLayer {
     //建立基本的marke
     //中心點
     let center = new MarkerMetaData("center marker", "descr 1");
-    let m = center.CreateLMark([24.9345812, 121.2728323]);
+    let m = center.CreateMark([24.9345812, 121.2728323]);
     this.markercollect.push(center);
     //maker1
     let mark1 = new MarkerMetaData("marker1", "descr marker1");
-    mark1.CreateLMark([24.936724298146263, 121.26878929033411]);
+    mark1.CreateMark([24.936724298146263, 121.26878929033411]);
     this.markercollect.push(mark1);
     //marker2
     let marker2 = new MarkerMetaData("marker2", "descr marker2");
-    marker2.CreateLMark([24.937035613886447, 121.28794670104982]);
+    marker2.CreateMark([24.937035613886447, 121.28794670104982]);
     this.markercollect.push(marker2);
 
     //let arr: Marker[] = [];

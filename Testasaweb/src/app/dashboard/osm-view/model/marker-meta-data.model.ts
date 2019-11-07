@@ -10,10 +10,10 @@ export class MarkerMetaData {
     this.name = name;
     this.description = description;
   }
-  public CreateLMark(otherLatLng: LatLngExpression): Marker {
+  public CreateMark(otherLatLng: LatLngExpression, isDraggable: boolean = false): Marker {
     this.markerInstance = marker(
       otherLatLng, {
-      draggable: true,
+      draggable: isDraggable,
       icon: icon({
         iconSize: [25, 41],
         iconAnchor: [13, 41],
