@@ -1,5 +1,5 @@
 import { MarkerMetaData } from '../model/marker-meta-data.model';
-import { Layer, LayerGroup, Marker, LatLngExpression } from 'leaflet';
+import { Layer, LayerGroup, Marker, LatLngExpression, divIcon } from 'leaflet';
 import { LayerGroupMetaData } from '../model/layer-group-meta-data.model';
 import * as _ from 'lodash';
 import { ComponentFactoryResolver, Injector } from '@angular/core';
@@ -120,7 +120,57 @@ export class OSMMarkerManager {
     // add popup functionality
     markmetadata.markerInstance.bindPopup(popupContent).openPopup();
   }
+  // caption could be: '<i class="fa fa-eye" />',
+  makeMarkerIcon(color, caption, isFa = false) {
+    let myCustomColour = color + 'd0';
 
+    let size = 10,    // size of the marker
+      border = 2;   // border thickness
+
+    let markerHtmlStyles = `
+  	background-color: ${myCustomColour};
+  	width: ${size * 3}px;
+  	height: ${size * 3}px;
+  	display: block;
+  	left: ${size * -1.5}px;
+  	top: ${size * -1.5}px;
+  	position: relative;
+  	border-radius: ${size * 3}px ${size * 3}px 0;
+  	transform: rotate(45deg);
+  	border: ${border}px solid #FFFFFF;
+  	`;
+    let captionStyles;
+    let colorText = "red";
+    if (isFa == true) {
+      captionStyles = `
+      transform: rotate(-45deg);
+      display:block;
+      width: ${size * 3}px;
+      text-align: center;
+      line-height: ${size * 3}px;
+      `;
+    } else {
+      captionStyles = `
+      transform: rotate(-45deg);
+      display:block;
+      width: ${size * 3}px;
+      text-align: center;
+      line-height: ${size * 3}px;
+      color:${colorText};
+      `;
+    }
+
+
+    let icon = divIcon({
+      className: 'color-pin-' + myCustomColour.replace('#', ''),
+      iconAnchor: [border, size * 2 + border * 2],
+      popupAnchor: [0, -(size * 3 + border)],
+
+      html: `<span style="${markerHtmlStyles}"><span style="${captionStyles}">${caption || ''}</span></span>`
+    });
+
+    return icon;
+  }
 
   RemoveMark(rvmarkname: string) {
     let fdobj = _.find(this.markercollect, function (o) {

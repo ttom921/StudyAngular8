@@ -76,7 +76,7 @@ export class OsmViewComponent implements OnInit {
     //console.log("CreateMarkerLayer----------------------");
     this.osmMarkerManager = new OSMMarkerManager(this.layers, this.resolver, this.injector);
     ////中心點
-    let markmetadata = this.osmMarkerManager.AddMark("center marker", "descr 1", [24.9345812, 121.2728323], true);
+    let markmetadata = this.osmMarkerManager.AddMark("center_marker", "descr 1", [24.9345812, 121.2728323], true);
     this.osmMarkerManager.AddPopHtml(markmetadata);
     // //maker1
     markmetadata = this.osmMarkerManager.AddMark("marker1", "descr marker1", [24.936724298146263, 121.26878929033411]);
