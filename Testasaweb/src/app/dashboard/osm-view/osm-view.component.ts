@@ -52,14 +52,14 @@ export class OsmViewComponent implements OnInit {
 
   }
   CreateLayer() {
-    console.log("CreateLayer----------------------");
+    //console.log("CreateLayer----------------------");
     this.CreateBaseLayer();
     this.CreateMarkerLayer();
     this.CreatePolylineLayer();
 
   }
   CreateBaseLayer() {
-    console.log("CreateBaseLayer----------------------");
+    //console.log("CreateBaseLayer----------------------");
     //定義baseLayers
     //this.streetMapsLayer = tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' });
     this.LAYER_OSM = {
@@ -73,7 +73,7 @@ export class OsmViewComponent implements OnInit {
     };
   }
   CreateMarkerLayer() {
-    console.log("CreateMarkerLayer----------------------");
+    //console.log("CreateMarkerLayer----------------------");
     this.osmMarkerManager = new OSMMarkerManager(this.layers, this.resolver, this.injector);
     ////中心點
     let markmetadata = this.osmMarkerManager.AddMark("center marker", "descr 1", [24.9345812, 121.2728323], true);
@@ -111,7 +111,7 @@ export class OsmViewComponent implements OnInit {
 
   }
   CreatePolylineLayer() {
-    console.log("CreatePolylineLayer----------------------");
+    //console.log("CreatePolylineLayer----------------------");
     this.osmPolylineManager = new OSMPolylineManager(this.layers);
     this.osmPolylineManager.AddPolyline([[24.936724298146263, 121.26878929033411], [24.937035613886447, 121.28794670104982]]);
 
@@ -163,7 +163,7 @@ export class OsmViewComponent implements OnInit {
   onMapReady(map) {
     // get a local reference to the map as we need it later
     this.map = map;
-    console.log(this.map);
+    //console.log(this.map);
 
     this.PrintDebugInfo();
     //

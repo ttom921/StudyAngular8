@@ -4,15 +4,18 @@ export class MarkerMetaData {
   //id: string;
   name: String;
   description: String;
-  position: LatLngExpression
+  position: LatLngExpression;
+  isDraggable: boolean;
   markerInstance: Marker;
-  //componentInstance: ComponentRef<HTMLMarkerComponent>
+  componentInstance: ComponentRef<HTMLMarkerComponent>
   constructor(name: string, description: string, otherLatLng: LatLngExpression) {
     this.name = name;
     this.description = description;
     this.position = otherLatLng;
+    this.isDraggable = false;
   }
   public CreateMark(otherLatLng: LatLngExpression, isDraggable: boolean = false): Marker {
+    this.isDraggable = isDraggable;
     this.markerInstance = marker(
       otherLatLng, {
       draggable: isDraggable,

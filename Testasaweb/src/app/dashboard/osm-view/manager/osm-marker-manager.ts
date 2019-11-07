@@ -92,6 +92,26 @@ export class OSMMarkerManager {
       position: markmetadata.position
     }
     component.instance.data = data
+    markmetadata.componentInstance = component;
+    //拖拉
+    if (markmetadata.isDraggable) {
+      let objparent = this;
+      markmetadata.markerInstance.on('dragend', function (event) {
+        let mapmarker = event.target;
+        let position = mapmarker.getLatLng();
+        let popupelm = mapmarker.getPopup();
+        //let fmt: string = `lat:${position.lat} lng:${position.lng}`;
+        //console.log(fmt);
+        let findelm = _.find(objparent.markercollect, o => {
+          return o.markerInstance == mapmarker
+        });
+        if (!_.isUndefined(findelm)) {
+          findelm.componentInstance.instance.data.position = position;
+          component.changeDetectorRef.detectChanges();
+        }
+      });
+    }
+
     // pass in the HTML from our dynamic component
     const popupContent = component.location.nativeElement;
     // we need to manually trigger change detection on our in-memory component
