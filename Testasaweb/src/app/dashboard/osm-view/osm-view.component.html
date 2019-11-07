@@ -1,5 +1,5 @@
 <mat-card>
-  <div class="map" leaflet [leafletOptions]="options" [leafletLayersControl]="layersControl" [leafletLayers]="markers"
+  <div class="map" leaflet [leafletOptions]="options" [leafletLayersControl]="layersControl" [leafletLayers]="layers"
     (leafletMapReady)="onMapReady($event)">
   </div>
 </mat-card>
@@ -8,5 +8,5 @@
   <button mat-raised-button (click)="RemoveZoom()">RemoveZoom</button>
   <mat-divider></mat-divider> -->
   <!-- <button mat-raised-button (click)="AddMark()">AddMark</button> -->
-  <button mat-raised-button (click)="RemoveMark()">RemoveMark</button>
+  <!-- <button mat-raised-button (click)="RemoveMark()">RemoveMark</button> -->
 </mat-card>

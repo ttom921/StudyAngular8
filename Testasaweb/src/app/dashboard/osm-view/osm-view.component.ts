@@ -5,6 +5,7 @@ import { OsmDataService, MarkerData } from './osm-data.service';
 import { HTMLMarkerComponent } from './htmlmarker/htmlmarker.component';
 import { MarkerMetaData } from './marker-meta-data.model';
 import { OSMMarkerOSMGroupLayer, OSMPolylineOSMGroupLayer } from './osm-group-layer.model';
+import { OSMMarkerManager } from './manager/osm-marker-manager';
 
 
 
@@ -15,20 +16,22 @@ import { OSMMarkerOSMGroupLayer, OSMPolylineOSMGroupLayer } from './osm-group-la
 })
 export class OsmViewComponent implements OnInit {
   map;
+  // Values to bind to Leaflet Directive
+  //公用的顯示layer
+  layers: Layer[] = [];
+  options = {};
+  layersControl = {};
   //基礎的layer
-  //streetMapsLayer: TileLayer;
   LAYER_OSM
+
   //maker相關
-  LAYER_MARKS: OSMMarkerOSMGroupLayer;
-  markers: Layer[] = [];
+  osmMarkerManager: OSMMarkerManager
+  //LAYER_MARKS: OSMMarkerOSMGroupLayer;
+
   // //
   //Polyline相關
-  LAYER_POLYLINE: OSMPolylineOSMGroupLayer;
-  polylines: Layer[] = [];
-  // Values to bind to Leaflet Directive
-  options = {};
-  //layers: Layer[] = [];
-  layersControl = {};
+  //LAYER_POLYLINE: OSMPolylineOSMGroupLayer;
+
 
 
 
@@ -71,7 +74,8 @@ export class OsmViewComponent implements OnInit {
     };
   }
   CreateMarkerLayer() {
-
+    this.osmMarkerManager = new OSMMarkerManager(this.layers);
+    this.osmMarkerManager.AddMark();
     //中心點
     // let center = new MarkerMetaData("center marker", "descr 1");
     // let m = center.CreateLMark([24.9345812, 121.2728323]);
@@ -79,9 +83,9 @@ export class OsmViewComponent implements OnInit {
     // this.markers.push(m);
 
 
-    console.log("CreateMarkerLayer----------------------");
-    this.LAYER_MARKS = new OSMMarkerOSMGroupLayer(this.markers);
-    this.LAYER_MARKS.AddMark();
+    // console.log("CreateMarkerLayer----------------------");
+    // this.LAYER_MARKS = new OSMMarkerOSMGroupLayer(this.markers);
+    // this.LAYER_MARKS.AddMark();
     // //建立基本的marke
     // //中心點
     // let center = new MarkerMetaData("center marker", "descr 1");
@@ -104,11 +108,14 @@ export class OsmViewComponent implements OnInit {
     // this.markgroupLayer = L.layerGroup(arr);
   }
   CreatePolylineLayer() {
-    console.log("CreatePolylineLayer----------------------");
-    this.LAYER_POLYLINE = new OSMPolylineOSMGroupLayer(this.markers);
-    this.LAYER_POLYLINE.AddPolyline();
+    // console.log("CreatePolylineLayer----------------------");
+    // this.LAYER_POLYLINE = new OSMPolylineOSMGroupLayer(this.markers);
+    // this.LAYER_POLYLINE.AddPolyline();
   }
   initMapLayer() {
+    let mylaygroup = this.osmMarkerManager.layergroupcollect[0];
+    let myname = mylaygroup.name;
+
     //在左上角才有地圖
     // Values to bind to Leaflet Directive
     this.layersControl = {
@@ -116,8 +123,9 @@ export class OsmViewComponent implements OnInit {
         'Open Street Map': this.LAYER_OSM.layer,
       },
       overlays: {
-        "aa": this.markers[0],
-        "bb": this.markers[3],
+        myname: mylaygroup.layerGroup,
+        //"aa": this.markers[0],
+        //"bb": this.markers[3],
         //"aaa": polyline([[24.936724298146263, 121.26878929033411], [24.937035613886447, 121.28794670104982]]),
         //"PolyLine": this.LAYER_POLYLINE.layers,
         //"Markers": this.LAYER_MARKS.layers,// .layerGroup,//this.markgroupLayer
@@ -127,8 +135,9 @@ export class OsmViewComponent implements OnInit {
         //GeoJSON: this.geoJSON.layer
       }
     };
+
     this.options = {
-      layers: [this.LAYER_OSM.layer, this.markers[0]],//預設才會選到
+      layers: [this.LAYER_OSM.layer, mylaygroup.layerGroup],//預設才會選到
       zoom: 14,
       zoomControl: true,//移除預設的
       center: latLng(24.9345812, 121.2728323)
@@ -163,10 +172,11 @@ export class OsmViewComponent implements OnInit {
 
     console.log("mapdebuginfo--------------------");
   }
-  RemoveMark() {
-    let markname = "marker2";
-    this.LAYER_MARKS.RemoveMark(markname);
-  }
+  // RemoveMark() {
+
+  //   //let markname = "marker2";
+  //   //this.osmMarkerManager.RemoveMark(markname);
+  // }
   // AddZoom() {
   //   this.infozoom = L.control.zoom({ position: 'bottomright' });
   //   this.map.addControl(this.infozoom);
