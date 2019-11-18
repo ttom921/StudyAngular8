@@ -1,6 +1,7 @@
 import { PolylineMetaData } from '../model/polyline-meta-data.model';
 import { Layer, Polyline, LatLngExpression } from 'leaflet';
 import { LayerGroupMetaData } from '../model/layer-group-meta-data.model';
+import * as _ from 'lodash';
 
 
 export class OSMPolylineManager {

@@ -1,10 +1,6 @@
-import { Component, OnInit, ComponentFactoryResolver, Injector, ComponentRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, Injector, ComponentRef, HostBinding, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { tileLayer, Layer, latLng, marker, Marker, icon, Point, circle, polygon, TileLayer, LayerGroup, polyline, } from 'leaflet';
-import * as L from "leaflet";
 import { OsmDataService, MarkerData } from './osm-data.service';
-import { HTMLMarkerComponent } from './htmlmarker/htmlmarker.component';
-import { MarkerMetaData } from './model/marker-meta-data.model';
-import { OSMMarkerOSMGroupLayer, OSMPolylineOSMGroupLayer } from './osm-group-layer.model';
 import { OSMMarkerManager } from './manager/osm-marker-manager';
 import { OSMPolylineManager } from './manager/osm-polyline-manager';
 
@@ -15,7 +11,15 @@ import { OSMPolylineManager } from './manager/osm-polyline-manager';
   templateUrl: './osm-view.component.html',
   styleUrls: ['./osm-view.component.scss']
 })
-export class OsmViewComponent implements OnInit {
+export class OsmViewComponent implements OnInit, AfterViewInit {
+  ngAfterViewInit(): void {
+    this.osmmap.nativeElement.width = this.width;
+    this.osmmap.nativeElement.height = this.height;
+  }
+  @HostBinding('style.width') @Input() width = '300px'
+  @HostBinding('style.height') @Input() height = '300px'
+  @ViewChild('osmmap', { static: false }) osmmap: ElementRef
+
   map;
   // Values to bind to Leaflet Directive
   //公用的顯示layer
@@ -41,6 +45,8 @@ export class OsmViewComponent implements OnInit {
     private dataService: OsmDataService,
     private resolver: ComponentFactoryResolver,
     private injector: Injector) {
+
+
 
     this.CreateLayer();
 
