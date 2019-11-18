@@ -155,6 +155,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       }
     };
 
+
     this.options = {
       layers: [
         this.LAYER_OSM.layer,
