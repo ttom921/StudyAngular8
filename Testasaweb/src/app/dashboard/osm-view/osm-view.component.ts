@@ -13,12 +13,13 @@ import { OSMPolylineManager } from './manager/osm-polyline-manager';
 })
 export class OsmViewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
-    this.osmmap.nativeElement.width = this.width;
-    this.osmmap.nativeElement.height = this.height;
+    this.osmmap.nativeElement.style.width = this.width;
+    this.osmmap.nativeElement.style.height = this.height;
+    console.log("height=" + this.height);
   }
   @HostBinding('style.width') @Input() width = '300px'
   @HostBinding('style.height') @Input() height = '300px'
-  @ViewChild('osmmap', { static: false }) osmmap: ElementRef
+  @ViewChild('osmmap', { static: true }) osmmap: ElementRef
 
   map;
   // Values to bind to Leaflet Directive
@@ -57,6 +58,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     this.initMapLayer();
 
   }
+
   CreateLayer() {
     //console.log("CreateLayer----------------------");
     this.CreateBaseLayer();
