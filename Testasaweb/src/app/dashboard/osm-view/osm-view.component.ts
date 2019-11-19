@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentFactoryResolver, Injector, ComponentRef, HostBinding, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { tileLayer, Layer, latLng, marker, Marker, icon, Point, circle, polygon, TileLayer, LayerGroup, polyline, } from 'leaflet';
+import { tileLayer, Layer, latLng, marker, Marker, icon, Point, circle, polygon, TileLayer, LayerGroup, polyline, point, } from 'leaflet';
 import { OsmDataService, MarkerData } from './osm-data.service';
 import { OSMMarkerManager } from './manager/osm-marker-manager';
 import { OSMPolylineManager } from './manager/osm-polyline-manager';
@@ -58,7 +58,10 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     this.initMapLayer();
 
   }
-
+  onResize(event) {
+    event.target.innerWidth;
+    console.log("onResize");
+  }
   CreateLayer() {
     //console.log("CreateLayer----------------------");
     this.CreateBaseLayer();
@@ -171,8 +174,14 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   }
   onMapReady(map) {
     // get a local reference to the map as we need it later
-    this.map = map;
+    this.map = map.fitBounds([[24.936724298146263, 121.26878929033411], [24.937035613886447, 121.28794670104982]], {
+
+      maxZoom: 14,
+      animate: true
+    });
     //console.log(this.map);
+    map.invalidateSize();
+
 
     this.PrintDebugInfo();
     //
