@@ -1,0 +1,26 @@
+<mat-table [dataSource]="carEventssDataSource">
+  <ng-container matColumnDef="car_group">
+    <mat-header-cell *matHeaderCellDef>車隊</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.car_group}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="car_uid">
+    <mat-header-cell *matHeaderCellDef>車號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.car_uid}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="driver">
+    <mat-header-cell *matHeaderCellDef>駕駛人</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.driver}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="event_count">
+    <mat-header-cell *matHeaderCellDef>事件計數</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.event_count}}</mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="['car_group','car_uid','driver','event_count']"></mat-header-row>
+  <mat-row *matRowDef="let eachrow;columns:['car_group','car_uid','driver','event_count']"></mat-row>
+
+</mat-table>
