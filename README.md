@@ -1,6 +1,10 @@
 # StudyAngular8
 學習和測試ng8
 
+### TestFrameWork
+
+這是基本的測試框架，有Angular Material和DashBoard，可以從這裏來參考和複制程式碼
+
 ### ngTestDynamicCom
 
 測試動態切換元件
