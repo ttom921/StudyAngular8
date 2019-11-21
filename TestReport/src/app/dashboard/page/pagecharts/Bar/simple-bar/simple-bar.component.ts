@@ -8,11 +8,7 @@ import { CarEventsService } from 'src/app/_services/car-events.service';
   styleUrls: ['./simple-bar.component.scss']
 })
 export class SimpleBarComponent implements OnInit {
-  chartinitOpts = {
-    width: 800,
-    height: 300,
-  };
-  定義圖表項
+  //定義圖表項
   chartOption: EChartOption = {
 
   };

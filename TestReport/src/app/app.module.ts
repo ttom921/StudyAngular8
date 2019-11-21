@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { NgxEchartsModule } from 'ngx-echarts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +11,6 @@ import { DashboardModule } from './dashboard/dashboard.module';
     PathNotFoundComponent
   ],
   imports: [
-    NgxEchartsModule,
     AppRoutingModule,
     DashboardModule,
   ],

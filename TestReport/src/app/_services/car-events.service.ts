@@ -14,44 +14,12 @@ export class CarEventsService {
     return of(this.getTestData());
   }
   GetBars(): Observable<any> {
-
-    let linechardata = {
-      source: {
-        month: ["1月", "2月", "3月", "4月", "5月", "6月"],
-        tom: [2, 2, 3, 10, 3, 4],
-        jack: [2, 3, 5, 8, 1, 1],
-        allen: [2, 2, 3, 10, 3, 4]
-      }
-    }
     let obj = this.getTestBarData();
     return of(obj);
-
-    // return Observable.create(function (observer) {
-
-    //   let linechardata = {
-    //     source: {
-    //       month: ["1月", "2月", "3月", "4月", "5月", "6月"],
-    //       tom: [2, 2, 3, 10, 3, 4],
-    //       jack: [2, 3, 5, 8, 1, 1],
-    //       allen: [2, 2, 3, 10, 3, 4]
-    //     }
-    //   }
-
-    //   observer.next(linechardata);
-    //   observer.complete();
-    // });
   }
-  //getBarTetData
-  // function makePerson(name2, age2) {
-  //   var name = name2;
-  //   var age = age2;
 
-  //   return {
-  //     name: name,
-  //     age: age
-  //   };
-  // }
 
+  //以下是測試資料
   private getTestBarData() {
     let linechardata = {
       title: "駕駛人事件",
@@ -64,8 +32,7 @@ export class CarEventsService {
     }
     return linechardata;
   }
-  //以下是測試資料
-  getTestData() {
+  private getTestData() {
     return [
       { "car_group": "ateam", "car_uid": "anum-1", "driver": "aname_1", "event_count": 1 },
       { "car_group": "ateam", "car_uid": "anum-2", "driver": "aname_2", "event_count": 2 },
