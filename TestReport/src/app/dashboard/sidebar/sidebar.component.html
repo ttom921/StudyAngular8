@@ -12,6 +12,12 @@
     <mat-icon md-list-icon>dns</mat-icon>車輛事件<span class="fill-remaining-space"></span>
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>圖表</h3>
+  <mat-list-item [routerLink]="['/','dashboard','simplebar']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>車輛事件<span class="fill-remaining-space"></span>
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
   <!-- 另外一組選單 -->
   <!-- <h3 matSubheader>其他頁面</h3> -->
   <!-- <a [routerLink]="['/']" mat-list-item>首頁</a>
