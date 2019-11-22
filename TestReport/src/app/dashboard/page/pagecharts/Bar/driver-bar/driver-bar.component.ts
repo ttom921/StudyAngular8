@@ -3,11 +3,11 @@ import { EChartOption } from 'echarts';
 import { CarEventsService } from 'src/app/_services/car-events.service';
 
 @Component({
-  selector: 'app-simple-bar',
-  templateUrl: './simple-bar.component.html',
-  styleUrls: ['./simple-bar.component.scss']
+  selector: 'app-driver-bar',
+  templateUrl: './driver-bar.component.html',
+  styleUrls: ['./driver-bar.component.scss']
 })
-export class SimpleBarComponent implements OnInit {
+export class DriverBarComponent implements OnInit {
   //定義圖表項
   chartOption: EChartOption = {
 
@@ -17,7 +17,7 @@ export class SimpleBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.carEventsService.GetBars().subscribe(value => {
+    this.carEventsService.GetDriversBar().subscribe(value => {
       //console.log(value);
       //console.log("------------------------------------");
       this.chartOption = {
@@ -49,7 +49,6 @@ export class SimpleBarComponent implements OnInit {
         ]
       }
     });
-
   }
 
 }

@@ -3,11 +3,11 @@ import { EChartOption } from 'echarts';
 import { CarEventsService } from 'src/app/_services/car-events.service';
 
 @Component({
-  selector: 'app-simple-bar',
-  templateUrl: './simple-bar.component.html',
-  styleUrls: ['./simple-bar.component.scss']
+  selector: 'app-line-fuelconsumption',
+  templateUrl: './line-fuelconsumption.component.html',
+  styleUrls: ['./line-fuelconsumption.component.scss']
 })
-export class SimpleBarComponent implements OnInit {
+export class LineFuelconsumptionComponent implements OnInit {
   //定義圖表項
   chartOption: EChartOption = {
 
@@ -17,7 +17,7 @@ export class SimpleBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.carEventsService.GetBars().subscribe(value => {
+    this.carEventsService.GetTeamFuelConLine().subscribe(value => {
       //console.log(value);
       //console.log("------------------------------------");
       this.chartOption = {
@@ -31,6 +31,7 @@ export class SimpleBarComponent implements OnInit {
         },
         //游標指示大小(可又可無)
         tooltip: {
+          trigger: 'axis'
         },
         //提供一份數據
         dataset: {
@@ -43,13 +44,12 @@ export class SimpleBarComponent implements OnInit {
         // 聲明一個Y軸
         yAxis: {},
         series: [
-          { type: 'bar' },
-          { type: 'bar' },
-          { type: 'bar' }
+          { type: 'line' },
+          { type: 'line' },
+          { type: 'line' }
         ]
       }
     });
-
   }
 
 }

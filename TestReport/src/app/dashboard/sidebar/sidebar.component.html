@@ -1,11 +1,4 @@
 <mat-nav-list style="margin-top: 64px;width:200px;" color="primary">
-  <!-- <h3 matSubheader>示範用頁面</h3> -->
-  <mat-list-item [routerLink]="['/','dashboard','testshowpage']" (click)="handleClicked($event)">
-    <mat-icon md-list-icon>dns</mat-icon>OpenTestShow <span style="width: 100%;"></span>
-    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
-  </mat-list-item>
-
-
   <mat-divider></mat-divider>
   <h3 matSubheader>列表</h3>
   <mat-list-item [routerLink]="['/','dashboard','careventlist']" (click)="handleClicked($event)">
@@ -16,6 +9,14 @@
   <h3 matSubheader>圖表</h3>
   <mat-list-item [routerLink]="['/','dashboard','simplebar']" (click)="handleClicked($event)">
     <mat-icon md-list-icon>dns</mat-icon>車輛事件<span class="fill-remaining-space"></span>
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+  <mat-list-item [routerLink]="['/','dashboard','driverbar']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>駕駛人事件<span class="fill-remaining-space"></span>
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+  <mat-list-item [routerLink]="['/','dashboard','linefuelconsumption']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>車隊油秏<span class="fill-remaining-space"></span>
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item>
   <!-- 另外一組選單 -->
