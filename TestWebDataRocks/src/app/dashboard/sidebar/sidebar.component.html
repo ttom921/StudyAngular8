@@ -5,7 +5,10 @@
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item>
 
-
+  <mat-list-item [routerLink]="['/','dashboard','testwebdatarockspivot']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>測試webdatarockspivot <span style="width: 100%;"></span>
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
   <mat-divider></mat-divider>
   <!-- 另外一組選單 -->
   <!-- <h3 matSubheader>其他頁面</h3> -->
