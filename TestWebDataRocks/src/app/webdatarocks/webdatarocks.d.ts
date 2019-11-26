@@ -46,6 +46,7 @@ declare namespace WebDataRocks {
   }
 
   interface Pivot {
+    googlecharts: any;
     addCalculatedMeasure(measure: Measure): void;
     addCondition(condition: ConditionalFormat): void;
     addJSON(json: Object[]): void;
@@ -150,18 +151,17 @@ declare namespace WebDataRocks {
       column?: Object,
       row?: Object
     };
-    flatOrder?: string[];
   }
 
   interface Options {
     grid?: {
       showFilter?: boolean,
-      showGrandTotals?: string | boolean,
+      showGrandTotals?: string,
       showHeaders?: boolean,
       showHierarchies?: boolean,
       showHierarchyCaptions?: boolean,
       showReportFiltersArea?: boolean,
-      showTotals?: string | boolean,
+      showTotals?: boolean,
       title?: string,
       type?: string
     };
@@ -253,7 +253,7 @@ declare namespace WebDataRocks {
       quantity?: number,
       type?: string
     };
-    sort?: "asc" | "desc" | "unsorted";
+    sortName?: string;
     uniqueName?: string;
   }
 
