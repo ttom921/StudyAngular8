@@ -77,7 +77,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       id: 'openstreetmap',
       name: 'Open Street Map',
       enabled: true,
-      layer: tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      layer: tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: 'Open Street Map'
       })
@@ -180,7 +180,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       animate: true
     });
     //console.log(this.map);
-    map.invalidateSize();
+    //map.invalidateSize();
 
 
     this.PrintDebugInfo();
