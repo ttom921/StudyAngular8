@@ -8,16 +8,21 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SharedAngularMaterialModule } from '../share/shared-angular-material/shared-angular-material.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TestOpenStreetComponent } from './page/test-open-street/test-open-street.component';
-import { OsmViewComponent } from './osm-view/osm-view.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTMLMarkerComponent } from './osm-view/htmlmarker/htmlmarker.component';
+import { OsmViewComponent } from '../_common/map/osm-view/osm-view.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, TestOpenStreetComponent, OsmViewComponent, HTMLMarkerComponent],
+  declarations: [
+    DashboardComponent,
+    HeaderComponent,
+    SidebarComponent,
+    TestOpenStreetComponent,
+    OsmViewComponent,
+  ],
   imports: [
     CommonModule,
     BrowserModule,
@@ -39,6 +44,6 @@ import { HTMLMarkerComponent } from './osm-view/htmlmarker/htmlmarker.component'
     DashboardRoutingModule,
   ],
   // IMPORTANT! Dynamic components need to be registered here
-  entryComponents: [HTMLMarkerComponent],
+  //entryComponents: [HTMLMarkerComponent],
 })
 export class DashboardModule { }
