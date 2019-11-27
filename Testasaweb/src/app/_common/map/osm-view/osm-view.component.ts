@@ -28,7 +28,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
 
   @Input() zoom = 18;
 
-  map;// Values to bind to Leaflet Directive
+  map: L.Map;// Values to bind to Leaflet Directive
   //公用的顯示layer
   layers: Layer[] = [];
   options = {};
