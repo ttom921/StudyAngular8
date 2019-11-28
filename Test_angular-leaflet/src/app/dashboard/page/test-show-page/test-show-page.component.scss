@@ -1,0 +1,18 @@
+// div{
+//   height: 80vh;
+//   width: 80vw;
+// }
+
+#mapid {
+  width: 80vw;
+  height: 80vh;
+}
+
+.leaflet-tooltip-pane .text {
+    color: red;
+    font-weight: bold;
+    background: transparent;
+    border:0;
+    box-shadow: none;
+    font-size:2em;
+}
