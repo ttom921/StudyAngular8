@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OsmViewComponent } from '../_common/map/osm-view/osm-view.component';
+import { HTMLMarkerComponent } from '../_common/map/htmlmarker/htmlmarker.component';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { OsmViewComponent } from '../_common/map/osm-view/osm-view.component';
     LeafletModule,
     DashboardRoutingModule,
   ],
-  // IMPORTANT! Dynamic components need to be registered here
-  //entryComponents: [HTMLMarkerComponent],
+  //IMPORTANT! Dynamic components need to be registered here
+  entryComponents: [HTMLMarkerComponent],
 })
 export class DashboardModule { }

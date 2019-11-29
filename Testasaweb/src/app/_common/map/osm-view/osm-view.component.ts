@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, HostBinding, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostBinding, Input, AfterViewInit, ViewEncapsulation, ComponentFactoryResolver, Injector } from '@angular/core';
 import { Layer, tileLayer, latLng } from 'leaflet';
+import { OSMMarkerManager } from '../manager/osm-marker-manager';
+import { MarkerData } from '../model/marker-meta-data.model';
 
 @Component({
   selector: 'osm-view',
   templateUrl: './osm-view.component.html',
-  styleUrls: ['./osm-view.component.scss']
+  styleUrls: ['./osm-view.component.scss'],
+  //encapsulation: ViewEncapsulation.None
+
 })
 export class OsmViewComponent implements OnInit, AfterViewInit {
 
@@ -34,9 +38,14 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   options = {};
   layersControl = {};
   //基礎的layer
-  LAYER_OSM
+  LAYER_OSM: any;
+  //maker相關
+  public osmMarkerManager: OSMMarkerManager;
 
-  constructor() {
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector
+  ) {
     this.CreateLayer();
   }
 
@@ -85,6 +94,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   CreateLayer() {
     console.log("CreateLayer----------------------");
     this.CreateBaseLayer();
+    this.CreateMarkLayer();
   }
   CreateBaseLayer() {
     console.log("CreateBaseLayer----------------------");
@@ -98,6 +108,11 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
         attribution: 'Open Street Map'
       })
     }
+  }
+  CreateMarkLayer() {
+    console.log("CreateMarkLayer-------建立marklayer--------");
+    this.osmMarkerManager = new OSMMarkerManager(this.layers, this.resolver, this.injector)
+
   }
   //#endregion 建立layer
   onMapReady(ev) {
@@ -119,6 +134,13 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     });
     this.map = ev;
     this.PrintDebugInfo();
+  }
+  TestMarkFun(markdatas: MarkerData[]) {
+    console.log("TestMarkFun 測試mark----------------------");
+    let makedata = markdatas[0];
+    let markmetadata = this.osmMarkerManager.AddMark(makedata.name, makedata.description, makedata.position);
+    this.osmMarkerManager.AddPopHtml(markmetadata);
+
   }
   PrintDebugInfo() {
     console.log("mapdebuginfo--------------------");

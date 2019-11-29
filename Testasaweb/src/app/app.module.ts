@@ -7,12 +7,14 @@ import { LoginComponent } from './login/login.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { HTMLMarkerComponent } from './_common/map/htmlmarker/htmlmarker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NotFoundComponent,
+    HTMLMarkerComponent,
   ],
   imports: [
     AppRoutingModule,
