@@ -123,6 +123,8 @@ export class TestShowPageComponent implements OnInit {
 
 
 
-
 ## 參考資料
+
+ https://coryrylan.com/blog/css-encapsulation-with-angular-components 
+
 https://codehandbook.org/use-leaflet-in-angular/
