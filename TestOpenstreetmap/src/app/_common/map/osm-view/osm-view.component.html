@@ -1,2 +1,2 @@
-<div class="map" #osmmap leaflet [leafletOptions]="options" [leafletLayersControl]="layersControl" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)">
+<div class="map" #osmmap leaflet [leafletOptions]="options" [leafletLayersControl]="layersControl" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)" [leafletMarkerCluster]="markerClusterData" [leafletMarkerClusterOptions]="markerClusterOptions" (leafletMarkerClusterReady)="markerClusterReady($event)">
 </div>

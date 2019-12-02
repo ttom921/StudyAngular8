@@ -31,13 +31,18 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   layersControl: {};
   //基礎的layer
   LAYER_OSM: any;
-
+  //#region Marker cluster stuff
+  markerClusterGroup: L.MarkerClusterGroup;
+  markerClusterData: L.Marker[] = [];
+  markerClusterOptions: L.markerClusterOptions
+  //#endregion Marker cluster stuff
   constructor() {
     this.CreateLayer();
   }
 
   ngOnInit() {
     this.initMapLayer();
+    this.refreshData();
   }
   ngAfterViewInit(): void {
     this.osmap.nativeElement.style.width = this.width;
@@ -96,5 +101,40 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   onMapReady(ev) {
     this.map = ev;
   }
+  //#region Marker cluster stuff
+  // Generators for lat/lon values
+  generateLat() {
+    return Math.random() * 360 - 180;
+  }
+  generateLon() {
+    return Math.random() * 180 - 90;
+  }
+  markerClusterReady(group: L.MarkerClusterGroup) {
+
+    this.markerClusterGroup = group;
+
+  }
+  refreshData(): void {
+    this.markerClusterData = this.generateData(1000);
+  }
+  generateData(count: number): L.Marker[] {
+
+    const data: L.Marker[] = [];
+
+    for (let i = 0; i < count; i++) {
+
+      const icon = L.icon({
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
+      });
+
+      data.push(L.marker([this.generateLon(), this.generateLat()], { icon }));
+    }
+
+    return data;
+
+  }
+  //#endregion Marker cluster stuff
+
 
 }

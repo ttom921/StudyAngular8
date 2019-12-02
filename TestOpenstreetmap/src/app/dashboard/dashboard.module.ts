@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SharedAngularMaterialModule } from '../share/shared-angular-material/shared-angular-material.module';
@@ -22,11 +23,13 @@ import { OsmViewComponent } from '../_common/map/osm-view/osm-view.component';
   imports: [
     SharedAngularMaterialModule,
     LeafletModule,
+    LeafletMarkerClusterModule,
     DashboardRoutingModule,
   ],
   exports: [
     SharedAngularMaterialModule,
     LeafletModule,
+    LeafletMarkerClusterModule,
     DashboardRoutingModule,
   ]
 })
