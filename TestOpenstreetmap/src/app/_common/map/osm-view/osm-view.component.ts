@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef, HostBinding, AfterViewInit } from '@angular/core';
-import { Layer, tileLayer, latLng } from 'leaflet';
+import { Layer, tileLayer, latLng, LatLngExpression } from 'leaflet';
 import * as L from 'leaflet';
+import { MapTestUtil } from 'src/app/_utility/map/map-test-util';
 @Component({
   selector: 'osm-view',
   templateUrl: './osm-view.component.html',
@@ -34,7 +35,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   //#region Marker cluster stuff
   markerClusterGroup: L.MarkerClusterGroup;
   markerClusterData: L.Marker[] = [];
-  markerClusterOptions: L.markerClusterOptions
+  markerClusterOptions: L.MarkerClusterOptions
   //#endregion Marker cluster stuff
   constructor() {
     this.CreateLayer();
@@ -115,7 +116,22 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
 
   }
   refreshData(): void {
-    this.markerClusterData = this.generateData(1000);
+    //this.markerClusterData = this.generateData(1000);
+    this.markerClusterData = this.generateDatabyCenter(this.center, 50);
+  }
+  generateDatabyCenter(centerLatLng: LatLngExpression, count: number): L.Marker[] {
+    const data: L.Marker[] = [];
+    for (let i = 0; i < count; i++) {
+      const icon = L.icon({
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
+      });
+      let latlng = MapTestUtil.getInstance().getCenterRandom(centerLatLng);
+
+      let markdata = L.marker(latlng, { icon });
+      data.push(markdata);
+    }
+    return data;
   }
   generateData(count: number): L.Marker[] {
 
