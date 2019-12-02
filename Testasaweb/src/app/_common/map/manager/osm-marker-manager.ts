@@ -4,6 +4,7 @@ import { LayerGroupMetaData } from '../model/layer-group-meta-data.model';
 import { ComponentFactoryResolver, Injector } from '@angular/core';
 import * as _ from 'lodash';
 import { HTMLMarkerComponent } from '../htmlmarker/htmlmarker.component';
+import { ColorMetaData } from '../model/color-meta-data.model';
 
 export class OSMMarkerManager {
   //所有關mark的相關資料
@@ -17,7 +18,7 @@ export class OSMMarkerManager {
   ) {
     this.layers = layers;
   }
-  public AddMark(name: String, desc: String, otherLatLng: LatLngExpression, isDraggable: boolean = false, gpname = "marks"): MarkerMetaData {
+  public AddMark(name: String, desc: String, otherLatLng: LatLngExpression, bgcolorMetaData: ColorMetaData, fgcolorMetaData: ColorMetaData, isDraggable: boolean = false, gpname = "marks"): MarkerMetaData {
     //檢查是否有存在的layoutgroup
     let lg = undefined;
     let lgmetadata = _.find(this.layergroupcollect, o => {
@@ -35,7 +36,7 @@ export class OSMMarkerManager {
 
     //建立基本的mark
     let curmark = new MarkerMetaData(name, desc, otherLatLng);
-    let m = curmark.CreateMark(otherLatLng, isDraggable);
+    let m = curmark.CreateMark(otherLatLng, bgcolorMetaData, fgcolorMetaData, isDraggable);
     this.markerCollect.push(curmark);
     lg.addLayer(m);
     return curmark;
@@ -65,6 +66,13 @@ export class OSMMarkerManager {
     if (_.isUndefined(lg)) return;
     //移除在group中的layer
     lg.layerGroup.removeLayer(fdobj.markerInstance);
+  }
+  GetLayerByName(gpname: String): LayerGroupMetaData {
+    let lgmetadata = _.find(this.layergroupcollect, o => {
+      return o.name == gpname;
+    });
+    if (_.isUndefined(lgmetadata)) return null;
+    return lgmetadata;
   }
   AddPopHtml(markmetadata: MarkerMetaData) {
     //跳出視窗

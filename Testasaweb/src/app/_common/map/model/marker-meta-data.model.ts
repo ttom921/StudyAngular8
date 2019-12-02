@@ -1,9 +1,11 @@
 import { LatLngExpression, Marker, divIcon, marker } from 'leaflet';
 import { HTMLMarkerComponent } from '../htmlmarker/htmlmarker.component';
 import { ComponentRef } from '@angular/core';
+import { ColorUtil } from 'src/app/_util/colorutil';
+import { ColorMetaData } from './color-meta-data.model';
 
 export interface MarkerData {
-  id: number;
+  id: String;
   name: String;
   description: String;
   position: LatLngExpression;
@@ -15,7 +17,7 @@ export interface MarkerData {
  * @class MarkerMetaData
  */
 export class MarkerMetaData implements MarkerData {
-  id: number;
+  id: string;
   name: String;
   description: String;
   position: LatLngExpression;
@@ -28,9 +30,14 @@ export class MarkerMetaData implements MarkerData {
     this.position = otherLatLng;
     this.isDraggable = false;
   }
-  public CreateMark(otherLatLng: LatLngExpression, isDraggable: boolean = false): Marker {
+  public CreateMark(otherLatLng: LatLngExpression, bgcolorMetaData: ColorMetaData, fgcolorMetaData: ColorMetaData, isDraggable: boolean = false): Marker {
     this.isDraggable = isDraggable;
-    const texticon = this.makeMarkerIcon('#583488', this.name);
+
+    //let bk = bgcolorMetaData.RGBAToHexA();
+    //console.log(bk);
+
+    //const texticon = this.makeMarkerIcon('#583488', this.name);
+    const texticon = this.makeMarkerIcon(bgcolorMetaData, fgcolorMetaData, this.name);
     //   const falicon = this.makeMarkerIcon('#583470', '<i class="fa fa-eye" />', true);
     //   const maticon = this.makeMarkerIcon('#583470', '<i class="material-icons">card_travel</i>');
     this.markerInstance = marker(
@@ -42,9 +49,10 @@ export class MarkerMetaData implements MarkerData {
   }
   // caption could be: '<i class="fa fa-eye" />',
   //makeMarkerIcon(color, cation, isFa = false) {
-  makeMarkerIcon(color, caption) {
+  makeMarkerIcon(bgcolor: ColorMetaData, fgcolor: ColorMetaData, caption) {
     //let isFa = false
-    let myCustomColour = color + 'd0';
+    //let myCustomColour = color + 'd0';
+    let myCustomColour = bgcolor.RGBAToHexA();
 
     let size = 10,// size of the marker
       border = 2; // border thckness
@@ -61,7 +69,7 @@ export class MarkerMetaData implements MarkerData {
   	border: ${border}px solid #FFFFFF;
     `;
     let captionStyles;
-    let colorText = "red";
+    let colorText = fgcolor.RGBAToHexA();
     captionStyles = `
       transform: rotate(-45deg);
       display:block;

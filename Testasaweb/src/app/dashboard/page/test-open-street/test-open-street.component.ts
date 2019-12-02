@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { OsmViewComponent } from 'src/app/_common/map/osm-view/osm-view.component';
-import { LayerGroup, marker, icon, CircleMarker, tooltip } from 'leaflet';
+import { LayerGroup, marker, icon, CircleMarker, tooltip, LatLngExpression } from 'leaflet';
 import { OsmDataService } from 'src/app/_services/map/osm-data.service';
-import { MarkerData } from 'src/app/_common/map/model/marker-meta-data.model';
+import { MarkerData, MarkerMetaData } from 'src/app/_common/map/model/marker-meta-data.model';
+import { ColorMetaData } from 'src/app/_common/map/model/color-meta-data.model';
 
 @Component({
   selector: 'app-test-open-street',
   templateUrl: './test-open-street.component.html',
   styleUrls: ['./test-open-street.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  //encapsulation: ViewEncapsulation.None
 })
 export class TestOpenStreetComponent implements OnInit {
 
   @ViewChild('osmview', { static: true }) osmview: OsmViewComponent
-
+  markdatas = [];
   constructor(
     private osmDataService: OsmDataService,
   ) { }
@@ -21,15 +22,26 @@ export class TestOpenStreetComponent implements OnInit {
   ngOnInit() {
   }
   tempmarkdata: MarkerData = {
-    id: 1,
+    id: `1`,
     name: 'Markername1',
     description: 'descr 1',
     position: [24.9345812, 121.2728323]
   };
   OnUpdaet() {
-    this.tempmarkdata.position[0] = this.tempmarkdata.position[0] + 0.0001;
-    this.osmview.osmMarkerManager.UpdateMark(this.tempmarkdata.name, this.tempmarkdata.position);
-    console.log(this.tempmarkdata);
+
+    this.osmDataService.getInterval().subscribe(data => {
+      //console.log(data);
+      this.markdatas.forEach(item => {
+        let rdnum = this.generaterRandomMove();
+        item.position[0] = item.position[0] + rdnum;
+        item.position[1] = item.position[1] + rdnum;
+        this.osmview.osmMarkerManager.UpdateMark(item.name, item.position);
+
+      });
+    });
+    // this.tempmarkdata.position[0] = this.tempmarkdata.position[0] + 0.0001;
+    // this.osmview.osmMarkerManager.UpdateMark(this.tempmarkdata.name, this.tempmarkdata.position);
+    // console.log(this.tempmarkdata);
 
     // this.osmDataService.getMarkers().subscribe(data => {
     //   console.log(data);
@@ -39,10 +51,36 @@ export class TestOpenStreetComponent implements OnInit {
     // });
   }
   OnClick() {
-    this.osmDataService.getMarkers().subscribe(data => {
-      console.log(data);
-      this.osmview.TestMarkFun(data);
-    });
+    this.osmview.PrintDebugInfo();
+    let startpos = [24.9345812, 121.2728323]
+
+    for (let index = 0; index < 50; index++) {
+      let rdnum = this.generateRandomNumber();
+      let rampos: LatLngExpression = [
+        startpos[0] + this.generateRandomNumber(),
+        startpos[1] + this.generateRandomNumber()
+      ]
+      let tempmarkdata: MarkerData = {
+        id: `${index}`,
+        name: `name${index}`,
+        description: 'descr 1',
+        position: rampos
+      };
+      let bgcolorMetaData = new ColorMetaData();
+      bgcolorMetaData.SetDefaultBGcolor();
+      bgcolorMetaData.getRandomColor();
+      let fgcolorMetaData = new ColorMetaData();
+      fgcolorMetaData.SetDefatulFGColor();
+      fgcolorMetaData.getRandomColor();
+      this.osmview.AddMarkPosition(tempmarkdata, bgcolorMetaData, fgcolorMetaData);
+      this.markdatas.push(tempmarkdata);
+      //this.osmview.
+    }
+
+    // this.osmDataService.getMarkers().subscribe(data => {
+    //   //console.log(data);
+    //   this.osmview.TestMarkFun(data);
+    // });
 
     // let marklayerGroup = new LayerGroup();
     // var TooltipClass = {
@@ -98,5 +136,23 @@ export class TestOpenStreetComponent implements OnInit {
     // this.osmview.map.addLayer(this.osmview.layersControl["overlays"]["mmmark"]);
     // //this.osmview.map.addLayer(this.osmview.layersControl["overlays"]["ccmark"]);
     // //this.osmview.map.invalidateSize();
+  }
+  generateRandomNumber() {
+    let min = 0.002;
+    let max = 0.008;
+    let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    let highlightedNumber = Math.random() * (max - min) + min;
+
+    //alert(highlightedNumber);
+    return highlightedNumber * plusOrMinus;
+  }
+  generaterRandomMove() {
+    let min = 0.0001;
+    let max = 0.0008;
+    let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    let highlightedNumber = Math.random() * (max - min) + min;
+
+    //alert(highlightedNumber);
+    return highlightedNumber * plusOrMinus;
   }
 }

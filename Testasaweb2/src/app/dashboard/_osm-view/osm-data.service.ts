@@ -22,7 +22,7 @@ export class OsmDataService {
       id: 2,
       name: 'Marker name 2',
       description: 'descr 2',
-      position: [24.9345812, 121.2728330]
+      position: [24.933255, 121.265024]
     }
   ];
   constructor() { }
@@ -38,6 +38,9 @@ export class OsmDataService {
       // just add a random number at the end
       marker.description = `Some random value ${Math.random() * 100}`;
     }
+    // getTestMarkers(){
+
+    // }
   }
-  
+
 }

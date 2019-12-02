@@ -1,13 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef, HostBinding, Input, AfterViewInit, ViewEncapsulation, ComponentFactoryResolver, Injector } from '@angular/core';
-import { Layer, tileLayer, latLng } from 'leaflet';
+import { Layer, tileLayer, latLng, Control } from 'leaflet';
 import { OSMMarkerManager } from '../manager/osm-marker-manager';
 import { MarkerData } from '../model/marker-meta-data.model';
+import * as L from 'leaflet';
+import * as _ from 'lodash';
+import { ColorMetaData } from '../model/color-meta-data.model';
+
+
 
 @Component({
   selector: 'osm-view',
   templateUrl: './osm-view.component.html',
   styleUrls: ['./osm-view.component.scss'],
-  //encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 
 })
 export class OsmViewComponent implements OnInit, AfterViewInit {
@@ -36,7 +41,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   //公用的顯示layer
   layers: Layer[] = [];
   options = {};
-  layersControl = {};
+  layersControl: {};
   //基礎的layer
   LAYER_OSM: any;
   //maker相關
@@ -53,6 +58,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     this.initMapLayer();
   }
   initMapLayer() {
+
     this.layersControl = {
       baseLayers: {
         'Open Street Map': this.LAYER_OSM.layer,
@@ -133,13 +139,65 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       animate: true
     });
     this.map = ev;
-    this.PrintDebugInfo();
+    //this.PrintDebugInfo();
+  }
+  private HasOverlay(name: string): boolean {
+    let ret = true;
+    let overlays = this.layersControl["overlays"];
+    //console.log(overlays.hasOwnProperty(name));
+    ret = overlays.hasOwnProperty(name);
+    return ret;
+  }
+  AddOverLayer(gpname: string) {
+    //檢查是否有重覆的overlay
+
+    if (this.HasOverlay(gpname) == false) {
+      let lgmetadata = this.osmMarkerManager.GetLayerByName(gpname);
+      if (lgmetadata == null) return;
+      let lgname = lgmetadata.name;
+      this.layersControl = {
+        overlays: {
+          [lgname]: lgmetadata.layerGroup,
+        }
+      };
+    }
+  }
+  AddMarkPosition(markdata: MarkerData, bgcolorMetaData: ColorMetaData, fgcolorMetaData: ColorMetaData) {
+
+    let markmetadata = this.osmMarkerManager.AddMark(markdata.name, markdata.description, markdata.position, bgcolorMetaData, fgcolorMetaData);
+    //console.log(markmetadata.position);
+    this.osmMarkerManager.AddPopHtml(markmetadata);
+    this.AddOverLayer("marks");
   }
   TestMarkFun(markdatas: MarkerData[]) {
     console.log("TestMarkFun 測試mark----------------------");
-    let makedata = markdatas[0];
-    let markmetadata = this.osmMarkerManager.AddMark(makedata.name, makedata.description, makedata.position);
-    this.osmMarkerManager.AddPopHtml(markmetadata);
+    let bkcolorMetaData = new ColorMetaData();
+    bkcolorMetaData.SetDefaultBGcolor();
+    let fontcolorMetaData = new ColorMetaData();
+    fontcolorMetaData.SetDefatulFGColor();
+    markdatas.forEach(makedata => {
+      let markmetadata = this.osmMarkerManager.AddMark(makedata.name, makedata.description, makedata.position, bkcolorMetaData, fontcolorMetaData);
+      //console.log(markmetadata.position);
+      this.osmMarkerManager.AddPopHtml(markmetadata);
+      this.AddOverLayer("marks");
+    });
+
+    // let makedata = markdatas[0];
+    // let markmetadata = this.osmMarkerManager.AddMark(makedata.name, makedata.description, makedata.position);
+    // this.osmMarkerManager.AddPopHtml(markmetadata);
+    //
+    //this.AddOverLayer("marks");
+    // let lgmetadata = this.osmMarkerManager.GetLayerByName("marks");
+    // if (lgmetadata == null) return;
+    // let lgname = lgmetadata.name;
+
+
+    // this.layersControl = {
+    //   overlays: {
+    //     [lgname]: lgmetadata.layerGroup,
+    //   }
+    // };
+
 
   }
   PrintDebugInfo() {
