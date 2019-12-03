@@ -30,13 +30,13 @@ ng add @angular/material
 
 目前選擇`Purple/Green `
 加入theme設定
-在’styles.scss’中,有四種選一種
+在’styles.scss’中,有四種,會在angular.json中設定
 
 ```scss
 //@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 //@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
 ```
 
 加入SharedAngularMaterial <https://ithelp.ithome.com.tw/articles/10209937
@@ -75,7 +75,7 @@ npm install --save @fortawesome/fontawesome-free
 //@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 //@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 ```
 
