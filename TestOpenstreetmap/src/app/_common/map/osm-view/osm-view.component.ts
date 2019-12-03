@@ -26,6 +26,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   @Input() zoom = 14;
 
   map: L.Map;// Values to bind to Leaflet Directive
+  //controllayers:L.Control.Layers;
   //公用的顯示layer
   layers: Layer[] = [];
   options = {};
@@ -34,8 +35,12 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   LAYER_OSM: any;
   //#region Marker cluster stuff
   markerClusterGroup: L.MarkerClusterGroup;
+  markerClusterGroups: {
+    name: string,
+    group: L.MarkerClusterGroup,
+  }[] = [];
   markerClusterData: L.Marker[] = [];
-  markerClusterOptions: L.MarkerClusterOptions
+  markerClusterOptions: L.MarkerClusterGroupOptions;
   //#endregion Marker cluster stuff
   constructor() {
     this.CreateLayer();
@@ -76,7 +81,7 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   }
   //#endregion 建立layer
   initMapLayer() {
-
+    console.log("initMapLayer----------------------");
     this.layersControl = {
       baseLayers: {
         'Open Street Map': this.LAYER_OSM.layer,
@@ -100,7 +105,43 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     }
   }
   onMapReady(ev) {
+    console.log("onMapReady----------------------");
     this.map = ev;
+    //this.AddOverClusterLayer("hisharp", this.markerClusterGroups[0]);
+    this.AddOverClusterLayer(this.markerClusterGroups[0].name, this.markerClusterGroups[0].group);
+    this.AddOverClusterLayer(this.markerClusterGroups[1].name, this.markerClusterGroups[1].group);
+  }
+  // onLayersControlReady(ev) {
+    
+  //   console.log("onLayersControlReady----------------------");
+  //   console.log(ev);
+  //   this.controllayers=ev;
+   
+  // }
+  private HasOverlay(name: string): boolean {
+    let ret = true;
+    let overlays = this.layersControl["overlays"];
+    //console.log(overlays.hasOwnProperty(name));
+    ret = overlays.hasOwnProperty(name);
+    return ret;
+  }
+  AddOverClusterLayer(gpname: string, group: L.MarkerClusterGroup) {
+    //檢查是否有重覆的overlay
+
+    if (this.HasOverlay(gpname) == false) {
+
+      this.map
+      let overlays = this.layersControl["overlays"];
+      overlays[gpname]=group;
+      //console.log(this.controllayers);
+      //overlays.push({ [gpname]: group });
+
+      // this.layersControl = {
+      //   overlays: {
+      //     [gpname]: group,
+      //   }
+      // };
+    }
   }
   //#region Marker cluster stuff
   // Generators for lat/lon values
@@ -111,14 +152,164 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     return Math.random() * 180 - 90;
   }
   markerClusterReady(group: L.MarkerClusterGroup) {
-
-    this.markerClusterGroup = group;
+    console.log("markerClusterReady----------------------");
+    //this.markerClusterGroup = group;
 
   }
   refreshData(): void {
+    console.log("refreshData----------------------");
+    this.refreshdata1();
+    this.refreshdata2();
+    return;
     //this.markerClusterData = this.generateData(1000);
     this.markerClusterData = this.generateDatabyCenter(this.center, 50);
+
+    this.markerClusterOptions = {
+      singleMarkerMode: true,
+      iconCreateFunction: function (cluster) {
+        //console.log(cluster);
+        var childCount = cluster.getChildCount();
+        let icon;
+        if (childCount == 1) {
+          icon = L.divIcon({
+            iconSize: [10, 10],
+            iconAnchor: [5, 5],
+            //popupAnchor: [10, 0],
+            // shadowSize: [0, 0],
+            html: '<div>' + childCount + '</div>'
+          });
+        } else {
+          icon = L.divIcon({
+            iconSize: [40, 40],
+            className: 'hisharpcluster',
+            html: '<span>' + childCount + '<span>'
+          });
+        }
+
+        //return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
+        //var icon
+        // var icon = L.divIcon({
+        //   iconSize: [35, 35],
+        //   iconAnchor: [10, 10],
+        //   popupAnchor: [10, 0],
+        //   shadowSize: [0, 0],
+        //   html: '<div>' + cluster.getChildCount() + '</div>'
+        // });
+        return icon;
+      }
+
+    };
+
+
+    this.markerClusterGroups.push({
+      name: "hishapr",
+      group: L.markerClusterGroup(this.markerClusterOptions),
+    });
+    // var markersList = [];
+
+    this.markerClusterData.forEach(element => {
+      this.markerClusterGroups[0].group.addLayer(element);
+    });
+
+
+    // this.markerClusterOptions = new L.MarkerClusterGroupOptions({
+
+    // });
   }
+  refreshdata1() {
+    let markerClusterData = this.generateDatabyCenter(this.center, 50);
+
+    let markerClusterOptions = {
+      singleMarkerMode: true,
+      iconCreateFunction: function (cluster) {
+        //console.log(cluster);
+        var childCount = cluster.getChildCount();
+        let icon;
+        if (childCount == 1) {
+          icon = L.divIcon({
+            iconSize: [10, 10],
+            iconAnchor: [5, 5],
+            //popupAnchor: [10, 0],
+            // shadowSize: [0, 0],
+            html: '<div>' + childCount + '</div>'
+          });
+        } else {
+          icon = L.divIcon({
+            iconSize: [40, 40],
+            className: 'hisharpcluster',
+            html: '<span>' + childCount + '<span>'
+          });
+        }
+        return icon;
+      }
+    };
+
+    this.markerClusterGroups.push({
+      name: "hisharp",
+      group: L.markerClusterGroup(markerClusterOptions),
+    });
+    markerClusterData.forEach(element => {
+      this.markerClusterGroups[0].group.addLayer(element);
+    });
+  }
+  refreshdata2() {
+
+    let center = { lat: 23.098943, lng: 120.217322 };
+    let markerClusterData = this.generateDatabyCenter(center, 50);
+
+    let markerClusterOptions = {
+      singleMarkerMode: true,
+      iconCreateFunction: function (cluster) {
+        //console.log(cluster);
+        var childCount = cluster.getChildCount();
+        let icon;
+        if (childCount == 1) {
+          icon = L.divIcon({
+            iconSize: [10, 10],
+            iconAnchor: [5, 5],
+            //popupAnchor: [10, 0],
+            // shadowSize: [0, 0],
+            html: '<div>' + childCount + '</div>'
+          });
+        } else {
+          icon = L.divIcon({
+            iconSize: [40, 40],
+            className: 'asacluster',
+            html: '<span>' + childCount + '<span>'
+          });
+        }
+        return icon;
+      }
+    };
+
+    this.markerClusterGroups.push({
+      name: "asa",
+      group: L.markerClusterGroup(markerClusterOptions),
+    });
+    markerClusterData.forEach(element => {
+      this.markerClusterGroups[1].group.addLayer(element);
+    });
+  }
+  //var markers = this.markerClusterGroup.getAllChildMarkers();
+
+
+  // var markers = L.markerClusterGroup({
+  //   maxClusterRadius: 120,
+  //   iconCreateFunction: function (cluster) {
+  //     var markers = cluster.getAllChildMarkers();
+  //     var n = 0;
+  //     for (var i = 0; i < markers.length; i++) {
+  //       n += markers[i].number;
+  //     }
+  //     return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
+  //   },
+  //   //Disable all of the defaults:
+  //   //spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false
+  // });
+  // this.markerClusterOptions = {
+  //   maxClusterRadius: 80,
+  // };
+  //}
   generateDatabyCenter(centerLatLng: LatLngExpression, count: number): L.Marker[] {
     const data: L.Marker[] = [];
     for (let i = 0; i < count; i++) {

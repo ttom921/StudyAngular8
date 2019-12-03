@@ -17,8 +17,10 @@ export class MapTestUtil {
     return data;
   }
   public generateRandomNumber() {
-    let min = 0.002;
-    let max = 0.008;
+    // let min = 0.002;
+    // let max = 0.008;
+    let min = 0.02;
+    let max = 0.08;
     let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     let highlightedNumber = Math.random() * (max - min) + min;
 
