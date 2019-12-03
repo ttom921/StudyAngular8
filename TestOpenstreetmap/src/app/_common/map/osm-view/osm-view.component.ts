@@ -34,13 +34,13 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
   //基礎的layer
   LAYER_OSM: any;
   //#region Marker cluster stuff
-  markerClusterGroup: L.MarkerClusterGroup;
+  //markerClusterGroup: L.MarkerClusterGroup;
   markerClusterGroups: {
     name: string,
     group: L.MarkerClusterGroup,
   }[] = [];
   markerClusterData: L.Marker[] = [];
-  markerClusterOptions: L.MarkerClusterGroupOptions;
+  //markerClusterOptions: L.MarkerClusterGroupOptions;
   //#endregion Marker cluster stuff
   constructor() {
     this.CreateLayer();
@@ -112,11 +112,11 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     this.AddOverClusterLayer(this.markerClusterGroups[1].name, this.markerClusterGroups[1].group);
   }
   // onLayersControlReady(ev) {
-    
+
   //   console.log("onLayersControlReady----------------------");
   //   console.log(ev);
   //   this.controllayers=ev;
-   
+
   // }
   private HasOverlay(name: string): boolean {
     let ret = true;
@@ -130,9 +130,8 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
 
     if (this.HasOverlay(gpname) == false) {
 
-      this.map
       let overlays = this.layersControl["overlays"];
-      overlays[gpname]=group;
+      overlays[gpname] = group;
       //console.log(this.controllayers);
       //overlays.push({ [gpname]: group });
 
@@ -224,6 +223,11 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       iconCreateFunction: function (cluster) {
         //console.log(cluster);
         var childCount = cluster.getChildCount();
+        // { html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) })
+
+        var html = `<div class="hisharpcluster">
+        <span>${childCount}</span>
+        <div>`;
         let icon;
         if (childCount == 1) {
           icon = L.divIcon({
@@ -236,8 +240,8 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
         } else {
           icon = L.divIcon({
             iconSize: [40, 40],
-            className: 'hisharpcluster',
-            html: '<span>' + childCount + '<span>'
+            className: 'marker-cluster',
+            html: html
           });
         }
         return icon;
@@ -262,6 +266,9 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
       iconCreateFunction: function (cluster) {
         //console.log(cluster);
         var childCount = cluster.getChildCount();
+        var html = `<div class="asacluster">
+        <span>${childCount}</span>
+        <div>`;
         let icon;
         if (childCount == 1) {
           icon = L.divIcon({
@@ -274,8 +281,8 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
         } else {
           icon = L.divIcon({
             iconSize: [40, 40],
-            className: 'asacluster',
-            html: '<span>' + childCount + '<span>'
+            className: 'marker-cluster',
+            html: html
           });
         }
         return icon;
