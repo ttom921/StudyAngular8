@@ -161,54 +161,54 @@ export class OsmViewComponent implements OnInit, AfterViewInit {
     this.refreshdata2();
     return;
     //this.markerClusterData = this.generateData(1000);
-    this.markerClusterData = this.generateDatabyCenter(this.center, 50);
+    // this.markerClusterData = this.generateDatabyCenter(this.center, 50);
 
-    this.markerClusterOptions = {
-      singleMarkerMode: true,
-      iconCreateFunction: function (cluster) {
-        //console.log(cluster);
-        var childCount = cluster.getChildCount();
-        let icon;
-        if (childCount == 1) {
-          icon = L.divIcon({
-            iconSize: [10, 10],
-            iconAnchor: [5, 5],
-            //popupAnchor: [10, 0],
-            // shadowSize: [0, 0],
-            html: '<div>' + childCount + '</div>'
-          });
-        } else {
-          icon = L.divIcon({
-            iconSize: [40, 40],
-            className: 'hisharpcluster',
-            html: '<span>' + childCount + '<span>'
-          });
-        }
+    // this.markerClusterOptions = {
+    //   singleMarkerMode: true,
+    //   iconCreateFunction: function (cluster) {
+    //     //console.log(cluster);
+    //     var childCount = cluster.getChildCount();
+    //     let icon;
+    //     if (childCount == 1) {
+    //       icon = L.divIcon({
+    //         iconSize: [10, 10],
+    //         iconAnchor: [5, 5],
+    //         //popupAnchor: [10, 0],
+    //         // shadowSize: [0, 0],
+    //         html: '<div>' + childCount + '</div>'
+    //       });
+    //     } else {
+    //       icon = L.divIcon({
+    //         iconSize: [40, 40],
+    //         className: 'hisharpcluster',
+    //         html: '<span>' + childCount + '<span>'
+    //       });
+    //     }
 
-        //return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
-        //var icon
-        // var icon = L.divIcon({
-        //   iconSize: [35, 35],
-        //   iconAnchor: [10, 10],
-        //   popupAnchor: [10, 0],
-        //   shadowSize: [0, 0],
-        //   html: '<div>' + cluster.getChildCount() + '</div>'
-        // });
-        return icon;
-      }
+    //     //return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
+    //     //var icon
+    //     // var icon = L.divIcon({
+    //     //   iconSize: [35, 35],
+    //     //   iconAnchor: [10, 10],
+    //     //   popupAnchor: [10, 0],
+    //     //   shadowSize: [0, 0],
+    //     //   html: '<div>' + cluster.getChildCount() + '</div>'
+    //     // });
+    //     return icon;
+    //   }
 
-    };
+    // };
 
 
-    this.markerClusterGroups.push({
-      name: "hishapr",
-      group: L.markerClusterGroup(this.markerClusterOptions),
-    });
-    // var markersList = [];
+    // this.markerClusterGroups.push({
+    //   name: "hishapr",
+    //   group: L.markerClusterGroup(this.markerClusterOptions),
+    // });
+    // // var markersList = [];
 
-    this.markerClusterData.forEach(element => {
-      this.markerClusterGroups[0].group.addLayer(element);
-    });
+    // this.markerClusterData.forEach(element => {
+    //   this.markerClusterGroups[0].group.addLayer(element);
+    // });
 
 
     // this.markerClusterOptions = new L.MarkerClusterGroupOptions({
