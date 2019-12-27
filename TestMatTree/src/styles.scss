@@ -1,0 +1,15 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.flex {
+  display: flex;
+  background-color: #61a0f8;
+  // 修改以下值試試看 row | row-reverse | column | column-reverse;
+  flex-direction: row;
+}
+
+.item {
+  flex: 1;
+}
+
+
+
