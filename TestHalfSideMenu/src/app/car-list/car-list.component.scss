@@ -1,0 +1,43 @@
+.viewport {
+  height: 400px;
+  width: 100%;
+  background: #C4BBB8;
+  //margin: 2em 8em 8em;
+  box-shadow: 1px 1px 1px grey;
+}
+.map-tool-bar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+.flex-container {
+  display: flex;   /* Magic begins */
+  align-items: center;
+  margin-top: 64px;
+  flex-direction: row;
+}
+.left{
+  flex: 1 ;
+  height: 100vh;
+  justify-content: center;
+  //width: 50px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 100px;
+}
+.center {
+  flex: 1;
+  //width: calc(100% - 200px);
+}
+.right {
+  flex: 1;
+  height: 100vh;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 100px;
+}
+.right-none {
+  display: none;
+}

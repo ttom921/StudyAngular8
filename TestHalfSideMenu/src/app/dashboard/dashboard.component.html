@@ -1,4 +1,4 @@
-<mat-drawer-container class="site mat-typography" autosize>
+<mat-drawer-container class="mat-typography" autosize>
   <mat-drawer #drawer mode="side" disableClose="true" opened="true">
     <button mat-mini-fab (click)="isExpanded = !isExpanded" color="warn" style="margin: 10px;">
       <!-- <mat-icon aria-label="Menu">menu</mat-icon> -->
@@ -6,13 +6,13 @@
       <mat-icon *ngIf="!isExpanded">arrow_right</mat-icon>
     </button>
     <mat-nav-list>
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/','dashboard','home']">
         <mat-icon mat-list-icon>person</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Management A1111111111</h4>
+        <h4 mat-line *ngIf="isExpanded">serversetting</h4>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/','dashboard','carlist']">
         <mat-icon mat-list-icon>assignment</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Management B</h4>
+        <h4 mat-line *ngIf="isExpanded">Car List</h4>
       </mat-list-item>
       <mat-list-item>
         <mat-icon mat-list-icon>domain</mat-icon>
@@ -26,11 +26,7 @@
     </mat-nav-list>
   </mat-drawer>
 
-  <div class="main example-sidenav-content">
-    <div style="width: 100%;height: 100%;border-style: solid;background-color: bisque; border-color: red;border-width: 1px;">
-      You cards and screen Contents goes here..
-      Will be pushed towards right on expanding side navbar.
-    </div>
-
+  <div>
+    <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>

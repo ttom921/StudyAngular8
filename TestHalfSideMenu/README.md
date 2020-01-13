@@ -245,6 +245,13 @@ export class DashboardComponent implements OnInit {
 }
 ```
 
+在加入兩個元件
+
+```
+ng g component CarList
+ng g component home
+```
+
 
 
 

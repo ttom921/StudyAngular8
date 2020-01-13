@@ -1,0 +1,84 @@
+<div>
+  <mat-toolbar class="map-tool-bar" color="accent">
+    <mat-toolbar-row>
+
+      <mat-form-field>
+        <mat-select placeholder="Select Car Group" name="cargroup">
+          <mat-option>aaaaa</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span style="width: 24px;"></span>
+      <mat-form-field class="fill-remaining-space">
+        <input matInput placeholder=" Search">
+      </mat-form-field>
+
+
+      <!-- <button mat-raised-button (click)="tesgGPSState()">Move </button> -->
+      <!-- <button mat-raised-button (click)="testCarHeading()">Rotete </button> -->
+      <span style="width: 24px;"></span>
+      <!-- <button mat-raised-button (click)="testUpdateCarInfo()">Updateoncar </button> -->
+
+
+      <!-- <button mat-button class="mat-success" (click)="opendialog()">Test</button> -->
+      <!-- <button mat-button (click)="openloaddialog()">testload</button> -->
+      <button mat-button>
+        <mat-icon> visibility_off</mat-icon>
+      </button>
+      <!-- <mat-icon (click)="isVisiableCarGroup(selected)"  >{{selected.hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+      <!-- <mat-icon (click)="carShowHide(carinfo,$event)">{{carinfo.hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+
+
+<div class="flex-container">
+  <div class="left">
+    <!--TODO: Add material card-->
+    <mat-card class="mat-elevation-z2" style="width:100px;">
+      <mat-card-content>
+        <div>
+          aaaa-sssss
+        </div>
+        <div>
+          drivername
+        </div>
+
+
+        carstate
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+  <div class="center">
+    <osm-view #osmmap [zoom]="10" [center]='[24.934139,121.28078]' (SideEventOutput)="onSideEvent($event)">
+    </osm-view>
+
+  </div>
+  <div [ngClass]="{
+    'right-none': eventlistcollapns,
+    'right': !eventlistcollapns
+  }">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-content>
+        <div class="verticalLine">
+          <div class="eventcolor">
+          </div>
+          <div>
+            <div>aaa</div>
+            <div>nnnn</div>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+
+  </div>
+  <!-- <div [ngClass]="{
+        'item-coll': eventlistcollapns,
+        'item-right': !eventlistcollapns
+      }">
+
+  </div> -->
+</div>
