@@ -1,35 +1,50 @@
 {
-    "posts": [
-        {
-            "id": 1,
-            "title": "json-server",
-            "author": "typicode"
-        }
-    ],
-    "comments": [
-        {
-            "id": 1,
-            "body": "some comment",
-            "postId": 1
-        }
-    ],
-    "profile": {
-        "name": "typicode"
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
     },
-    "users": [
-        {
-            "username": "ttom",
-            "figs": [
-                "figa",
-                "figb"
-            ]
-        },
-        {
-            "username": "alan",
-            "figs": [
-                "figc",
-                "figd"
-            ]
-        }
-    ]
+    {
+      "title": "My testm22",
+      "author": "10codeingm2",
+      "id": 2
+    },
+    {
+      "title": "My testpatch",
+      "author": "10codeing2",
+      "id": 3
+    },
+    {
+      "title": "My test2",
+      "author": "10codeing2",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "username": "ttom",
+      "figs": [
+        "figa",
+        "figb"
+      ]
+    },
+    {
+      "username": "alan",
+      "figs": [
+        "figc",
+        "figd"
+      ]
+    }
+  ]
 }

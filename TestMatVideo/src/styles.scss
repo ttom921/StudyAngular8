@@ -1,0 +1,19 @@
+//@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+//使mat-car有作用
+mat-card{
+  margin:4px;
+}
+//寬度為填滿
+.full-width{
+  width: 100%;
+}
+html, body, app-root,mat-sidenav-container, .site {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+}
