@@ -1,9 +1,9 @@
 <div class="flex-container color1">
   <!-- 左邊列表 -->
   <div class="left color2">
-    <mat-card class="mat-elevation-z2" *ngFor="let item of videolist" style="padding: 0px;">
-      <div (click)="onVideoclick($event,item)">
-        <mat-video [playFreeze]="true" [mustShowMouseIcon]="true" [preload]="false" [overlay]="false">
+    <mat-card class="mat-elevation-z2" *ngFor="let item of videolist;" style="padding: 2px;">
+      <div>
+        <mat-video [playFreeze]="true" [mustShowMouseIcon]="true" [preload]="false" [overlay]="false" (click)="onVideoclick($event,item)">
           <source matVideoSource src={{item.src}} type="video/mp4">
         </mat-video>
       </div>
