@@ -17,6 +17,9 @@ export class MatPlayButtonComponent implements AfterViewInit, OnDestroy {
 
   @Input() keyboard: boolean = true;
 
+  //不播放
+  @Input() playFreeze: boolean = false;
+
   private events: EventHandler[];
 
   constructor(
@@ -46,6 +49,7 @@ export class MatPlayButtonComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleVideoPlayback(): void {
+    if (this.playFreeze) return;
     this.play = !this.play;
     this.updateVideoPlayback();
   }

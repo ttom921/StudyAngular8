@@ -3,7 +3,7 @@
   <div class="left color2">
     <mat-card class="mat-elevation-z2" *ngFor="let item of videolist" style="padding: 0px;">
       <div (click)="onVideoclick($event,item)">
-        <mat-video [preload]="false" [overlay]="false">
+        <mat-video [playFreeze]="true" [mustShowMouseIcon]="true" [preload]="false" [overlay]="false">
           <source matVideoSource src={{item.src}} type="video/mp4">
         </mat-video>
       </div>
@@ -13,7 +13,7 @@
   <div class="right color3">
     <div class="mainplayer color4">
 
-      <mat-video #mainvideoid [preload]="true" [fullscreen]="false">
+      <mat-video #mainvideoid [preload]="true" [quality]="false" [fullscreen]="false">
         <source matVideoSource src={{mainvideo.src}} type="video/mp4">
       </mat-video>
     </div>
@@ -23,9 +23,9 @@
           <!-- <video #myvideo preload="metadata">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4#t=0.5" type="video/mp4">
           </video> -->
-          <mat-video>
+          <!-- <mat-video [playFreeze]="true">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4#t=0.5" type="video/mp4">
-          </mat-video>
+          </mat-video> -->
         </div>
       </div>
 

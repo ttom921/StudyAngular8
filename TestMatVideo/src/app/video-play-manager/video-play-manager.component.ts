@@ -49,6 +49,7 @@ export class VideoPlayManagerComponent implements OnInit {
     //event.preventDefault();
     event.stopPropagation();
     //console.log(itemvideo.src);
+    this.mainvideo.src = itemvideo.src;
     return false;
   }
   TestClick(event: Event) {

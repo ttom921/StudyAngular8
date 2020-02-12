@@ -40,6 +40,10 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
   @Input() overlay: boolean = null;
   @Input() muted: boolean = false;
   @Output() mutedChange = new EventEmitter<boolean>();
+  //不播放
+  @Input() playFreeze: boolean = false;
+  //是否一定要顯示滑鼠游標
+  @Input() mustShowMouseIcon: boolean = false;
 
 
   @Input()
@@ -141,7 +145,16 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
     if (this.overlay === null) {
       return (!this.playing || this.isMouseMoving) ? activeClass : inactiveClass;
     } else {
-      return this.overlay ? activeClass : inactiveClass;
+      //修改有關滑鼠游標的顯示
+      if (activeClass == "show-mouse") {
+        if (this.mustShowMouseIcon == true) {
+          return this.mustShowMouseIcon ? activeClass : inactiveClass;
+        } else {
+          return this.overlay ? activeClass : inactiveClass;
+        }
+      } else {
+        return this.overlay ? activeClass : inactiveClass;
+      }
     }
   }
 
