@@ -2,20 +2,20 @@
   <!-- 左邊列表 -->
   <div class="left color2">
     <mat-card class="mat-elevation-z2" *ngFor="let item of videolist" style="padding: 0px;">
-      <!-- <div (click)="onVideoclick($event,item)">
+      <div (click)="onVideoclick($event,item)">
         <mat-video [preload]="false" [overlay]="false">
           <source matVideoSource src={{item.src}} type="video/mp4">
         </mat-video>
-      </div> -->
+      </div>
 
     </mat-card>
   </div>
   <div class="right color3">
     <div class="mainplayer color4">
 
-      <!-- <mat-video #mainvideoid [preload]="true" [fullscreen]="false">
+      <mat-video #mainvideoid [preload]="true" [fullscreen]="false">
         <source matVideoSource src={{mainvideo.src}} type="video/mp4">
-      </mat-video> -->
+      </mat-video>
     </div>
     <div class="gsensorinfo color5">
       <div (click)="TestClick($event)">

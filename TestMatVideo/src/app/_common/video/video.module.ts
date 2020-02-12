@@ -19,7 +19,7 @@ import { MatSeekProgressControlComponent } from './ui/mat-seek-progress-control/
 import { MatTimeControlComponent } from './ui/mat-time-control/mat-time-control.component';
 import { MatVideoSpinnerComponent } from './ui/mat-video-spinner/mat-video-spinner.component';
 import { MatVolumeControlComponent } from './ui/mat-volume-control/mat-volume-control.component';
-import { MatVideoComponent } from "./MatVideoComponent";
+import { MatVideoComponent } from './video.component';
 
 @NgModule({
   declarations: [

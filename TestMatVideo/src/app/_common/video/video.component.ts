@@ -78,7 +78,8 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
   videoLoaded = false;
 
   private isMouseMoving: boolean = false;
-  private isMouseMovingTimer: NodeJS.Timer;
+  //private isMouseMovingTimer: NodeJS.Timer;
+  private isMouseMovingTimer: any;
   private isMouseMovingTimeout: number = 2000;
 
   private events: EventHandler[];
