@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CarVideoService } from '../_service/video/car-video.service';
-import { MatVideoComponent } from '../_common/video/mat-video.component';
+import { MatVideoComponent } from '../_common/video/video.component';
 
 @Component({
   selector: 'app-video-play-manager',
@@ -20,7 +20,6 @@ export class VideoPlayManagerComponent implements OnInit {
     src: ""
   };
   constructor(
-    private renderer: Renderer2,
     private carVideoService: CarVideoService
   ) {
     this.carVideoService.Get("台-8888").subscribe(

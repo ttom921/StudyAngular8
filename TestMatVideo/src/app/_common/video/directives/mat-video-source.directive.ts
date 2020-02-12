@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Host, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MatVideoComponent } from '../mat-video.component';
+import { MatVideoComponent } from '../video.component';
 
 
 @Directive({

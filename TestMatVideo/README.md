@@ -135,8 +135,20 @@ export class VideoPlayManagerComponent implements OnInit {
 
 ```
 
+## 重新建立MatVideo
+
+因為它有一些功能，不是我想要的所以來重新打包一下,可以參考一下[mat-video](https://github.com/nkoehler/mat-video)
+
+在下面建立資料夾src\app\_common\video
+
+將原來的github的碼全部拷貝過來,再加入`src\app\app.module.ts`的模組之中
+
+
+
 
 
 ## 參考資料
+
+[mat-video](https://github.com/nkoehler/mat-video)
 
 [影像列表](https://www.toptal.com/angular-js/angular-video-player-videogular)

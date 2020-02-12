@@ -1,16 +1,25 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+
 import { EventHandler } from './interfaces/event-handler.interface';
 import { EventService } from './services/event.service';
 
 @Component({
-  selector: 'app-mat-video',
-  templateUrl: './mat-video.component.html',
-  styleUrls: ['./mat-video.component.scss', './styles/icons.css']
+  selector: 'mat-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.css', './styles/icons.css']
 })
 export class MatVideoComponent implements AfterViewInit, OnDestroy {
-
-
   @ViewChild('player', { static: true }) private player: ElementRef;
   @ViewChild('video', { static: true }) private video: ElementRef;
 
@@ -31,8 +40,7 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
   @Input() overlay: boolean = null;
   @Input() muted: boolean = false;
   @Output() mutedChange = new EventEmitter<boolean>();
-  //不播放
-  @Input() playFreeze: boolean = false;
+
 
   @Input()
   get time() {
@@ -70,7 +78,7 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
   videoLoaded = false;
 
   private isMouseMoving: boolean = false;
-  private isMouseMovingTimer: any;
+  private isMouseMovingTimer: NodeJS.Timer;
   private isMouseMovingTimeout: number = 2000;
 
   private events: EventHandler[];
@@ -87,8 +95,7 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
       { element: this.video.nativeElement, name: 'error', callback: event => console.error('Unhandled Video Error', event), dispose: null },
       { element: this.video.nativeElement, name: 'contextmenu', callback: event => event.preventDefault(), dispose: null },
       { element: this.video.nativeElement, name: 'timeupdate', callback: event => this.evTimeUpdate(event), dispose: null },
-      { element: this.player.nativeElement, name: 'mousemove', callback: event => this.evMouseMove(event), dispose: null },
-      //{ element: this.player.nativeElement, name: 'click', callback: event => this.evMouseClick(event), dispose: null }
+      { element: this.player.nativeElement, name: 'mousemove', callback: event => this.evMouseMove(event), dispose: null }
     ];
 
     this.video.nativeElement.onloadeddata = () => this.videoLoaded = true;
@@ -135,11 +142,6 @@ export class MatVideoComponent implements AfterViewInit, OnDestroy {
     } else {
       return this.overlay ? activeClass : inactiveClass;
     }
-  }
-  evMouseClick(event) {
-    event.stopPropagation();
-    console.log("evMouseClick");
-    return false;
   }
 
 }
