@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, Renderer2 } from '@angular/core';
-import { MatVideoComponent } from 'mat-video/app/video/video.component';
 import { CarVideoService } from '../_service/video/car-video.service';
+import { MatVideoComponent } from '../_common/video/mat-video.component';
 
 @Component({
   selector: 'app-video-play-manager',
@@ -33,12 +33,12 @@ export class VideoPlayManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.elmainvideo = this.matMainVideo.getVideoTag();
-    this.elmainvideo.addEventListener('timeupdate', (ev) => {
-      console.log('video timeupdate->' + this.elmainvideo.currentTime);
+    // this.elmainvideo = this.matMainVideo.getVideoTag();
+    // this.elmainvideo.addEventListener('timeupdate', (ev) => {
+    //   console.log('video timeupdate->' + this.elmainvideo.currentTime);
 
-    });
-    console.log(this.myVideo);
+    // });
+    // console.log(this.myVideo);
     //this.elmyvideo = this.myVideo.nativeElement as HTMLVideoElement;
 
     // this.elmyvideo.addEventListener('click', (ev) => {
@@ -54,8 +54,9 @@ export class VideoPlayManagerComponent implements OnInit {
   }
   TestClick(event: Event) {
     event.stopPropagation();
-    console.log('TestClick->' + this.elmainvideo.currentTime);
+    console.log('TestClick->');
+    //console.log('TestClick->' + this.elmainvideo.currentTime);
     return false;
-    this.elmyvideo.pause();
+
   }
 }

@@ -67,7 +67,6 @@ import { HttpClientModule } from '@angular/common/http';
 //
 //import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 //import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import { MatVideoModule } from 'mat-video';
 @NgModule({
   declarations: [],
   imports: [
@@ -79,7 +78,6 @@ import { MatVideoModule } from 'mat-video';
     ReactiveFormsModule,
     //LeafletModule,
     //LeafletMarkerClusterModule,
-    MatVideoModule,
   ],
   exports: [
     CommonModule,
@@ -138,7 +136,6 @@ import { MatVideoModule } from 'mat-video';
     CdkTreeModule,
     //LeafletModule,
     //LeafletMarkerClusterModule,
-    MatVideoModule,
   ]
 })
 export class SharedAngularMaterialModule implements OnInit {
