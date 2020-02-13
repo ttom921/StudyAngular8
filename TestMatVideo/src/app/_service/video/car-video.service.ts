@@ -28,6 +28,9 @@ export class CarVideoService {
       {
         src: "http://static.videogular.com/assets/videos/elephants-dream.mp4#t=1.0"
       },
+      {
+        src: "http://localhost:4200/assets/[DATE(2016-08-14)TIME(13-00-00)]CH05.mp4"
+      },
 
     ];
     return data;

@@ -143,6 +143,30 @@ export class VideoPlayManagerComponent implements OnInit {
 
 將原來的github的碼全部拷貝過來,再加入`src\app\app.module.ts`的模組之中
 
+## 建立測試圖表
+
+```
+npm install echarts -S
+npm install ngx-echarts -S
+npm install @types/echarts -D
+```
+
+建立元件
+
+```
+ng g component _common/GpsInfo
+```
+
+加入`echarts.min.js`的資料
+
+```json
+{
+  "scripts": [
+    "../node_modules/echarts/dist/echarts.min.js"  // or echarts.js for debug purpose
+  ],
+}
+```
+
 
 
 
