@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
+
 import * as d3 from 'd3';
 @Component({
   selector: 'app-bar-chart',
@@ -10,11 +13,26 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
   @ViewChild('svg', { static: true }) svgRef: ElementRef<SVGElement>;
   loading = false;
-
+  dataset = [];
+  private margin: number;
+  private width: number;
+  private height: number;
+  private chartWidth: number;
+  private chartHeight: number;
+  // private xScale: any;
+  // private yScale: any;
+  private colors: any;
+  // private xAxis: any;
+  // private yAxis: any;
   constructor() {
-
+    this.generaterTestData();
+    this.margin = 20;
   }
-
+  generaterTestData() {
+    for (let i = 0; i < (8); i++) {
+      this.dataset.push(Math.floor(Math.random() * 80));
+    }
+  }
   ngOnInit() {
 
   }
@@ -22,46 +40,79 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    const data = [];
-    // const data = [
-    //   this.generateData(20, 10),
-    //   this.generateData(20, 10)
-    // ];
-    for (let i = 0; i < (8); i++) {
-      data.push([
-        { data: Math.floor(Math.random() * 80) },
-        { data: Math.floor(Math.random() * 80) }
-      ]);
-    }
-    // const { width } = this.chartContainer.nativeElement.getBoundingClientRect();
-    // const height = width / (16 / 9);
-    // const margin = Math.min(Math.max(width * 0.1, 20), 50);
-    const { width, height } = this.chartContainer.nativeElement.getBoundingClientRect();
-    const margin = 20;
-    const svg = d3.select(this.svgRef.nativeElement);
-    let fmt = `w=${width},h=${height}`;
-    console.log(fmt);
-    svg
-      .attr('viewBox', `0 0 ${width - margin * 2} ${height - margin * 2}`)
-      .attr('preserveAspectRatio', 'xMinYMid');
+    this.calWidthHeightMargin();
 
-    // this.calWidthHeightMargin();
-    // //console.log(this.data);
-    // this.drawChart(this.data);
+    //計算顏色
+    this.colors = d3.scaleLinear().domain([0, this.dataset.length]).range(<any[]>['red', 'blue']);
+    const svg = d3.select(this.svgRef.nativeElement);
+    this.drawChart(svg);
+    fromEvent(window, 'resize')
+      .pipe(
+        tap(() => this.loading = true),
+        debounceTime(300)
+      )
+      .subscribe(() => {
+        this.calWidthHeightMargin();
+        this.drawChart(svg);
+        this.loading = false;
+      });
+
   }
-  private getMaxValue(series: { data: number }[][]): number {
-    return series.reduce((serieMax, serie) => {
-      return Math.max(serieMax, serie.reduce((max, value) => Math.max(max, value.data), -Infinity))
-    }, -Infinity);
+  private drawChart(svg: any) {
+    const maxValue = d3.max(this.dataset);
+    // Create our SVG container
+    svg
+      .attr('viewBox', `0 0 ${this.width} ${this.height}`)
+      .attr('preserveAspectRatio', 'xMinYMin');
+    svg.selectAll('g').remove();
+    //x方向的座標的設定
+    var xScale = d3.scaleLinear()
+      .domain([0, this.dataset.length])
+      .range([0, this.chartWidth]);
+    svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', `translate(${this.margin}, ${this.chartHeight + this.margin})`)
+      .call(d3.axisBottom(xScale));
+    //y方向的座標的設定
+    var yScale = d3.scaleLinear()
+      .domain([0, maxValue])
+      .range([0, this.chartHeight]);
+
+    var yScale2 = d3.scaleLinear()
+      .domain([0, maxValue])
+      .range([this.chartHeight, 0]);
+
+    svg.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', `translate(${this.margin}, ${this.margin})`)
+      .call(d3.axisLeft(yScale2).ticks(Math.min(Math.floor(this.chartHeight / 50), maxValue)));
+    //建立bar
+    var bars = svg.append('g')
+      .attr('class', 'bars');
+
+    // Bind data to chart, and create bars
+    bars.selectAll('rect')
+      .data(this.dataset)
+      .enter()
+      .append('rect')
+      .style('fill', (d, i) => this.colors(i))
+      .attr('x', (d, i) => xScale(i) + this.margin)
+      .attr('y', (d) => this.chartHeight + this.margin - yScale(d))//使正常顯示
+      .attr('width', 20)
+      .attr('height', (d, i) => {
+        return yScale(d);//放火顯示
+      });
   }
-  // calWidthHeightMargin() {
-  //   const { width, height } = this.chartContainer.nativeElement.getBoundingClientRect();
-  //   this.width = width;
-  //   this.height = height;
-  //   this.margin.left = Math.min(Math.max(width * 0.1, 20), 50);
-  //   this.margin.top = Math.min(Math.max(height * 0.1, 20), 50);
-  //   //this.margin = 2;
-  //   let fmt = `w=${this.width},h=${this.height},m.top=${this.margin.top},m.left=${this.margin.left}`;
-  //   console.log(fmt);
-  // }
+
+  calWidthHeightMargin() {
+    const { width, height } = this.chartContainer.nativeElement.getBoundingClientRect();
+    this.width = width;
+    this.height = height;
+
+    this.chartWidth = width - 2 * this.margin;
+    this.chartHeight = height - 2 * this.margin;
+
+    // let fmt = `w=${this.width},h=${this.height},margin=${this.margin}`;
+    // console.log(fmt);
+  }
 }
