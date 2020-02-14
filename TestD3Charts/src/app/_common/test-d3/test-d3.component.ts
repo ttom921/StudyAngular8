@@ -42,8 +42,9 @@ export class TestD3Component implements OnInit, AfterViewInit {
     div_set.style("background", "red");
     div_set.style("margin", "4px");
     div_set.style("width", (d, i) => {
-      return (d[1] * 10) + "px";
+      return (d[1] as number * 10) + "px";
     });
+
     div_data_bind.exit().remove();/* 刪除「沒有資料可配對的物件」*/
     div_set.text((d, i) => {
       return i + " /" + d[0]

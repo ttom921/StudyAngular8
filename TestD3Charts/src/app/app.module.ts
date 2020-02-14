@@ -7,13 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VideoPlayManagerComponent } from './video-play-manager/video-play-manager.component';
 import { BarChartComponent } from './_common/bar-chart/bar-chart.component';
 import { TestD3Component } from './_common/test-d3/test-d3.component';
+import { TestBarChartComponent } from './_common/test-bar-chart/test-bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoPlayManagerComponent,
     BarChartComponent,
-    TestD3Component
+    TestD3Component,
+    TestBarChartComponent
   ],
   imports: [
     BrowserModule,
