@@ -13,7 +13,7 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
   @ViewChild('svg', { static: true }) svgRef: ElementRef<SVGElement>;
   loading = false;
-  dataset = [];
+  @Input() dataset = [];
   private margin: number;
   private width: number;
   private height: number;
@@ -21,11 +21,11 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
   private chartHeight: number;
   // private xScale: any;
   // private yScale: any;
-  private colors: any;
+  //private colors: any;
   // private xAxis: any;
   // private yAxis: any;
   constructor() {
-    this.generaterTestData();
+    //this.generaterTestData();
     this.margin = 20;
   }
   generaterTestData() {
@@ -37,13 +37,17 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
   ngOnChanges() {
-
+    if (this.dataset) {
+      const svg = d3.select(this.svgRef.nativeElement);
+      //console.log(svg);
+      if (svg != null) {
+        //this.calWidthHeightMargin();
+        this.drawChart(svg);
+      }
+    }
   }
   ngAfterViewInit(): void {
-    this.calWidthHeightMargin();
-
-    //計算顏色
-    this.colors = d3.scaleLinear().domain([0, this.dataset.length]).range(<any[]>['red', 'blue']);
+    //this.calWidthHeightMargin();
     const svg = d3.select(this.svgRef.nativeElement);
     this.drawChart(svg);
     fromEvent(window, 'resize')
@@ -52,14 +56,17 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
         debounceTime(300)
       )
       .subscribe(() => {
-        this.calWidthHeightMargin();
+        //this.calWidthHeightMargin();
         this.drawChart(svg);
         this.loading = false;
       });
 
   }
   private drawChart(svg: any) {
+    this.calWidthHeightMargin();
     const maxValue = d3.max(this.dataset);
+    //計算顏色
+    const colors = d3.scaleLinear().domain([0, this.dataset.length]).range(<any[]>['red', 'blue']);
     // Create our SVG container
     svg
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
@@ -85,7 +92,7 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
     svg.append('g')
       .attr('class', 'y axis')
       .attr('transform', `translate(${this.margin}, ${this.margin})`)
-      .call(d3.axisLeft(yScale2).ticks(Math.min(Math.floor(this.chartHeight / 50), maxValue)));
+      .call(d3.axisLeft(yScale2).ticks(Math.min(Math.floor(this.chartHeight / 20), maxValue)));
     //建立bar
     var bars = svg.append('g')
       .attr('class', 'bars');
@@ -95,7 +102,7 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
       .data(this.dataset)
       .enter()
       .append('rect')
-      .style('fill', (d, i) => this.colors(i))
+      .style('fill', (d, i) => colors(i))
       .attr('x', (d, i) => xScale(i) + this.margin)
       .attr('y', (d) => this.chartHeight + this.margin - yScale(d))//使正常顯示
       .attr('width', 20)
@@ -103,8 +110,8 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
         return yScale(d);//放火顯示
       });
   }
-
-  calWidthHeightMargin() {
+  //計算寬高
+  private calWidthHeightMargin() {
     const { width, height } = this.chartContainer.nativeElement.getBoundingClientRect();
     this.width = width;
     this.height = height;
