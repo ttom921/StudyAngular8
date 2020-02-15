@@ -4,7 +4,7 @@
 }
 
 .loader {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,4 +14,10 @@
   left: 0;
   background: white;
   opacity: 1;
+}
+
+.axis-title {
+  fill: none;
+  stroke: rgb(238, 67, 15);
+  stroke-width: 0.5px;
 }

@@ -8,6 +8,7 @@ import { VideoPlayManagerComponent } from './video-play-manager/video-play-manag
 import { BarChartComponent } from './_common/bar-chart/bar-chart.component';
 import { TestD3Component } from './_common/test-d3/test-d3.component';
 import { TestBarChartComponent } from './_common/test-bar-chart/test-bar-chart.component';
+import { LineChartComponent } from './_common/01_line_chart/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TestBarChartComponent } from './_common/test-bar-chart/test-bar-chart.c
     VideoPlayManagerComponent,
     BarChartComponent,
     TestD3Component,
-    TestBarChartComponent
+    TestBarChartComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
