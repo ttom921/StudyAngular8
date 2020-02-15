@@ -107,7 +107,7 @@ export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('y', (d) => this.chartHeight + this.margin - yScale(d))//使正常顯示
       .attr('width', 20)
       .attr('height', (d, i) => {
-        return yScale(d);//放火顯示
+        return yScale(d);//比例放大顯示
       });
   }
   //計算寬高
