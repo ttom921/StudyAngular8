@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.loader {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: white;
+  opacity: 1;
+}
+
+.axis-title {
+  fill: none;
+  stroke: rgb(238, 67, 15);
+  stroke-width: 0.5px;
+}

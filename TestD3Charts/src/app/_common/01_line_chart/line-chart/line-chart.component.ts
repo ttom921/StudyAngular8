@@ -7,7 +7,7 @@ import { tap, debounceTime } from 'rxjs/operators';
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
 })
 export class LineChartComponent implements OnInit, AfterViewInit {
 
