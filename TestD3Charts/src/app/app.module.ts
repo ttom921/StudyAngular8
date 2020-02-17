@@ -10,6 +10,7 @@ import { TestD3Component } from './_common/test-d3/test-d3.component';
 import { TestBarChartComponent } from './_common/test-bar-chart/test-bar-chart.component';
 import { LineChartComponent } from './_common/01_line_chart/line-chart/line-chart.component';
 import { MultiSeriesComponent } from './_common/02_multi_series_line_chart/multi-series/multi-series.component';
+import { GsensorInfoComponent } from './_common/gsensor-info/gsensor-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MultiSeriesComponent } from './_common/02_multi_series_line_chart/multi
     TestD3Component,
     TestBarChartComponent,
     LineChartComponent,
-    MultiSeriesComponent
+    MultiSeriesComponent,
+    GsensorInfoComponent
   ],
   imports: [
     BrowserModule,
