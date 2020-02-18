@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 
 import * as d3 from 'd3';
+import { fromEvent } from 'rxjs';
+import { tap, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gsensor-info',
@@ -33,10 +35,13 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
   showMaxVal = 1;
   showMinVal2 = -5;
   showMaxVal2 = 5;
+  gsensorScale = 1000;
 
+  gFontSize = "12px";
   gxColor = "#FF6666";
   gyColor = "#77FF77";
   gzColor = "#9999FF";
+  colors = [this.gxColor, this.gyColor, this.gzColor];
 
   xScale: any
   xScaleClamp: any;
@@ -51,10 +56,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
 
 
   }
-  private dragsartEvent(handle: any) {
-    //console.log(d3.event);
-    console.log(d3.event.x);
-  }
+
   ngOnInit() {
   }
   ngAfterViewInit(): void {
@@ -105,13 +107,11 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
 
     //畫sidebar
     this.drawSideBar(svg, this.xScaleClamp);
-
+    //畫文字
+    this.drawText(svg);
   }
   //畫sidebar
   private drawSideBar(svg: any, xScaleClamp: any) {
-
-
-    const parent = this;
     let x2Scale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth]).clamp(true);
     var slider = svg.append("g")
       .attr("class", "slider")
@@ -129,7 +129,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       .select(function () { return this.parentNode.appendChild(this.cloneNode(true)); })
       .attr("class", "track-overlay")
       .call(d3.drag()
-        .on("drag", this.dragged())
+        .on("start drag", this.startAndDragged())
       )
       ;
 
@@ -150,8 +150,73 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       .attr("stroke", "#666")
       .attr("stroke-width", "2px")
   }
+  //畫文字
+  private drawText(svg: any) {
+    const gtext = svg.append("g");
+    const gaxislabels = ["X", "Y", "Z"];
+    const gtxtlabels = ["gxTxt", "gyTxt", "gzTxt"];
+    const gtxtvalues = ["gxVal", "gyVal", "gzVal"];
+    let left = this.margin.left;
+    for (let i = 0; i < 3; i++) {
 
-  private dragged(): (d, i) => void {
+      const gitext = gtext.append("text")
+        .attr("id", gtxtlabels[i])
+        .attr("x", `${left}`)
+        .attr("y", `${this.margin.top}`)
+        .attr("dy", "0.71em")
+        ;
+      gitext.style("font-size", this.gFontSize)
+        .text(gaxislabels[i])
+        .attr("fill", this.colors[i]);
+
+      const giVal = gtext.append("text")
+        .attr("id", gtxtvalues[i])
+        .attr("x", `${left + 10}`)
+        .attr("y", `${this.margin.top}`)
+        .attr("dy", "0.71em")
+        ;
+      giVal.style("font-size", this.gFontSize)
+        .text("0.0000")
+        .attr("fill", this.colors[i]);
+      left += 60;
+    }
+
+    // //--Gx Text
+    // const gxtext = gtext.append("text")
+    //   .attr("id", "gxTxt")
+    //   .attr("x", `${this.margin.left}`)
+    //   .attr("y", `${this.margin.top}`)
+    //   .attr("dy", "0.71em")
+    //   ;
+    // gxtext.style("font-size", this.gFontSize)
+    //   .text("X")
+    //   .attr("fill", this.gxColor);
+
+    // const gxVal = gtext.append("text")
+    //   .attr("id", "gxVal")
+    //   .attr("x", `${this.margin.left + 10}`)
+    //   .attr("y", `${this.margin.top}`)
+    //   .attr("dy", "0.71em")
+    //   ;
+    // gxVal.style("font-size", this.gFontSize)
+    //   .text("0.0000")
+    //   .attr("fill", this.gxColor);
+
+
+  }
+  private updateText(gxV, gyV, gzV) {
+    let selectID = "";
+    let gMap = [
+      { "k": "#gxVal", "v": gxV / this.gsensorScale },
+      { "k": "#gyVal", "v": gyV / this.gsensorScale },
+      { "k": "#gzVal", "v": gzV / this.gsensorScale }
+    ];
+    gMap.forEach(item => {
+      selectID = item.k;
+      d3.select(selectID).text(item.v.toFixed(5));
+    });
+  }
+  private startAndDragged(): (d, i) => void {
     return (d, i) => {
       //console.dir(this);
       //console.log(d3.event.x);
@@ -160,7 +225,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  moveCircleLine(h) {
+  private moveCircleLine(h) {
     //console.log(h);
     const btncircle = d3.select('.handle');
     //console.log(btncircle);
@@ -169,18 +234,20 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     //console.log(btnline);
     btnline.attr("x1", this.xScaleClamp(h)).attr("x2", this.xScaleClamp(h));
     this.currentSec = Math.floor(h);
-
-    //_self.svg.handle2.attr("x1", _self.x2(h)).attr("x2", _self.x2(h));
-    //   _self.svg.handle.attr("cx", _self.x(h));
-    //   //_self.svg.style("background-color", d3.hsl(h, 0.8, 0.8));
-    //   _self.currentSec = Math.floor(h);
+    //console.log(this.currentSec);
+    let d = this.dataset[this.currentSec];
+    if (d != null) {
+      //console.log(d);
+      this.updateText(d.gx, d.gy, d.gz);
+    }
+    //
   }
   // dragged() {
   //   const btncircle = d3.select('handle');
   //   console.dir(this);
   //   //console.log(this.xScaleClamp.invert(d3.event.x));
   // }
-  private drawGValue(selection: any, gType: any, hScale: any, yAxis: any, xAxis: any, gline: any, color: any, ) {
+  private drawGValue(selection: any, gType: any, hScale: any, yAxis: any, xAxis: any, gline: any, color: any) {
     //console.log("call drawGValue");
     //console.log(this.margin);
 
@@ -223,102 +290,6 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     const lines = [gxline, gyline, gzline];
     return lines;
   }
-  // drawLine(svg: any, xScale: any, hScale: any) {
-
-  //   const gxline = d3.line()
-  //     //.curve(d3.curveBasis)
-  //     .x((d: any) => xScale(d.date))
-  //     .y((d: any) => hScale(d.gx))
-  //     ;
-  //   const gyline = d3.line()
-  //     //.curve(d3.curveBasis)
-  //     .x((d: any) => xScale(d.date))
-  //     .y((d: any) => hScale(d.gy))
-  //     ;
-  //   const gzline = d3.line()
-  //     //.curve(d3.curveBasis)
-  //     .x((d: any) => xScale(d.date))
-  //     .y((d: any) => hScale(d.gz))
-  //     ;
-
-  //   const colors = [this.gxColor, this.gyColor, this.gzColor];
-  //   const lines = [gxline, gyline, gzline]
-  //   let ypos = this.margin.top;
-  //   for (let i = 0; i < 3; i++) {
-  //     let g = svg.append('g');
-  //     let xpos = this.margin.left;
-  //     g.attr('transform', `translate(${xpos}, ${ypos})`)
-  //       .append('path')
-  //       .datum(this.dataset)
-  //       .attr('fill', 'none')
-  //       .attr('stroke', colors[i])
-  //       .attr('class', 'line')
-  //       .attr('d', lines[i]);
-  //     ypos += this.chartheightGap;
-  //   }
-
-  // }
-
-  // initYAxis(svg: any, hScale: any) {
-
-  //   const midheight = this.margin.top + this.margin.bottom;
-
-
-  //   let yAxis = d3.axisLeft(hScale).ticks(2).tickSize(5);
-
-  //   //畫Y Axis
-  //   svg.append('g')
-  //     .attr('class', 'y axis')
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.chartheightGap * 0})`)
-  //     .call(yAxis)
-
-  //   svg.append('g')
-  //     .attr('class', 'y axis')
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.chartheightGap * 1})`)
-  //     .call(yAxis)
-
-  //   svg.append('g')
-  //     .attr('class', 'y axis')
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.chartheightGap * 2})`)
-  //     .call(yAxis)
-
-  // }
-  // initXAxis(svg: any, hScale: any) {
-  //   //x方向的座標的設定
-  //   const midwidth = this.margin.left + this.margin.right;
-
-  //   let xScale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]);
-  //   let xScaleClamp = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]).clamp(true);
-  //   //let fmt = `xScaleClamp=${xScaleClamp}`;
-  //   //console.log(fmt);
-  //   //_self.xAxis = d3.axisBottom(_self.x).ticks(10).tickSize(10).tickPadding(10).tickFormat("");
-  //   //畫X Axis
-  //   //不顯示數字
-  //   let xAxis = d3.axisBottom(xScale).ticks(10).tickSize(10).tickPadding(10).tickFormat((d) => '');
-  //   //console.log(`${hScale(0)},${hScale(1)},${hScale(2)}`)
-  //   //畫第一組gx
-  //   svg.append('g')
-  //     .attr('class', 'x axis')
-  //     .attr("stroke-dasharray", "2,2")
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 0})`)
-  //     .call(xAxis)
-  //     ;
-  //   //畫第二組gy
-  //   svg.append('g')
-  //     .attr('class', 'x axis')
-  //     .attr("stroke-dasharray", "2,2")
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 1})`)
-  //     .call(xAxis)
-  //     ;
-  //   //畫第二組gz
-  //   svg.append('g')
-  //     .attr('class', 'x axis')
-  //     .attr("stroke-dasharray", "2,2")
-  //     .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 2})`)
-  //     .call(xAxis)
-  //     ;
-  //   return xScale;
-  // }
   //初始化svg
   private initSvg(svg: any, visiable = false) {
     //建立svg
@@ -327,6 +298,17 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       .attr('height', this.chartHeight)
       .attr('transform', `translate(0, 0)`);
     svg.selectAll('g').remove();
+    //視窗有resize的事件
+    fromEvent(window, 'resize')
+      .pipe(
+        tap(() => this.loading = true),
+        debounceTime(300)
+      )
+      .subscribe(() => {
+        //this.calWidthHeightMargin();
+        this.drawChart(svg);
+        this.loading = false;
+      });
     // //查看大小
     if (visiable == false) return;
     svg.append('g').append('rect')
@@ -352,8 +334,8 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     this.chartHeight = parseInt(`${height - this.margin.top - this.margin.bottom}`);
 
     this.chartheightGap = parseInt(`${this.chartHeight / ((2 * 2) + 1)}`); //寬度
-    console.log(this.chartheightGap);
-    console.log(` this.chartWidth=${this.chartWidth},this.chartHeight=${this.chartHeight}`);
+    //console.log(this.chartheightGap);
+    //console.log(` this.chartWidth=${this.chartWidth},this.chartHeight=${this.chartHeight}`);
   }
   //以下是測試
   testGeneraterGsensordata() {
