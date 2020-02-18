@@ -52,9 +52,6 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     // this.chartLeftGap = 20;
     // this.chartBottomGap = 0;
     this.testGeneraterGsensordata();
-
-
-
   }
 
   ngOnInit() {
@@ -63,6 +60,9 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     //選到svg標籤
     const svg = d3.select(this.svgRef.nativeElement);
     this.drawChart(svg);
+  }
+  setDurationTime(second) {
+    this.moveCircleLine(second);
   }
   private drawChart(svg: any) {
     this.calWidthHeightMargin();
@@ -320,7 +320,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       .attr('height', this.chartHeight);
   }
   //計算顯示的偏移值y的座標
-  inieHAxis(svg: any) {
+  private inieHAxis(svg: any) {
     //this.chartHeight
     this.hScale = d3.scaleLinear().domain([this.showMinVal, this.showMaxVal]).range([this.chartHeight / 6, 0]).clamp(true);
     return this.hScale;
