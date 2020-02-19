@@ -44,8 +44,17 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
   colors = [this.gxColor, this.gyColor, this.gzColor];
 
   xScale: any
+  xAxis: any;
   xScaleClamp: any;
   hScale: any;
+
+  yScale2: any;
+  yAxis2: any;
+
+  focusMode = "na";
+  isOnceMode = false;
+  zoomIndex = 5;
+  zoomScale = [0.2, 0.5, 1, 2, 3, this.showMaxVal2];
 
   //drag: any;
   constructor() {
@@ -66,7 +75,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
   }
   private drawChart(svg: any) {
     this.calWidthHeightMargin();
-    this.initSvg(svg, true);
+    this.initSvg(svg, false);
 
     //計算各個參數
     const midwidth = this.margin.left + this.margin.right;
@@ -76,9 +85,11 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     const xScale = this.xScale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]);
     this.xScaleClamp = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]).clamp(true);
     //x軸
-    let xAxis = d3.axisBottom(xScale).ticks(10).tickSize(10).tickPadding(10).tickFormat((d) => '');
+    this.xAxis = d3.axisBottom(xScale).ticks(10).tickSize(10).tickPadding(10).tickFormat((d) => '');
     //y軸
     let yAxis = d3.axisLeft(hScale).ticks(2).tickSize(5);
+    this.yScale2 = d3.scaleLinear().domain([-this.zoomScale[this.zoomIndex], this.zoomScale[this.zoomIndex]]).range([this.chartHeight - this.chartheightGap * 2, 0]).clamp(true);
+    let yAxis2 = d3.axisLeft(this.yScale2).ticks(3).tickSize(1);
     //_self.y2 = d3.scaleLinear().domain([-_self.zoomScale[_self.zoomIndex], _self.zoomScale[_self.zoomIndex]]).range([height - 50, 0]).clamp(true);
     //_self.yAxis2 = d3.axisLeft(_self.y2).ticks(3).tickSize(1);
     const colors = [this.gxColor, this.gyColor, this.gzColor];
@@ -86,30 +97,146 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     //路徑對映計算
     const lines = this.pathcMapCal(xScale, hScale, this.xScaleClamp);
 
-    //draw gxgraph
+    //畫 gxgraph
     const gxgraph = svg.append("g");
     gxgraph
+      .style("opacity", `${this.focusMode == "na" ? "1" : "0"}`)
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 0})`)
+      .on('click', this.graphClick())
       ;
-    this.drawGValue(gxgraph, 'x', hScale, yAxis, xAxis, lines[0], colors[0]);
+    //畫偵測大小
+    this.drawCDRect(gxgraph, "gx", midwidth);
+    this.drawGValue(gxgraph, 'gx', hScale, yAxis, this.xAxis, lines);
+
     //畫 gygraph
     const gygraph = svg.append("g");
     gygraph
+      .style("opacity", `${this.focusMode == "na" ? "1" : "0"}`)
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 1})`)
+      .on('click', this.graphClick())
       ;
-    this.drawGValue(gygraph, 'y', hScale, yAxis, xAxis, lines[1], colors[1]);
-    //畫 gzgraph
+    //畫偵測大小
+    this.drawCDRect(gygraph, "gy", midwidth);
+    this.drawGValue(gygraph, 'gy', hScale, yAxis, this.xAxis, lines);
+
+    // //畫 gzgraph
     const gzgraph = svg.append("g");
     gzgraph
+      .style("opacity", `${this.focusMode == "na" ? "1" : "0"}`)
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 2})`)
+      .on('click', this.graphClick())
       ;
-    this.drawGValue(gzgraph, 'z', hScale, yAxis, xAxis, lines[2], colors[2]);
+    //畫偵測大小
+    this.drawCDRect(gzgraph, "gz", midwidth);
+    this.drawGValue(gzgraph, 'gz', hScale, yAxis, this.xAxis, lines);
+    //畫 glarggraph
+    //console.log(this.focusMode);
+    const glargegraph = svg.append("g");
+    glargegraph
+      .style("opacity", `${this.focusMode == "na" ? "0" : "1"}`)
+      .attr("id", "glarge")
+      //.attr("transform", "translate(" + _self.margin.left + "," + (_self.margin.top) + ")")
+      .attr('transform', `translate(${this.margin.left}, ${this.margin.top + hScale(0) + this.chartheightGap * 0})`)
+      .on('click', this.graphClick())
+      ;
 
+    //畫放大的bar
+    this.drawGLargeValue(glargegraph, xScale, yAxis2, lines);
     //畫sidebar
     this.drawSideBar(svg, this.xScaleClamp);
     //畫文字
     this.drawText(svg);
   }
+  //#region  事件相關
+  private graphClick(): (d, i) => void {
+    return (d, i) => {
+      //console.dir(this);
+      //console.log("graphClick d3.event.target=" + d3.event.target);
+      const htmlid = d3.event.target.id;
+      //console.log("graphClick=" + d3.event.target.id);
+      if (this.focusMode == "gx" || this.focusMode == "gy" || this.focusMode == "gz") {
+        this.focusMode = "na";
+      } else {
+        switch (d3.event.target.id) {
+          case "gx":
+            this.focusMode = htmlid;
+            break;
+          case "gy":
+            this.focusMode = htmlid;
+            break;
+          case "gz":
+            this.focusMode = htmlid;
+            break;
+          default:
+            this.focusMode = "na";
+            break;
+        }
+      }
+      //console.log("this.focusMode=" + this.focusMode);
+      //選到svg標籤
+      const svg = d3.select(this.svgRef.nativeElement);
+      this.drawChart(svg);
+    }
+  }
+  private wheelevent(): (d, i) => void {
+    return (d, i) => {
+      //console.dir(this);
+      //console.log(d3.event.x);
+      //console.log(this);
+      if (d3.event.wheelDelta < 0) {
+        this.zoomIndex++;
+        if (this.zoomIndex > 5)
+          this.zoomIndex = 5;
+      }
+      else {
+        this.zoomIndex--;
+        if (this.zoomIndex < 0)
+          this.zoomIndex = 0;
+      }
+      //console.log(this.zoomIndex);
+      this.yScale2 = this.yScale2 = d3.scaleLinear().domain([-this.zoomScale[this.zoomIndex], this.zoomScale[this.zoomIndex]]).range([this.chartHeight - this.chartheightGap * 2, 0]).clamp(true);
+      this.yAxis2 = d3.axisLeft(this.yScale2).ticks(3).tickSize(1);
+
+      //路徑對映計算
+      const lines = this.pathcMapCal(this.xScale, this.yScale2, this.xScaleClamp);
+
+      const svg = d3.select(this.svgRef.nativeElement);
+      let glarge = svg.select("#glarge");
+      // console.log(glarge);
+      glarge.remove();
+      glarge = svg.append("g");
+      glarge
+        .attr("id", "glarge")
+        .style("opacity", `${this.focusMode == "na" ? "0" : "1"}`)
+        .attr("stroke", "#FFF")
+        .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.hScale(0) + this.chartheightGap * 0})`)
+        .on('click', this.graphClick())
+        ;
+      //畫放大的bar
+      this.drawGLargeValue(glarge, this.xScale, this.yAxis2, lines);
+      // _self.svg.glarge.remove();
+      // _self.svg.glarge = _self.svg.append("g")
+      //     .style("opacity", 1)
+      //     .attr("stroke", "#FFF")
+      //     .attr("transform", "translate(" + (_self.margin.left + 3) + "," + (_self.margin.top) + ")")
+      //     //.attr("transform", "translate(" + _self.margin.left + "," + (_self.margin.top) + ")")
+      //     .call(drawGValue, "large");
+
+    }
+  }
+  private startAndDragged(): (d, i) => void {
+    return (d, i) => {
+      //console.dir(this);
+      //console.log(d3.event.x);
+      //console.log(this.xScaleClamp.invert(d3.event.x));
+      this.moveCircleLine(this.xScaleClamp.invert(d3.event.x));
+    }
+  }
+  private svgClickEvent() {
+
+    console.log(d3.event.target);
+  }
+  //#endregion
   //畫sidebar
   private drawSideBar(svg: any, xScaleClamp: any) {
     let x2Scale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth]).clamp(true);
@@ -180,29 +307,6 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
         .attr("fill", this.colors[i]);
       left += 60;
     }
-
-    // //--Gx Text
-    // const gxtext = gtext.append("text")
-    //   .attr("id", "gxTxt")
-    //   .attr("x", `${this.margin.left}`)
-    //   .attr("y", `${this.margin.top}`)
-    //   .attr("dy", "0.71em")
-    //   ;
-    // gxtext.style("font-size", this.gFontSize)
-    //   .text("X")
-    //   .attr("fill", this.gxColor);
-
-    // const gxVal = gtext.append("text")
-    //   .attr("id", "gxVal")
-    //   .attr("x", `${this.margin.left + 10}`)
-    //   .attr("y", `${this.margin.top}`)
-    //   .attr("dy", "0.71em")
-    //   ;
-    // gxVal.style("font-size", this.gFontSize)
-    //   .text("0.0000")
-    //   .attr("fill", this.gxColor);
-
-
   }
   private updateText(gxV, gyV, gzV) {
     let selectID = "";
@@ -216,14 +320,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       d3.select(selectID).text(item.v.toFixed(5));
     });
   }
-  private startAndDragged(): (d, i) => void {
-    return (d, i) => {
-      //console.dir(this);
-      //console.log(d3.event.x);
-      //console.log(this.xScaleClamp.invert(d3.event.x));
-      this.moveCircleLine(this.xScaleClamp.invert(d3.event.x));
-    }
-  }
+
 
   private moveCircleLine(h) {
     //console.log(h);
@@ -242,15 +339,87 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     }
     //
   }
-  // dragged() {
-  //   const btncircle = d3.select('handle');
-  //   console.dir(this);
-  //   //console.log(this.xScaleClamp.invert(d3.event.x));
-  // }
-  private drawGValue(selection: any, gType: any, hScale: any, yAxis: any, xAxis: any, gline: any, color: any) {
-    //console.log("call drawGValue");
-    //console.log(this.margin);
 
+  private drawGLargeValue(selection: any, xScale: any, yAxis2: any, lines: any) {
+    let gline = null;
+    let color = null;
+    switch (this.focusMode) {
+      case "gx":
+        gline = lines[0];
+        color = this.colors[0];
+        break;
+      case "gy":
+        gline = lines[1];
+        color = this.colors[1];
+        break;
+      case "gz":
+        gline = lines[2];
+        color = this.colors[2];
+        break;
+      default:
+        gline = lines[0];
+        color = this.colors[0];
+        break;
+    }
+    gline = this.getLargeline(xScale, this.yScale2);
+    //畫Y軸
+    selection.append("g")
+      .attr("class", "axis axis--y")
+      .call(yAxis2);
+    selection.append("g")
+      .attr("class", "axis axis--x")
+      .attr("stroke-dasharray", "2,2")
+      //.attr("transform", "translate(0," + _self.y2(0) + ")")
+      .attr("transform", `translate(0,${this.yScale2(0)})`)
+      .call(this.xAxis);
+
+    selection.append("path")
+      .datum(this.dataset)
+      .attr('fill', 'none')
+      .attr('stroke', color)
+      .attr('class', 'line')
+      .attr('d', gline);
+
+  }
+  private getLargeline(xScale: any, yScale2: any) {
+    let gline = null;
+    switch (this.focusMode) {
+      case "gx":
+        gline = d3.line()
+          .x((d: any) => xScale(d.date))
+          .y((d: any) => yScale2(d.gx));
+        break;
+      case "gy":
+        gline = d3.line()
+          .x((d: any) => xScale(d.date))
+          .y((d: any) => yScale2(d.gy));
+        break;
+      case "gz":
+        gline = d3.line()
+          .x((d: any) => xScale(d.date))
+          .y((d: any) => yScale2(d.gz));
+        break;
+
+    }
+    return gline;
+  }
+  private drawGValue(selection: any, gType: any, hScale: any, yAxis: any, xAxis: any, lines: any) {
+    let gline = null;
+    let color = null;
+    switch (gType) {
+      case "gx":
+        gline = lines[0];
+        color = this.colors[0];
+        break;
+      case "gy":
+        gline = lines[1];
+        color = this.colors[1];
+        break;
+      case "gz":
+        gline = lines[2];
+        color = this.colors[2];
+        break;
+    }
     //畫Y軸
     selection.append("g")
       .attr("class", "axis axis--y")
@@ -262,14 +431,14 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       .attr("transform", "translate(0," + hScale(0) + ")")
       .call(xAxis);
 
+    //畫資料
     selection.append("path")
       .datum(this.dataset)
+      .attr('id', `${gType}`)
       .attr('fill', 'none')
       .attr('stroke', color)
       .attr('class', 'line')
       .attr('d', gline);
-
-
   }
   private pathcMapCal(xScale: any, hScale: any, xScaleClamp: any) {
     const gxline = d3.line()
@@ -290,13 +459,30 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     const lines = [gxline, gyline, gzline];
     return lines;
   }
+  //畫偵測框框
+  private drawCDRect(selection: any, htmlid: any, midwidth: any) {
+    const detrect = selection.append("rect");
+    detrect
+      .attr('transform', `translate(0, 0)`)
+      .attr("id", htmlid)
+      .attr("width", `${this.chartWidth - midwidth}`)
+      .attr("height", `${this.chartheightGap}`)
+      //.attr('fill', "#333333")
+      .attr('fill', "white")
+      .attr('fill-opacity', "0");
+    ;
+  }
   //初始化svg
   private initSvg(svg: any, visiable = false) {
     //建立svg
     svg
       .attr('width', this.chartWidth)
       .attr('height', this.chartHeight)
-      .attr('transform', `translate(0, 0)`);
+      .attr('transform', `translate(0, 0)`)
+      .on('wheel', this.wheelevent())
+      //.on('click', this.svgClickEvent)
+      ;
+
     svg.selectAll('g').remove();
     //視窗有resize的事件
     fromEvent(window, 'resize')
