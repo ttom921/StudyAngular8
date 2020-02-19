@@ -13,15 +13,22 @@
   <div class="right color3">
     <div class="mainplayer color4">
 
-      <mat-video #mainvideoid [preload]="true" [quality]="false" [fullscreen]="false">
+      <mat-video #mainvideoid [preload]="true" [quality]="false" [fullscreen]="false" (timeChange)="onTimechang($event)" [(time)]="currentTime">
         <source matVideoSource src={{mainvideo.src}} type="video/mp4">
       </mat-video>
     </div>
     <div class="gsensorinfo color5">
-      <gps-info></gps-info>
+      <app-gsensor-info #gensor [tSecond]="60" (timeChange)="onGpsTimechang($event)"></app-gsensor-info>
+      <!-- <gps-info></gps-info> -->
+      <!-- <div>
+        time:{{currentTime}}
+      </div>
+      <div>
+        <input matInput type="text" [(ngModel)]="currentTime" placeholder="Current Time">
+      </div>
       <div (click)="TestClick($event)">
 
-      </div>
+      </div> -->
 
 
     </div>

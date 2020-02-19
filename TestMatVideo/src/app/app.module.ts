@@ -9,12 +9,14 @@ import { VideoPlayManagerComponent } from './video-play-manager/video-play-manag
 import { MatVideoModule } from './_common/video/video.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { GpsInfoComponent } from './_common/gps-info/gps-info.component';
+import { GsensorInfoComponent } from './_common/gsensor-info/gsensor-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoPlayManagerComponent,
     GpsInfoComponent,
+    GsensorInfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CarVideoService } from '../_service/video/car-video.service';
 import { MatVideoComponent } from '../_common/video/video.component';
+import { GsensorInfoComponent } from '../_common/gsensor-info/gsensor-info.component';
+import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-video-play-manager',
   templateUrl: './video-play-manager.component.html',
   styleUrls: ['./video-play-manager.component.scss']
+
 })
 export class VideoPlayManagerComponent implements OnInit {
 
@@ -19,6 +22,8 @@ export class VideoPlayManagerComponent implements OnInit {
   mainvideo = {
     src: ""
   };
+  currentTime: any;
+  @ViewChild('gensor', { static: true }) gsensorInfo: GsensorInfoComponent;
   constructor(
     private carVideoService: CarVideoService
   ) {
@@ -44,6 +49,8 @@ export class VideoPlayManagerComponent implements OnInit {
     //   console.log('video click->' + this.elmainvideo.currentTime);
     //   return false;
     // })
+
+
   }
   onVideoclick(event: Event, itemvideo) {
     //event.preventDefault();
@@ -51,6 +58,16 @@ export class VideoPlayManagerComponent implements OnInit {
     //console.log(itemvideo.src);
     this.mainvideo.src = itemvideo.src;
     return false;
+  }
+  onTimechang(seconds) {
+    this.currentTime = Math.floor(seconds);
+    console.log("onTimechang=" + this.currentTime);
+    this.gsensorInfo.setDurationTime(this.currentTime);
+  }
+  onGpsTimechang(seconds) {
+    //this.currentTime = seconds;
+    console.log(seconds);
+    this.matMainVideo.time = seconds;
   }
   TestClick(event: Event) {
     event.stopPropagation();
