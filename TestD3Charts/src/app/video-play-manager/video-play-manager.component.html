@@ -6,16 +6,16 @@
   <div class="right">
     <div class="mainplayer color4">
 
-      <div>
+      <!-- <div>
         <input matInput type="text" value={{currentTime}} placeholder="Current Time">
-      </div>
+      </div> -->
     </div>
     <div class="gsensorinfo">
-
+      <app-test-bar-chart></app-test-bar-chart>
       <!-- <app-bar-chart *ngIf="chartData" [dataset]="chartData"></app-bar-chart> -->
       <!-- <app-line-chart></app-line-chart> -->
       <!-- <app-multi-series></app-multi-series> -->
-      <app-gsensor-info #gensor [tSeconds]="20" [(currentSec)]="currentTime"></app-gsensor-info>
+      <!-- <app-gsensor-info #gensor [tSeconds]="20" [(currentSec)]="currentTime"></app-gsensor-info> -->
 
     </div>
   </div>
