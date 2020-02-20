@@ -18,7 +18,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
   @ViewChild('svg', { static: true }) svgRef: ElementRef<SVGElement>;
   loading = false;
   dataset = [];
-  private margin = { top: 8, right: 32, bottom: 8, left: 32 };
+  private margin = { top: 8, right: 20, bottom: 8, left: 32 };
   //最上層的寬高
   width: number;
   height: number;
@@ -27,17 +27,31 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
   chartHeight: number;
   //顯示的偏移值
   chartheightGap: number;
-  //
-  @Input() tSecond: number;//全部秒數
-  @Output() timeChange = new EventEmitter<number>();
-  currentSec: number;//目前秒數
+  //秒數相關
+  @Input() tSeconds: number = 10;//全部秒數
+  _currentSec: number = 0;//目前秒數
+  @Input()
+  set currentSec(val: number) {
+    this.currentSecChange.emit(val);
+    this._currentSec = val;
+  }
+  get currentSec() {
+    return this._currentSec;
+  }
+  @Output() currentSecChange: EventEmitter<number> = new EventEmitter<number>();
+
+
+  //currentSec: number = 0;
+
+  totaldatasnum: number;//全部資料
+  gsensorgen = 1;//gsensor的一秒產生的數量
   //g-sendor的值
   showMinVal = -1;
   showMaxVal = 1;
   showMinVal2 = -5;
   showMaxVal2 = 5;
-  gsensorScale = 1000;
-
+  //gsensorScale = 1000;
+  gsensorScale = 1;
   gFontSize = "12px";
   gxColor = "#FF6666";
   gyColor = "#77FF77";
@@ -71,6 +85,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     //選到svg標籤
     const svg = d3.select(this.svgRef.nativeElement);
     this.drawChart(svg);
+    this.setDurationTime(0);
   }
   setDurationTime(second) {
     this.moveCircleLine(second);
@@ -84,10 +99,11 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     //Y的對映
     const hScale = this.inieHAxis(svg);
     //X的對映
-    const xScale = this.xScale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]);
-    this.xScaleClamp = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth - midwidth]).clamp(true);
+    const xScale = this.xScale = d3.scaleLinear().domain([0, this.totaldatasnum]).range([0, this.chartWidth - midwidth]);
+    this.xScaleClamp = d3.scaleLinear().domain([0, this.totaldatasnum]).range([0, this.chartWidth - midwidth]).clamp(true);
     //x軸
-    this.xAxis = d3.axisBottom(xScale).ticks(10).tickSize(10).tickPadding(10).tickFormat((d) => '');
+    //this.xAxis = d3.axisBottom(xScale).ticks(10).tickSize(10).tickPadding(10).tickFormat((d: any) => (d / this.gsensorgen) + 's');
+    this.xAxis = d3.axisBottom(xScale).ticks(this.tSeconds).tickSize(10).tickPadding(10).tickFormat((d: any) => "");
     //y軸
     let yAxis = d3.axisLeft(hScale).ticks(2).tickSize(5);
     this.yScale2 = d3.scaleLinear().domain([-this.zoomScale[this.zoomIndex], this.zoomScale[this.zoomIndex]]).range([this.chartHeight - this.chartheightGap * 2, 0]).clamp(true);
@@ -150,6 +166,7 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     this.drawText(svg);
   }
   //#region  事件相關
+  //選取那個g值的面板
   private graphClick(): (d, i) => void {
     return (d, i) => {
       //console.dir(this);
@@ -234,14 +251,10 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
       this.moveCircleLine(this.xScaleClamp.invert(d3.event.x));
     }
   }
-  private svgClickEvent() {
-
-    console.log(d3.event.target);
-  }
   //#endregion
   //畫sidebar
   private drawSideBar(svg: any, xScaleClamp: any) {
-    let x2Scale = d3.scaleLinear().domain([0, this.tSecond]).range([0, this.chartWidth]).clamp(true);
+    let x2Scale = d3.scaleLinear().domain([0, this.totaldatasnum]).range([0, this.chartWidth]).clamp(true);
     var slider = svg.append("g")
       .attr("class", "slider")
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.chartheightGap * 4})`)
@@ -332,10 +345,11 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     const btnline = d3.select('.trackbar');
     //console.log(btnline);
     btnline.attr("x1", this.xScaleClamp(h)).attr("x2", this.xScaleClamp(h));
-    this.currentSec = Math.floor(h);
-    this.timeChange.emit(this.currentSec);
+
+    this.currentSec = Math.floor(h / this.gsensorgen);
     //console.log(this.currentSec);
-    let d = this.dataset[this.currentSec];
+    const curridx = Math.floor(h);
+    let d = this.dataset[curridx];
     if (d != null) {
       //console.log(d);
       this.updateText(d.gx, d.gy, d.gz);
@@ -522,15 +536,19 @@ export class GsensorInfoComponent implements OnInit, AfterViewInit {
     this.chartWidth = parseInt(`${width - this.margin.left - this.margin.right}`);
     this.chartHeight = parseInt(`${height - this.margin.top - this.margin.bottom}`);
 
-    this.chartheightGap = parseInt(`${this.chartHeight / ((2 * 2) + 1)}`); //寬度
+    //this.chartheightGap = parseInt(`${this.chartHeight / ((2 * 2) + 1)}`); //寬度
+    this.chartheightGap = parseInt(`${this.chartHeight / (4 + 1)}`); //寬度
     //console.log(this.chartheightGap);
     //console.log(` this.chartWidth=${this.chartWidth},this.chartHeight=${this.chartHeight}`);
   }
   //以下是測試
   testGeneraterGsensordata() {
-    //this.tSecond = 3600;//60 * 60;//3600
+    //this.tSeconds = 10;
+    //this.gsensorgen = 1;
+    //多少秒有幾筆gps資料
+    this.totaldatasnum = this.tSeconds * this.gsensorgen;
     //----------------------Test Data------------------------
-    for (var i = 0; i < this.tSecond; i++) {
+    for (var i = 0; i < this.totaldatasnum + 1; i++) {
       let rX = d3.randomUniform(-0.3, 0.3)();
       let rY = d3.randomUniform(-0.8, 0.8)();
       let rZ = d3.randomUniform(-0.2, 0.2)();

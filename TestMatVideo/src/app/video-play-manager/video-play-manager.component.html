@@ -18,7 +18,8 @@
       </mat-video>
     </div>
     <div class="gsensorinfo color5">
-      <app-gsensor-info #gensor [tSecond]="60" (timeChange)="onGpsTimechang($event)"></app-gsensor-info>
+      <!-- <app-gsensor-info #gensor [tSecond]="60" (timeChange)="onGpsTimechang($event)"></app-gsensor-info> -->
+      <app-gsensor-info #gensor [tSeconds]="60" [(currentSec)]="currentTime"></app-gsensor-info>
       <!-- <gps-info></gps-info> -->
       <!-- <div>
         time:{{currentTime}}

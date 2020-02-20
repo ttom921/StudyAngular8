@@ -9,6 +9,7 @@ import { GsensorInfoComponent } from '../_common/gsensor-info/gsensor-info.compo
 export class VideoPlayManagerComponent implements OnInit {
   @ViewChild('gensor', { static: true }) private gsensorcom: GsensorInfoComponent;
   //protected chartData: Array<any>;
+  currentTime: number = 0;
   constructor() { }
 
   ngOnInit() {
