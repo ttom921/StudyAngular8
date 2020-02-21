@@ -8,10 +8,11 @@ import { SharedAngularMaterialModule } from 'src/app/share/shared-angular-materi
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { Ch01HelloWorldComponent } from '../ch01-hello-world/ch01-hello-world.component';
 import { Ch02SelBindComponent } from '../ch02-sel-bind/ch02-sel-bind.component';
+import { Ch03UEEdataComponent } from '../ch03-ueedata/ch03-ueedata.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, Ch01HelloWorldComponent, Ch02SelBindComponent],
+  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, Ch01HelloWorldComponent, Ch02SelBindComponent, Ch03UEEdataComponent],
   imports: [
     CommonModule,
     SharedAngularMaterialModule,
