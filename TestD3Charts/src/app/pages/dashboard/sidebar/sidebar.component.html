@@ -1,0 +1,22 @@
+<mat-nav-list style="margin-top: 64px;" color="primary">
+  <!-- <h3 matSubheader>示範用頁面</h3> -->
+  <mat-list-item [routerLink]="['/','dashboard','ch01']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>第01章Helloworld
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+  <mat-list-item [routerLink]="['/','dashboard','ch02']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>settings_applications</mat-icon>第02章選擇元素和綁定數據
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+  <mat-list-item [routerLink]="['/','dashboard','emaileventlist']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>email</mat-icon>EMAIL
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+  <!-- 另外一組選單 -->
+  <!-- <h3 matSubheader>其他頁面</h3> -->
+  <!-- <a [routerLink]="['/']" mat-list-item>首頁</a>
+        <a [routerLink]="['/']" mat-list-item>Google</a>
+        <a [routerLink]="['/']" mat-list-item>Facebook</a> -->
+</mat-nav-list>

@@ -21,7 +21,7 @@ import { GsensorInfoComponent } from './_common/gsensor-info/gsensor-info.compon
     TestBarChartComponent,
     LineChartComponent,
     MultiSeriesComponent,
-    GsensorInfoComponent
+    GsensorInfoComponent,
   ],
   imports: [
     BrowserModule,

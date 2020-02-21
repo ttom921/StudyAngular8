@@ -15,5 +15,61 @@ html, body, app-root,mat-sidenav-container, .site {
   margin: 0;
   width: 100%;
   height: 100%;
+}
+.site {
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top:64px;
+}
 
+.fill-remaining-space {
+  // 使用 flexbox 填充剩余空间
+  // @angular/material 中的很多控件使用了 flex 布局
+  flex: 1 1 auto;
+}
+
+
+//#region 以下是自定義字型大小
+.mat-raised-button {
+  font-size: 18px;
+}
+// .mat-list-base .mat-list-item .mat-line:nth-child(n+2) {
+//   font-size: 18px;
+// }
+.mat-line {
+  font-size: 18px !important;
+}
+.mat-list-base .mat-list-option {
+  font-size: 18px;
+}
+.mat-header-cell{
+  font-size: 14px;
+}
+.mat-cell{
+  font-size: 18px;
+}
+
+//#endregion 以下是自定義字型大小
+
+.color1 {
+  background-color: #f80909;
+}
+.color2 {
+  background-color: #f4f809;
+}
+.color3 {
+  background-color: #31f809;
+}
+.color4 {
+  background-color: #0949f8;
+}
+.color5 {
+  background-color: #c809f8;
 }
