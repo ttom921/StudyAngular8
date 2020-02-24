@@ -9,10 +9,20 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { Ch01HelloWorldComponent } from '../ch01-hello-world/ch01-hello-world.component';
 import { Ch02SelBindComponent } from '../ch02-sel-bind/ch02-sel-bind.component';
 import { Ch03UEEdataComponent } from '../ch03-ueedata/ch03-ueedata.component';
+import { Ch04ElmsidComponent } from '../ch04-elmsid/ch04-elmsid.component';
+import { Ch05SimplebarComponent } from '../ch05-simplebar/ch05-simplebar.component';
+import { Ch06ScaleComponent } from '../ch06-scale/ch06-scale.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, HeaderComponent, SidebarComponent, Ch01HelloWorldComponent, Ch02SelBindComponent, Ch03UEEdataComponent],
+  declarations: [DashboardComponent, HeaderComponent, SidebarComponent,
+    Ch01HelloWorldComponent,
+    Ch02SelBindComponent,
+    Ch03UEEdataComponent,
+    Ch04ElmsidComponent,
+    Ch05SimplebarComponent,
+    Ch06ScaleComponent
+  ],
   imports: [
     CommonModule,
     SharedAngularMaterialModule,
