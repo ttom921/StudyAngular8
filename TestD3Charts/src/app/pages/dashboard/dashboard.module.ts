@@ -12,10 +12,11 @@ import { Ch03UEEdataComponent } from '../ch03-ueedata/ch03-ueedata.component';
 import { Ch04ElmsidComponent } from '../ch04-elmsid/ch04-elmsid.component';
 import { Ch05SimplebarComponent } from '../ch05-simplebar/ch05-simplebar.component';
 import { Ch06ScaleComponent } from '../ch06-scale/ch06-scale.component';
+import { MenuListItemComponent } from 'src/app/_common/menu-list-item/menu-list-item.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, HeaderComponent, SidebarComponent,
+  declarations: [DashboardComponent, MenuListItemComponent, HeaderComponent, SidebarComponent,
     Ch01HelloWorldComponent,
     Ch02SelBindComponent,
     Ch03UEEdataComponent,

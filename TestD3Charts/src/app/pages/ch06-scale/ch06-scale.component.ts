@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
-import { appendFile } from 'fs';
 @Component({
   selector: 'app-ch06-scale',
   templateUrl: './ch06-scale.component.html',
