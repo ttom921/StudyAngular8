@@ -13,6 +13,43 @@ export class SidebarComponent implements OnInit {
   //navItem的物件
   navItems: NavItem[] = [
     {
+      displayName: 'D3v5入門',
+      iconName: 'speaker_notes',
+      route: 'dashboard',
+      children: [
+        {
+          displayName: '第01章Helloworld',
+          iconName: 'feedback',
+          route: 'dashboard/ch01',
+        },
+        {
+          displayName: '第02章選擇元素和綁定數據',
+          iconName: 'videocam',
+          route: 'dashboard/ch02',
+        },
+        {
+          displayName: '第03章理解Updae、Enter、Exit',
+          iconName: 'group',
+          route: 'dashboard/ch03',
+        },
+        {
+          displayName: '第04章選擇、插入、刪除元素',
+          iconName: 'person',
+          route: 'dashboard/ch04',
+        },
+        {
+          displayName: '第05章簡單圖表',
+          iconName: 'movie_filter',
+          route: 'dashboard/ch05',
+        },
+        {
+          displayName: '第06章比例尺使用',
+          iconName: 'report_problem',
+          route: 'dashboard/ch06',
+        },
+      ]
+    },
+    {
       displayName: '車輛',
       iconName: 'recent_actors',
       route: 'dashboard',
