@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
     {
       displayName: 'D3v5入門',
       iconName: 'speaker_notes',
-      route: 'dashboard',
+      route: '',
       children: [
         {
           displayName: '第01章Helloworld',
@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
     {
       displayName: '車輛',
       iconName: 'recent_actors',
-      route: 'dashboard',
+      route: '',
       children: [
         {
           displayName: '車輛管理',
@@ -63,6 +63,12 @@ export class SidebarComponent implements OnInit {
           displayName: '車隊管理',
           iconName: 'person',
           route: 'dashboard/ch02',
+        },
+        {
+          displayName: '測試',
+          disabled: false,
+          iconName: 'person',
+          route: 'dashboard/ch03',
         }
       ]
     }
