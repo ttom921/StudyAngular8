@@ -71,7 +71,7 @@ export class SidebarComponent implements OnInit {
         },
         {
           displayName: '測試',
-          disabled: false,
+          disabled: true,
           iconName: 'person',
           route: 'dashboard/ch03',
         }
