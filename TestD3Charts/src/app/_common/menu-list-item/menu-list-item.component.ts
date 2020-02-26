@@ -51,5 +51,13 @@ export class MenuListItemComponent implements OnInit {
       this.expanded = !this.expanded;
     }
   }
+  protected checkNgStyle(item) {
+    let myStyles;
+    myStyles = {
+      'padding-left': `${this.depth * 12}px`,
+      'display': item.disabled ? 'none' : '',
+    };
+    return myStyles;
+  }
 
 }
