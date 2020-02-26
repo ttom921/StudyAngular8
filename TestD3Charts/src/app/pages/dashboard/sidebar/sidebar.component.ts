@@ -47,6 +47,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'report_problem',
           route: 'dashboard/ch06',
         },
+        {
+          displayName: '第07章坐標軸使用',
+          iconName: 'report_problem',
+          route: 'dashboard/ch07',
+        },
       ]
     },
     {

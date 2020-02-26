@@ -14,6 +14,7 @@ import { Ch05SimplebarComponent } from '../ch05-simplebar/ch05-simplebar.compone
 import { Ch06ScaleComponent } from '../ch06-scale/ch06-scale.component';
 import { MenuListItemComponent } from 'src/app/_common/menu-list-item/menu-list-item.component';
 import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
+import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
     Ch04ElmsidComponent,
     Ch05SimplebarComponent,
     Ch06ScaleComponent,
-    Ch07AxisComponent
+    Ch07AxisComponent,
+    Ch08BarChartComponent
   ],
   imports: [
     CommonModule,

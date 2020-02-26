@@ -8,6 +8,7 @@ import { Ch04ElmsidComponent } from '../ch04-elmsid/ch04-elmsid.component';
 import { Ch05SimplebarComponent } from '../ch05-simplebar/ch05-simplebar.component';
 import { Ch06ScaleComponent } from '../ch06-scale/ch06-scale.component';
 import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
+import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: 'ch04', component: Ch04ElmsidComponent },
       { path: 'ch05', component: Ch05SimplebarComponent },
       { path: 'ch06', component: Ch06ScaleComponent },
-      { path: 'ch07', component: Ch07AxisComponent }
+      { path: 'ch07', component: Ch07AxisComponent },
+      { path: 'ch08', component: Ch08BarChartComponent }
     ]
   }
 
