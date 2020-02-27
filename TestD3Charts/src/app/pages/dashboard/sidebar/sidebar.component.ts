@@ -52,6 +52,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'report_problem',
           route: 'dashboard/ch07',
         },
+        {
+          displayName: '第08章完整的柱狀圖',
+          iconName: 'recent_actors',
+          route: 'dashboard/ch08',
+        },
       ]
     },
     {

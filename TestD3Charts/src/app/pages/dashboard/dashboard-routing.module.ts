@@ -9,6 +9,7 @@ import { Ch05SimplebarComponent } from '../ch05-simplebar/ch05-simplebar.compone
 import { Ch06ScaleComponent } from '../ch06-scale/ch06-scale.component';
 import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
 import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
+import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'ch05', component: Ch05SimplebarComponent },
       { path: 'ch06', component: Ch06ScaleComponent },
       { path: 'ch07', component: Ch07AxisComponent },
-      { path: 'ch08', component: Ch08BarChartComponent }
+      { path: 'ch08', component: Ch08BarChartComponent },
+      { path: 'ch09', component: Ch09BarcharAniComponent }
     ]
   }
 

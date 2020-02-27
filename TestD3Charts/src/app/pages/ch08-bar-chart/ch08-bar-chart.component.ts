@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
-import { stringify } from 'querystring';
 @Component({
   selector: 'app-ch08-bar-chart',
   templateUrl: './ch08-bar-chart.component.html',
@@ -74,7 +73,7 @@ export class Ch08BarChartComponent implements OnInit {
         return yScale(d);
       })
       .attr("dx", () => {
-        console.log(xScale.step());
+        //console.log(xScale.step());
         return (xScale.step() - rectPadding) / 2;
       })
       .attr("dy", "20")
