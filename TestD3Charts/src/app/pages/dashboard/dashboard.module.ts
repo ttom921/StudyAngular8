@@ -16,6 +16,7 @@ import { MenuListItemComponent } from 'src/app/_common/menu-list-item/menu-list-
 import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
 import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
 import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.component';
+import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.co
     Ch07AxisComponent,
     Ch08BarChartComponent,
     Ch09BarcharAniComponent,
+    Ch10InteractiveComponent
   ],
   imports: [
     CommonModule,

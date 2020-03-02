@@ -57,6 +57,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'recent_actors',
           route: 'dashboard/ch08',
         },
+        {
+          displayName: '第09章讓圖表動起來',
+          iconName: 'star_rate',
+          route: 'dashboard/ch09',
+        },
       ]
     },
     {
