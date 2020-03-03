@@ -62,6 +62,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'star_rate',
           route: 'dashboard/ch09',
         },
+        {
+          displayName: '第10章交互式操作',
+          iconName: 'movie_filter',
+          route: 'dashboard/ch10',
+        },
       ]
     },
     {

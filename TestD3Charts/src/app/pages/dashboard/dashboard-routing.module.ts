@@ -11,6 +11,7 @@ import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
 import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
 import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.component';
 import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
+import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'ch07', component: Ch07AxisComponent },
       { path: 'ch08', component: Ch08BarChartComponent },
       { path: 'ch09', component: Ch09BarcharAniComponent },
-      { path: 'ch10', component: Ch10InteractiveComponent }
+      { path: 'ch10', component: Ch10InteractiveComponent },
+      { path: 'ch11', component: Ch11PieChartComponent }
     ]
   }
 

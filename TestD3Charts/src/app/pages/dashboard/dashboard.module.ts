@@ -17,6 +17,7 @@ import { Ch07AxisComponent } from '../ch07-axis/ch07-axis.component';
 import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.component';
 import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.component';
 import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
+import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.c
     Ch07AxisComponent,
     Ch08BarChartComponent,
     Ch09BarcharAniComponent,
-    Ch10InteractiveComponent
+    Ch10InteractiveComponent,
+    Ch11PieChartComponent
   ],
   imports: [
     CommonModule,
