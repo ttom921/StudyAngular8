@@ -31,9 +31,12 @@ export class Ch11PieChartComponent implements OnInit {
     const g = svg.append("g");
     g.attr("transform", `translate(${center.x},${center.y})`);
     //設置一個顏色比例尺，為了讓不同的扇形呈不同的顏冥
-    const colorScale = d3.scaleOrdinal()
-      .domain(d3.range(this.dataset.length).map(String))
+    const colorScale = d3.scaleOrdinal<number, string>()
+      .domain(d3.range(this.dataset.length))
       .range(d3.schemeCategory10);
+    // const colorScalestr = d3.scaleOrdinal()
+    //   .domain(d3.range(this.dataset.length).map((d) => d + ""))
+    //   .range(d3.schemeCategory10);
     //新建一個弧形生成器
     const innerRadius = 0;//內半徑
     const outerRadius = 100;//外半徑
