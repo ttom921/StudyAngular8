@@ -18,6 +18,7 @@ import { Ch08BarChartComponent } from '../ch08-bar-chart/ch08-bar-chart.componen
 import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.component';
 import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
 import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
+import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch12-force-directed-graph.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.componen
     Ch08BarChartComponent,
     Ch09BarcharAniComponent,
     Ch10InteractiveComponent,
-    Ch11PieChartComponent
+    Ch11PieChartComponent,
+    Ch12ForceDirectedGraphComponent
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@ export class Ch11PieChartComponent implements OnInit {
     };
     const g = svg.append("g");
     g.attr("transform", `translate(${center.x},${center.y})`);
-    //設置一個顏色比例尺，為了讓不同的扇形呈不同的顏冥
+    //設置一個顏色比例尺，為了讓不同的扇形呈不同的顏色
     const colorScale = d3.scaleOrdinal<number, string>()
       .domain(d3.range(this.dataset.length))
       .range(d3.schemeCategory10);
