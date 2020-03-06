@@ -188,7 +188,7 @@ export class Ch12ForceDirectedGraphComponent implements OnInit {
         });
 
       gsnode
-        .attr("transform", function (d: any) { return "translate(" + d.x + "," + d.y + ")"; });
+        .attr("transform", function (d: any) { return `translate(${d.x},${d.y})`; });
     }
   }
 }

@@ -13,6 +13,7 @@ import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.co
 import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
 import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch12-force-directed-graph.component';
+import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'ch09', component: Ch09BarcharAniComponent },
       { path: 'ch10', component: Ch10InteractiveComponent },
       { path: 'ch11', component: Ch11PieChartComponent },
-      { path: 'ch12', component: Ch12ForceDirectedGraphComponent }
+      { path: 'ch12', component: Ch12ForceDirectedGraphComponent },
+      { path: 'ch13', component: Ch13TreeGraphComponent }
     ]
   }
 

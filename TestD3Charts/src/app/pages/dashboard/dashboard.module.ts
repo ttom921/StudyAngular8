@@ -19,6 +19,7 @@ import { Ch09BarcharAniComponent } from '../ch09-barchar-ani/ch09-barchar-ani.co
 import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.component';
 import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch12-force-directed-graph.component';
+import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch
     Ch09BarcharAniComponent,
     Ch10InteractiveComponent,
     Ch11PieChartComponent,
-    Ch12ForceDirectedGraphComponent
+    Ch12ForceDirectedGraphComponent,
+    Ch13TreeGraphComponent
   ],
   imports: [
     CommonModule,

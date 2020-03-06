@@ -72,6 +72,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'star_rate',
           route: 'dashboard/ch11',
         },
+        {
+          displayName: '第12章力導圖Force-Directed Graph',
+          iconName: 'star_rate',
+          route: 'dashboard/ch12',
+        },
       ]
     },
     {
