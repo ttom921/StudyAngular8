@@ -1,0 +1,19 @@
+<router-outlet></router-outlet>
+
+<pre>
+  註冊車子的數量：{{regCar}}
+  目前車子容量：{{slider.value}}
+  各車容量最大限制:{{maxLimit}}
+  //--------------------------
+  目前使用：{{totalslider.value}}
+  硬碟容量：{{totalDisk}}G
+</pre>
+<div class="basic-container">
+  <span class="text-small">10</span>
+  <mat-slider #slider min="10" max="100" step="1" thumbLabel [displayWith]="formatLabel" (input)="onInputChange($event)"></mat-slider>
+  <span class="text-small">100</span>
+  <hr>
+  <span class="text-small">0</span>
+  <mat-slider style="pointer-events: none;" class="mat-slide-1" #totalslider min="0" max="{{totalDisk}}" step="1" thumbLabel [displayWith]="formatLabel"></mat-slider>
+  <span class="text-small">{{totalDisk}}</span>
+</div>

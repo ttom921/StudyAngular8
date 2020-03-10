@@ -13,7 +13,7 @@
 
 測試 json server的用法
 
-### TestEchaars
+### TestEcharts
 
 測試圖表顯示
 
@@ -47,3 +47,11 @@ excel的檔案轉成Json檔
 ### TestHalfSideMenu
 
 測試保留在邊一半的menu
+
+### Testvideo
+
+測試影像元件
+
+### TestNg5Slider
+
+測試angular material Slider元件的使用
