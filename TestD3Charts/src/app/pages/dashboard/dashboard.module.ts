@@ -20,6 +20,7 @@ import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.c
 import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch12-force-directed-graph.component';
 import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.component';
+import { Ch14TopoJSONComponent } from '../ch14-topo-json/ch14-topo-json.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.compo
     Ch10InteractiveComponent,
     Ch11PieChartComponent,
     Ch12ForceDirectedGraphComponent,
-    Ch13TreeGraphComponent
+    Ch13TreeGraphComponent,
+    Ch14TopoJSONComponent
   ],
   imports: [
     CommonModule,

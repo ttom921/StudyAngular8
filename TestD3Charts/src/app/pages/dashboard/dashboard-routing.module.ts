@@ -14,6 +14,7 @@ import { Ch10InteractiveComponent } from '../ch10-interactive/ch10-interactive.c
 import { Ch11PieChartComponent } from '../ch11-pie-chart/ch11-pie-chart.component';
 import { Ch12ForceDirectedGraphComponent } from '../ch12-force-directed-graph/ch12-force-directed-graph.component';
 import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.component';
+import { Ch14TopoJSONComponent } from '../ch14-topo-json/ch14-topo-json.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
       { path: 'ch10', component: Ch10InteractiveComponent },
       { path: 'ch11', component: Ch11PieChartComponent },
       { path: 'ch12', component: Ch12ForceDirectedGraphComponent },
-      { path: 'ch13', component: Ch13TreeGraphComponent }
+      { path: 'ch13', component: Ch13TreeGraphComponent },
+      { path: 'ch14', component: Ch14TopoJSONComponent }
     ]
   }
 

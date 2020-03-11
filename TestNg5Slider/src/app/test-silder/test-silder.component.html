@@ -1,0 +1,19 @@
+<p>測試silder</p>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-content>
+      <span>10</span>
+      <mat-slider #slider min="10" max="100" step="1" thumbLabel [displayWith]="formatLabel" (input)="onInputChange($event)"></mat-slider>
+      <span>100</span>
+      <hr>
+      <span>0</span>
+      <mat-slider style="pointer-events: none;" class="mat-slide-1" #totalslider min="0" max="{{totalDisk}}" step="1" thumbLabel [displayWith]="formatLabel"></mat-slider>
+      <span>{{totalDisk}}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <p id="value"></p>
+    <div id="slider"></div>
+  </mat-card>
+
+</div>

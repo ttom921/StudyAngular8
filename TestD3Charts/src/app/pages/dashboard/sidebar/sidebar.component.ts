@@ -77,6 +77,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'star_rate',
           route: 'dashboard/ch12',
         },
+        {
+          displayName: '第13章樹狀圖tree',
+          iconName: 'star_rate',
+          route: 'dashboard/ch13',
+        },
       ]
     },
     {

@@ -65,4 +65,44 @@ npm install --save @fortawesome/fontawesome-free
 @import "~@fortawesome/fontawesome-free/css/all.css";
 ```
 
-##  建立影像播放
+##  安裝flex-layout
+
+```
+npm install --save @angular/flex-layout@8.0.0-beta.27
+```
+
+import 模組
+
+```typescript
+import { FlexLayoutModule } from '@angular/flex-layout';
+...
+
+@NgModule({
+    ...
+    imports: [ FlexLayoutModule ],
+    ...
+});
+```
+
+### 安裝d3.js
+
+```
+npm install d3 --save
+npm install @types/d3 --save-dev
+npm install d3-simple-slider
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

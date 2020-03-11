@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedAngularMaterialModule } from './share/shared-angular-material/shared-angular-material.module';
+import { TestSilderComponent } from './test-silder/test-silder.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestSilderComponent
   ],
   imports: [
     BrowserModule,
