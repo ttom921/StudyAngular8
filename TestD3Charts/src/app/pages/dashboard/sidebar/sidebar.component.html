@@ -5,7 +5,18 @@
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item> -->
   <mat-list-item [routerLink]="['/','dashboard','ch14']" (click)="handleClicked($event)">
-    <mat-icon md-list-icon>email</mat-icon>第14章TopoJSON
+    <mat-icon md-list-icon><span class="iconify" data-icon="fa-home"></span></mat-icon>第14章TopoJSON
+    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item [routerLink]="['/','dashboard','ch14']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>
+      <span class="iconify" data-icon="mdi-home"></span>
+    </mat-icon>
+    <mat-icon md-list-icon>
+      <span class="iconify icon-bell" data-icon="vaadin-bell"></span>
+    </mat-icon>
+    第14章TopoJSON
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item>
   <mat-divider></mat-divider>

@@ -18,7 +18,7 @@ export class Ch14TopoJSONComponent implements OnInit {
   drawChart() {
     //svg 畫布大小
     const width = 860;
-    const height = 500;
+    const height = 600;
     //得到svg畫布
     const svg = d3.select(this.svgRef.nativeElement);
     //設定svg畫布大小
@@ -30,7 +30,7 @@ export class Ch14TopoJSONComponent implements OnInit {
     // 設定投影中心點與縮放倍率
     let projection = d3
       .geoOrthographic()
-      .scale(200)
+      .scale(245)
       .translate([width / 2, height / 2])
       .clipAngle(90);
     // 將投影資料轉換為路徑
@@ -42,8 +42,9 @@ export class Ch14TopoJSONComponent implements OnInit {
     d3.json(url).then((data) => {
       //console.log(data);
       let countries = topojson.feature(data, data.objects.countries).features;
-      d3.select("svg")
-        .selectAll("path")
+      //console.log(countries);
+      const g = svg.append("g");
+      g.selectAll("path")
         .data(countries)
         .enter()
         .append("path")
@@ -51,7 +52,7 @@ export class Ch14TopoJSONComponent implements OnInit {
         .attr("fill", (d: any) => colors(d.id));
 
       //轉動
-      d3.select("svg").call(//拖動事件在SVG元件上
+      d3.select("g").call(//拖動事件在SVG元件上
         d3.drag()
           .subject(() => {
             let r = projection.rotate(); /* 目前轉動的角度 ... */
@@ -61,7 +62,7 @@ export class Ch14TopoJSONComponent implements OnInit {
           .on("drag", function () {
             let r = projection.rotate();
             projection.rotate([d3.event.x, -d3.event.y, r[2]]);
-            d3.select("svg").selectAll("path").attr("d", pathRenderer);
+            d3.select("g").selectAll("path").attr("d", pathRenderer);
           })
       );
     });

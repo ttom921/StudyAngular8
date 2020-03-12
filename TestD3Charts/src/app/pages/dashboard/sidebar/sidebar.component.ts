@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NavItem } from 'src/app/_common/menu-list-item/nav-item';
 import { NavService } from 'src/app/_common/menu-list-item/nav.service';
 import { isNullOrUndefined } from 'util';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
