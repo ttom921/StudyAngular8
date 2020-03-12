@@ -81,6 +81,11 @@ export class SidebarComponent implements OnInit {
           iconName: 'star_rate',
           route: 'dashboard/ch13',
         },
+        {
+          displayName: '第14章世界地圖',
+          iconName: 'star_rate',
+          route: 'dashboard/ch14',
+        },
       ]
     },
     {

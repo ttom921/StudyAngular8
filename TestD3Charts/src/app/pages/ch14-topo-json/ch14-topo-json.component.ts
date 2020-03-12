@@ -24,6 +24,10 @@ export class Ch14TopoJSONComponent implements OnInit {
     //設定svg畫布大小
     svg.attr("width", width);
     svg.attr("height", height);
+    svg.attr("viewBox", `0 0 ${width} ${height}`);
+    svg.attr("preserveAspectRatio", `xMidYMid`);
+
+
 
     // 選擇顏色類型
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
