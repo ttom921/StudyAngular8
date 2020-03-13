@@ -23,7 +23,6 @@ import { Ch13TreeGraphComponent } from '../ch13-tree-graph/ch13-tree-graph.compo
 import { Ch14TopoJSONComponent } from '../ch14-topo-json/ch14-topo-json.component';
 import { Ch15TaiwanTopoJsonComponent } from '../ch15-taiwan-topo-json/ch15-taiwan-topo-json.component';
 
-
 @NgModule({
   declarations: [DashboardComponent, MenuListItemComponent, HeaderComponent, SidebarComponent,
     Ch01HelloWorldComponent,
@@ -40,7 +39,7 @@ import { Ch15TaiwanTopoJsonComponent } from '../ch15-taiwan-topo-json/ch15-taiwa
     Ch12ForceDirectedGraphComponent,
     Ch13TreeGraphComponent,
     Ch14TopoJSONComponent,
-    Ch15TaiwanTopoJsonComponent
+    Ch15TaiwanTopoJsonComponent,
   ],
   imports: [
     CommonModule,
