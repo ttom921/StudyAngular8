@@ -67,7 +67,7 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
       //console.log(data);
       let features = topojson.feature(data, data.objects["COUNTY_MOI_1081121"]).features;
       // 這裡要注意的是 topodata.objects["COUNTY_MOI_1081121"] 中的 "COUNTY_MOI_1081121" 為原本 shp 的檔名
-      console.log(features);
+      //console.log(features);
       //人口密度
       for (let idx = features.length - 1; idx >= 0; idx--) {
         features[idx].density = this.density[features[idx].properties.COUNTYNAME];
@@ -82,7 +82,7 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
         .attr("d", pathRenderer)
         .attr("fill", (d: any) => colors(d.density))
         .on("mouseover", function (d: any) {
-          ？？console.log(d);
+          //console.log(d);
           let html = `
           <p>${d.properties.COUNTYNAME} </p>
           <p>${d.density} </p>
