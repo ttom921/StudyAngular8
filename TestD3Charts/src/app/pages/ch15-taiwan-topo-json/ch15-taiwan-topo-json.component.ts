@@ -60,7 +60,7 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
     let pathRenderer = d3.geoPath().projection(projection);
 
     var tooltip = d3.select("div.tooltip");
-    console.log(tooltip);
+    //console.log(tooltip);
 
     let url = "https://gist.githubusercontent.com/ttom921/67dc5cd1c73052d7d0a241e6a721810d/raw/498a2ca876065001c20e4ede4a4de95b1fe5e6ec/taiwanTopoJSON";
     d3.json(url).then((data) => {
@@ -84,8 +84,8 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
         .on("mouseover", function (d: any) {
           //console.log(d);
           let html = `
-          <p>${d.properties.COUNTYNAME} </p>
-          <p>${d.density} </p>
+          <p>名稱:${d.properties.COUNTYNAME} </p>
+          <p>入口:${d.density} </p>
           `;
           tooltip.style("hidden", false).html(html);
           // tooltip.transition()
@@ -98,8 +98,8 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
         })
         .on("mousemove", function (d: any) {
           let html = `
-          <p>${d.properties.COUNTYNAME} </p>
-          <p>${d.density} </p>
+          <p>名稱:${d.properties.COUNTYNAME} </p>
+          <p>入口:${d.density} </p>
           `;
           tooltip.classed("hidden", false)
             .style("top", (d3.event.pageY) + "px")
