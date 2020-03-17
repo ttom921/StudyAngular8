@@ -9,11 +9,18 @@
       <span>0</span>
       <mat-slider style="pointer-events: none;" class="mat-slide-1" #totalslider min="0" max="{{totalDisk}}" step="1" thumbLabel [displayWith]="formatLabel"></mat-slider>
       <span>{{totalDisk}}</span>
+      <hr>
+      <p>Simple</p>
+      <div #chart_container>
+        <p id="value"></p>
+        <div id="slider" style="pointer-events: none;"></div>
+      </div>
+      <p>Fill</p>
+      <div>
+        <div id="sliderFill" style="pointer-events: none;"></div>
+      </div>
     </mat-card-content>
   </mat-card>
-  <mat-card>
-    <p id="value"></p>
-    <div id="slider"></div>
-  </mat-card>
+
 
 </div>
