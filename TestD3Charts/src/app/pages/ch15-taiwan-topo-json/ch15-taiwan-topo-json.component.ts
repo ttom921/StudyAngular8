@@ -47,7 +47,7 @@ export class Ch15TaiwanTopoJsonComponent implements OnInit {
     svg.attr("width", width);
     svg.attr("height", height);
     svg.attr("viewBox", `0 0 ${width} ${height}`);
-    svg.attr("preserveAspectRatio", `xMidYMid`);
+    svg.attr("preserveAspectRatio", `xMidYMid meet`);
 
     // 設定投影中心點與縮放倍率
     let projection = d3
