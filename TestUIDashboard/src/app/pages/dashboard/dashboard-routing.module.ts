@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { AngularProgressBarsComponent } from '../angular-progress-bars/angular-progress-bars.component';
 import { NgCircleProgressComponent } from '../ng-circle-progress/ng-circle-progress.component';
+import { NgTestSilderComponent } from '../ng-test-silder/ng-test-silder.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'ngcircleprogress', pathMatch: 'full' },
       { path: 'angularprogressbars', component: AngularProgressBarsComponent },
-      { path: 'ngcircleprogress', component: NgCircleProgressComponent }
+      { path: 'ngcircleprogress', component: NgCircleProgressComponent },
+      { path: 'ngtestsilder', component: NgTestSilderComponent }
 
     ]
   }
