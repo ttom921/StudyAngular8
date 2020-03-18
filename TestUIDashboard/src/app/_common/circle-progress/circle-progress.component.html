@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" *ngIf="svg" [attr.viewBox]="svg.viewBox" preserveAspectRatio="xMidYMid meet" [attr.height]="svg.height" [attr.width]="svg.width" (click)="emitClickEvent($event)" [attr.class]="options.class">
+  <defs>
+    <linearGradient *ngIf="options.outerStrokeGradient" [attr.id]="svg.outerLinearGradient.id">
+      <stop offset="5%" [attr.stop-color]="svg.outerLinearGradient.colorStop1" [attr.stop-opacity]="1" />
+      <stop offset="95%" [attr.stop-color]="svg.outerLinearGradient.colorStop2" [attr.stop-opacity]="1" />
+    </linearGradient>
+    <radialGradient *ngIf="options.backgroundGradient" [attr.id]="svg.radialGradient.id">
+      <stop offset="5%" [attr.stop-color]="svg.radialGradient.colorStop1" [attr.stop-opacity]="1" />
+      <stop offset="95%" [attr.stop-color]="svg.radialGradient.colorStop2" [attr.stop-opacity]="1" />
+    </radialGradient>
+  </defs>
+  <ng-container *ngIf="options.showBackground">
+    <circle *ngIf="!options.backgroundGradient" [attr.cx]="svg.backgroundCircle.cx" [attr.cy]="svg.backgroundCircle.cy" [attr.r]="svg.backgroundCircle.r" [attr.fill]="svg.backgroundCircle.fill" [attr.fill-opacity]="svg.backgroundCircle.fillOpacity" [attr.stroke]="svg.backgroundCircle.stroke" [attr.stroke-width]="svg.backgroundCircle.strokeWidth" />
+    <circle *ngIf="options.backgroundGradient" [attr.cx]="svg.backgroundCircle.cx" [attr.cy]="svg.backgroundCircle.cy" [attr.r]="svg.backgroundCircle.r" attr.fill="url({{window.location.href}}#{{svg.radialGradient.id}})" [attr.fill-opacity]="svg.backgroundCircle.fillOpacity" [attr.stroke]="svg.backgroundCircle.stroke" [attr.stroke-width]="svg.backgroundCircle.strokeWidth" />
+  </ng-container>
+  <circle *ngIf="options.showInnerStroke" [attr.cx]="svg.circle.cx" [attr.cy]="svg.circle.cy" [attr.r]="svg.circle.r" [attr.fill]="svg.circle.fill" [attr.stroke]="svg.circle.stroke" [attr.stroke-width]="svg.circle.strokeWidth" />
+  <ng-container *ngIf="+options.percent!==0 || options.showZeroOuterStroke">
+    <path *ngIf="!options.outerStrokeGradient" [attr.d]="svg.path.d" [attr.stroke]="svg.path.stroke" [attr.stroke-width]="svg.path.strokeWidth" [attr.stroke-linecap]="svg.path.strokeLinecap" [attr.fill]="svg.path.fill" />
+    <path *ngIf="options.outerStrokeGradient" [attr.d]="svg.path.d" attr.stroke="url({{window.location.href}}#{{svg.outerLinearGradient.id}})" [attr.stroke-width]="svg.path.strokeWidth" [attr.stroke-linecap]="svg.path.strokeLinecap" [attr.fill]="svg.path.fill" />
+  </ng-container>
+  <text *ngIf="!options.showImage && (options.showTitle || options.showUnits || options.showSubtitle)" alignment-baseline="baseline" [attr.x]="svg.circle.cx" [attr.y]="svg.circle.cy" [attr.text-anchor]="svg.title.textAnchor">
+    <ng-container *ngIf="options.showTitle">
+      <tspan *ngFor="let tspan of svg.title.tspans" [attr.x]="svg.title.x" [attr.y]="svg.title.y" [attr.dy]="tspan.dy" [attr.font-size]="svg.title.fontSize" [attr.font-weight]="svg.title.fontWeight" [attr.fill]="svg.title.color">{{tspan.span}}</tspan>
+    </ng-container>
+    <tspan *ngIf="options.showUnits" [attr.font-size]="svg.units.fontSize" [attr.font-weight]="svg.units.fontWeight" [attr.fill]="svg.units.color">{{svg.units.text}}</tspan>
+    <ng-container *ngIf="options.showSubtitle">
+      <tspan *ngFor="let tspan of svg.subtitle.tspans" [attr.x]="svg.subtitle.x" [attr.y]="svg.subtitle.y" [attr.dy]="tspan.dy" [attr.font-size]="svg.subtitle.fontSize" [attr.font-weight]="svg.subtitle.fontWeight" [attr.fill]="svg.subtitle.color">{{tspan.span}}</tspan>
+    </ng-container>
+  </text>
+  <image *ngIf="options.showImage" preserveAspectRatio="none" [attr.height]="svg.image.height" [attr.width]="svg.image.width" [attr.xlink:href]="svg.image.src" [attr.x]="svg.image.x" [attr.y]="svg.image.y" />
+</svg>

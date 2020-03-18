@@ -64,7 +64,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+//flex-layout
+import { FlexLayoutModule } from '@angular/flex-layout';
 //
 //import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 //import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
@@ -77,6 +78,7 @@ import { HttpClientModule } from '@angular/common/http';
     //BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     //LeafletModule,
     //LeafletMarkerClusterModule,
   ],
@@ -135,6 +137,7 @@ import { HttpClientModule } from '@angular/common/http';
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,
+    FlexLayoutModule,
     //LeafletModule,
     //LeafletMarkerClusterModule,
   ]

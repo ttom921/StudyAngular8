@@ -1,22 +1,13 @@
-<mat-nav-list style="width:192px;" color="primary">
+<mat-nav-list style="margin-top: 64px;" color="primary">
   <!-- <h3 matSubheader>示範用頁面</h3> -->
-  <mat-list-item [routerLink]="['/','dashboard','serversetting']" (click)="handleClicked($event)">
-    <mat-icon md-list-icon>dns</mat-icon>SERVER <span style="width: 100%;"></span>
-    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
-  </mat-list-item>
-  <mat-list-item [routerLink]="['/','dashboard','userlist']" (click)="handleClicked($event)">
-    <mat-icon md-list-icon>settings_applications</mat-icon>USER<span style="width: 100%;"></span>
-    <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
-  </mat-list-item>
-  <mat-list-item [routerLink]="['/','dashboard','emaileventlist']" (click)="handleClicked($event)">
-    <mat-icon md-list-icon>email</mat-icon>EMAIL<span style="width: 100%;"></span>
+  <mat-list-item [routerLink]="['/','dashboard','angularprogressbars']" (click)="handleClicked($event)">
+    <mat-icon md-list-icon>dns</mat-icon>angularprogressbars <span style="width: 100%;"></span>
     <mat-icon matSuffix class="SufficIcon">keyboard_arrow_right</mat-icon>
   </mat-list-item>
 
+
   <mat-divider></mat-divider>
-  <!-- 另外一組選單 -->
-  <!-- <h3 matSubheader>其他頁面</h3> -->
-  <!-- <a [routerLink]="['/']" mat-list-item>首頁</a>
-        <a [routerLink]="['/']" mat-list-item>Google</a>
-        <a [routerLink]="['/']" mat-list-item>Facebook</a> -->
+  <mat-nav-list>
+    <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+  </mat-nav-list>
 </mat-nav-list>
