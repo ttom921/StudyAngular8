@@ -4,13 +4,13 @@
     <mat-card-title>Storage:</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div fxLayout="row" fxLayoutAlign="center stretch">
+    <div fxLayout="row" fxLayoutAlign="center">
       <mat-card fxFlex="30%">
-        <mat-card-header>
+        <mat-card-header fxLayoutAlign="center">
           <mat-card-title>未分配:</mat-card-title>
 
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content fxLayoutAlign="center">
           <p>5</p>
         </mat-card-content>
 
@@ -34,20 +34,27 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center">
-      <mat-card fxFlex="90%">
-        <mat-card-header>
-          <mat-card-title>車子容量</mat-card-title>
+      <mat-card class="mat-elevation-z2" fxFlex="90%">
+        <mat-card-header fxLayout="row">
+          <mat-card-title >
+            <p matLine>
+              車子容量 &nbsp;
+              <button mat-raised-button color="primary" *ngIf="true" >自動分配</button>
+            </p>
+          </mat-card-title>
         </mat-card-header>
+        &nbsp;
         <mat-card-content>
           <span>10</span>
           <mat-slider #slider min="10" max="100" step="1" thumbLabel [displayWith]="formatLabel" (input)="onInputChange($event)"></mat-slider>
           <span>100</span>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <circle-progress #circlepg [percent]="userprogress" [backgroundStrokeWidth]="0" [backgroundPadding]="-18" [radius]="60" [space]="1" [toFixed]="0" [maxPercent]="100" [outerStrokeWidth]="12" [outerStrokeColor]="'#FF6347'" [innerStrokeColor]="'#32CD32'" [innerStrokeWidth]="3" [titleFontSize]="10" [subtitleFontSize]="18" [animationDuration]="300" [startFromZero]="false" [subtitleFormat]="formatSubtitle"></circle-progress>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center">
-      <circle-progress #circlepg [percent]="userprogress" [backgroundStrokeWidth]="0" [backgroundPadding]="-18" [radius]="60" [space]="1" [toFixed]="0" [maxPercent]="100" [outerStrokeWidth]="12" [outerStrokeColor]="'#FF6347'" [outerStrokeLinecap]="square" [innerStrokeColor]="'#32CD32'" [innerStrokeWidth]="3" [titleFontSize]="10" [subtitleFontSize]="18" [animationDuration]="300" [startFromZero]="false" [subtitleFormat]="formatSubtitle"></circle-progress>
-    </div>
+    
 
 
   </mat-card-content>

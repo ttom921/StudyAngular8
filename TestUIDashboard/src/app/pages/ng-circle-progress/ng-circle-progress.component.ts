@@ -41,6 +41,8 @@ export class NgCircleProgressComponent implements OnInit {
   }
   // subtitleFormat callback example
   formatSubtitle = (percent: number): string[] => {
+    const totaluserd = this.regCar * this.slider.value;
+    return [`${totaluserd}/${this.vdisk_total}G`];
     if (percent >= 100) {
       return ["Congratulations!"]
     } else if (percent >= 50) {
@@ -53,13 +55,13 @@ export class NgCircleProgressComponent implements OnInit {
   }
   //#region 計算容量相關
   onInputChange(event: MatSliderChange) {
-    console.log(event.value);
+    //console.log(event.value);
     //console.log(this.slider);
     this.slider.value = event.value;
     if (event.value >= this.maxLimit) {
       this.slider.value = this.maxLimit;
     }
-    console.log(`maxLimit=${this.maxLimit}`);
+    //console.log(`maxLimit=${this.maxLimit}`);
     this.calTotalRemindDiskRate();
   }
   formatLabel(value: number) {
