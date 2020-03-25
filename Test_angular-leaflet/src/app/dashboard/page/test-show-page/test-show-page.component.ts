@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // declare variable
-declare let L;
-
+//declare let L;
+import * as L from 'leaflet'
 @Component({
   selector: 'app-test-show-page',
   templateUrl: './test-show-page.component.html',

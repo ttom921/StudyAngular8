@@ -32,7 +32,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/leaflet/dist/leaflet.js",
+              "./node_modules/leaflet/dist/leaflet.js"
             ]
           },
           "configurations": {
