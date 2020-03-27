@@ -50,6 +50,13 @@ export class VideoPlayManagerComponent implements OnInit {
     //   console.log('video click->' + this.elmainvideo.currentTime);
     //   return false;
     // })
+    //取得duration的時間
+    this.elmainvideo = this.matMainVideo.getVideoTag();
+    this.elmainvideo.addEventListener('loadedmetadata', function () {
+      //console.log(this);
+      //console.log(this.duration);
+    });
+
 
 
   }
@@ -63,7 +70,7 @@ export class VideoPlayManagerComponent implements OnInit {
   onTimechang(seconds) {
 
     this.currentTime = Math.floor(seconds);
-    console.log("onTimechang=" + seconds);
+    //console.log("onTimechang=" + this.currentTime);
     this.gsensorInfo.setDurationTime(this.currentTime);
   }
   onGpsTimechang(seconds) {
