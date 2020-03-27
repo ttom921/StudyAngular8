@@ -30,6 +30,11 @@ export class SidebarComponent implements OnInit {
           route: 'dashboard/ngcircleprogress',
         },
         {
+          displayName: '測試animate程式庫',
+          iconName: 'star_rate',
+          route: 'dashboard/ngtestanimate',
+        },
+        {
           displayName: '測試',
           disabled: true,
           iconName: 'person',
