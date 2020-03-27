@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { CarVideoService } from '../_service/video/car-video.service';
 import { MatVideoComponent } from '../_common/video/video.component';
 import { GsensorInfoComponent } from '../_common/gsensor-info/gsensor-info.component';
@@ -7,7 +7,8 @@ import { ViewEncapsulation } from '@angular/compiler/src/core';
 @Component({
   selector: 'app-video-play-manager',
   templateUrl: './video-play-manager.component.html',
-  styleUrls: ['./video-play-manager.component.scss']
+  styleUrls: ['./video-play-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 export class VideoPlayManagerComponent implements OnInit {
@@ -60,8 +61,9 @@ export class VideoPlayManagerComponent implements OnInit {
     return false;
   }
   onTimechang(seconds) {
+
     this.currentTime = Math.floor(seconds);
-    console.log("onTimechang=" + this.currentTime);
+    console.log("onTimechang=" + seconds);
     this.gsensorInfo.setDurationTime(this.currentTime);
   }
   onGpsTimechang(seconds) {
