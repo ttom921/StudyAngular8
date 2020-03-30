@@ -18,10 +18,18 @@ export class NgTestAnimateComponent implements OnInit {
   }
   onSubmit(ev) {
     this.loginfail = true;
-    setTimeout(() => {
-      this.loginfail = false;
-    }, 1500);
-    //this.animateCSSService.animateCss('#myform', 'shake');
-    //this.animateCSS('#myform', 'shake');
+    // this.animateCSSService.animateCss('#myform', 'shake', () => {
+    //   //console.log(this);
+    //   this.loginfail = false;
+    //   console.log("end shake animate");
+    // });
+
+    this.animateCSSService.animateCss('#myform', 'bounce', this.cbAnimateEnd);
   }
+  cbAnimateEnd = () => {
+    console.log(this);
+    this.loginfail = false;
+    console.log("end bounce animate");
+  };
+
 }
