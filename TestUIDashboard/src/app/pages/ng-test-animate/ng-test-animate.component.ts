@@ -7,8 +7,6 @@ import { AnimateCSSService } from 'src/app/_services/animate-css.service';
   styleUrls: ['./ng-test-animate.component.scss']
 })
 export class NgTestAnimateComponent implements OnInit {
-
-
   loginfail = false;
   hide = true;
   constructor(
@@ -20,21 +18,10 @@ export class NgTestAnimateComponent implements OnInit {
   }
   onSubmit(ev) {
     this.loginfail = true;
-    this.animateCSSService.animateCss('#myform', 'shake');
+    setTimeout(() => {
+      this.loginfail = false;
+    }, 1500);
+    //this.animateCSSService.animateCss('#myform', 'shake');
     //this.animateCSS('#myform', 'shake');
   }
-  // animateCSS(element, animationName, callback?) {
-  //   const node = document.querySelector(element)
-  //   node.classList.add('animated', animationName)
-
-  //   function handleAnimationEnd() {
-  //     //console.log("animationend");
-  //     node.classList.remove('animated', animationName)
-  //     node.removeEventListener('animationend', handleAnimationEnd)
-
-  //     if (typeof callback === 'function') callback()
-  //   }
-
-  //   node.addEventListener('animationend', handleAnimationEnd)
-  // }
 }
